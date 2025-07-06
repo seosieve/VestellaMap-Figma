@@ -1,6 +1,6 @@
 # Vestella Map - Figma Plugin
 
-Figma 플러그인으로 선택된 노드를 복사하고 pillar를 자동으로 배치하는 도구입니다.
+Vestella Figma Plugin
 
 ## 기능
 
