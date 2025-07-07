@@ -79,7 +79,7 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
     
     try {
       for (let i = 0; i < count; i++) {
-        // pillar 값마다 Rectangle을 먼저 추가 (3이면 0, 3, 6, 9번째)
+        // pillar 값마다 Rectangle을 먼저 추가
         if (pillar > 0 && i % pillar === 0) {
           const pillarRect = figma.createRectangle();
           pillarRect.resize(100, 150);
@@ -114,11 +114,16 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
         frame.primaryAxisSizingMode = 'AUTO';
         frame.counterAxisSizingMode = 'AUTO';
         
+        // Frame을 viewport 중심에 배치
+        const viewportCenter = figma.viewport.center;
+        frame.x = viewportCenter.x - frame.width / 2;
+        frame.y = viewportCenter.y - frame.height / 2;
+        
         figma.currentPage.selection = [frame];
         figma.viewport.scrollAndZoomIntoView([frame]);
       }
     } catch (error) {
-      figma.notify(`노드 복사 중 오류가 발생했습니다. 다시 시도해주세요. ${error}`);
+      figma.notify('노드 복사 중 오류가 발생했습니다. 다시 시도해주세요.');
       return;
     }
   }
