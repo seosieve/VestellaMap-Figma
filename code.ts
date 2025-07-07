@@ -64,7 +64,6 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
     
     if (currentSelection.length === 0) {
       figma.notify('복사할 노드를 선택해주세요');
-      figma.closePlugin();
       return;
     }
     
@@ -73,7 +72,6 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
     // 노드가 여전히 존재하는지 확인
     if (!selectedNode || !selectedNode.parent) {
       figma.notify('선택된 노드가 유효하지 않습니다. 다시 선택해주세요.');
-      figma.closePlugin();
       return;
     }
 
@@ -116,17 +114,12 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
         frame.primaryAxisSizingMode = 'AUTO';
         frame.counterAxisSizingMode = 'AUTO';
         
-        group.remove();
-        
         figma.currentPage.selection = [frame];
         figma.viewport.scrollAndZoomIntoView([frame]);
       }
     } catch (error) {
-      figma.notify('노드 복사 중 오류가 발생했습니다. 다시 시도해주세요.');
-      // figma.closePlugin();
+      figma.notify(`노드 복사 중 오류가 발생했습니다. 다시 시도해주세요. ${error}`);
       return;
     }
   }
-
-  figma.closePlugin();
 };
