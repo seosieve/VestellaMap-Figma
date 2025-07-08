@@ -1,36 +1,151 @@
-<h2>Rectangle Creator</h2>
-<p>개수: <input id="count" type="number" value="5"></p>
-<p>기둥: <input id="pillar" type="number" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
-<div id="info" style="padding: 10px; font-family: sans-serif;">
-  <div>선택된 노드: <span id="selection-count">0</span>개</div>
-  <div>총 lot: <span id="lot-count">0</span>개</div>
-</div>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
-<script>
-
-document.getElementById('create').onclick = () => {
-  const countTextbox = document.getElementById('count');
-  const pillarTextbox = document.getElementById('pillar');
-
-  const count = parseInt(countTextbox.value, 10);
-  const pillar = parseInt(pillarTextbox.value, 10);
-  
-  parent.postMessage({ pluginMessage: { type: 'create-shapes', count, pillar } }, '*')
-}
-
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
-
-window.onmessage = (event) => {
-  const msg = event.data.pluginMessage;
-  
-  if (msg.type === 'selection-updated') {
-    document.getElementById('selection-count').textContent = msg.selectionCount;
-    document.getElementById('lot-count').textContent = msg.lotCount;
+<style>
+  body {
+    background-color: #1B1C1D;
+    font-family: 'Manrope', sans-serif, -apple-system;
   }
-};
+  
+  .container {
+    background-color: #1B1C1D;
+    padding: 24px;
+  }
 
-</script>
+  .title {
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+  } 
+
+  .generator-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #2C2D2F;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 24px;
+    gap: 16px;
+  }
+
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    gap: 8px;
+  }
+
+  .parameter-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .parameter {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  input {
+    width: 72px;
+    padding: 6px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: #2d2d2d;
+    color: #ffffff;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #31DD9E;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .create-button {
+    margin-top: 16px;
+  }
+
+  button {
+    width: 100%;
+    height: 36px;
+    background-color: #22936A;
+    color: #133F2F;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  button:hover {
+    color: #05130E;
+    background-color: #31DD9E;
+  }
+</style>
+
+<div class="container">
+  <p class="title">Parking Layout</p>
+  <p class="title">Generator</p>
+<div class="generator-container">
+  <div class="input-container">
+    <div class="parameter-container">
+      <p class="parameter">Number of Slots</p>
+      <input id="count" type="number" value="5">
+    </div>
+    <div class="parameter-container">
+      <p class="parameter">Pillar Interval</p>
+      <input id="pillar" type="number" value="5">
+    </div>
+  </div>  
+  <button id="create">Generate</button>
+</div>
+  <!-- <button id="create-circle">선분에 원 그리기</button>
+  <button id="cancel">Cancel</button> -->
+  <div id="info" style="padding: 10px; font-family: sans-serif;">
+    <div>선택된 노드: <span id="selection-count">0</span>개</div>
+    <div>총 lot: <span id="lot-count">0</span>개</div>
+    <div>선분 시작, 끝 <span id="line">0</span>개</div>
+  </div>
+
+  <script>
+    document.getElementById('create').onclick = () => {
+      const countTextbox = document.getElementById('count');
+      const pillarTextbox = document.getElementById('pillar');
+
+      const count = parseInt(countTextbox.value, 10);
+      const pillar = parseInt(pillarTextbox.value, 10);
+      
+      parent.postMessage({ pluginMessage: { type: 'create-shapes', count, pillar } }, '*')
+    }
+
+    document.getElementById('create-circle').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'create-random-circle' } }, '*')
+    }
+
+    document.getElementById('cancel').onclick = () => {
+      parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+    }
+
+    window.onmessage = (event) => {
+      const msg = event.data.pluginMessage;
+      
+      if (msg.type === 'selection-updated') {
+        document.getElementById('selection-count').textContent = msg.selectionCount;
+        document.getElementById('lot-count').textContent = msg.lotCount;
+      }
+    };
+  </script>
+</div>
