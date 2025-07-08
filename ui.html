@@ -207,10 +207,10 @@
       <p class="header">Group Name</p>
       <p class="header">Slot Count</p>
     </div>
-    <!-- <div class="placeholder-container">
+    <div class="placeholder-container">
       <p class="placeholder">No groups selected.</p>
       <p class="placeholder">Select a group to view slot count.</p>
-    </div> -->
+    </div>
     <div class="content-container">
       <p class="content">Group 1</p>
       <p class="content">7</p>
@@ -220,14 +220,57 @@
       <p class="total">32</p>
     </div>
   </div>
-  
-  <div id="info" style="padding: 10px; font-family: sans-serif;">
-    <div>선택된 노드: <span id="selection-count">0</span>개</div>
-    <div>총 lot: <span id="lot-count">0</span>개</div>
-  </div>
 </div>
 
 <script>
+  function updateDisplay(selectionCount) {
+    const placeholderContainer = document.querySelector('.placeholder-container');
+    const contentContainers = document.querySelectorAll('.content-container');
+    const totalContainer = document.querySelector('.total-container');
+    
+    const hasSelection = selectionCount > 0;
+    
+    placeholderContainer.style.display = hasSelection ? 'none' : 'flex';
+    contentContainers.forEach(container => {
+      container.style.display = hasSelection ? 'flex' : 'none';
+    });
+    totalContainer.style.display = hasSelection ? 'flex' : 'none';
+  }
+
+  function createContentContainers(nodeInfo) {
+    const countContainer = document.querySelector('.count-container');
+    
+    // 기존 content-container들 제거
+    const existingContents = countContainer.querySelectorAll('.content-container');
+    existingContents.forEach(container => container.remove());
+    
+    // 새로운 content-container들 생성
+    nodeInfo.forEach(info => {
+      const contentContainer = document.createElement('div');
+      contentContainer.className = 'content-container';
+      
+      contentContainer.innerHTML = `
+        <p class="content">${info.name}</p>
+        <p class="content">${info.lotCount}</p>
+      `;
+      
+      // total-container 앞에 삽입
+      const totalContainer = countContainer.querySelector('.total-container');
+      countContainer.insertBefore(contentContainer, totalContainer);
+    });
+  }
+
+  function updateTotal(lotCount) {
+    const totalElement = document.querySelector('.total');
+    if (totalElement) {
+      totalElement.textContent = lotCount;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    updateDisplay(0); 
+  });
+
   document.getElementById('create').onclick = () => {
     const countTextbox = document.getElementById('count');
     const pillarTextbox = document.getElementById('pillar');
@@ -249,10 +292,14 @@
   window.onmessage = (event) => {
     const msg = event.data.pluginMessage;
     console.log('받은 메시지:', msg); 
-    
+  
     if (msg.type === 'selection-updated') {
-      document.getElementById('selection-count').textContent = msg.selectionCount;
-      document.getElementById('lot-count').textContent = msg.lotCount;
+      updateDisplay(msg.selectionCount);
+      updateTotal(msg.lotCount);
+
+      if (msg.nodeInfo) {
+        createContentContainers(msg.nodeInfo);
+      }
     }
-  };
+  }
 </script>

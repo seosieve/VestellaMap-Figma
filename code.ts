@@ -40,7 +40,6 @@ if (selection.length > 0) {
   }
 }
 
-// 선택 변경 리스너
 figma.on('selectionchange', () => {
   const selection = figma.currentPage.selection;
   
@@ -62,16 +61,23 @@ figma.on('selectionchange', () => {
     
     return count;
   }
+
+  // 각 선택된 노드의 정보를 배열로 수집
+  const nodeInfo = selection.map(node => ({
+    name: node.name,
+    lotCount: countLotsRecursively(node)
+  }));
   
   let totalLots = 0;
-  selection.forEach(node => {
-    totalLots += countLotsRecursively(node);
+  nodeInfo.forEach(info => {
+    totalLots += info.lotCount;
   });
   
   figma.ui.postMessage({
     type: 'selection-updated',
     selectionCount: selection.length,
-    lotCount: totalLots
+    lotCount: totalLots,
+    nodeInfo: nodeInfo
   });
 });
 
