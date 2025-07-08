@@ -86,7 +86,12 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
     const currentSelection = figma.currentPage.selection;
     
     if (currentSelection.length === 0) {
-      figma.notify('복사할 노드를 선택해주세요');
+      figma.notify('❎ㅤ복사할 노드를 선택해주세요');
+      return;
+    }
+
+    if (count === 0 || pillar === 0) {
+      figma.notify('❎ㅤ개수를 입력해주세요');
       return;
     }
     
