@@ -1,6 +1,15 @@
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
+  * {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  *::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+
   body {
     background-color: #1B1C1D;
     font-family: 'Manrope', sans-serif, -apple-system;
@@ -160,9 +169,13 @@
     color: #FFFFFF;
     font-size: 13px;
     font-weight: 400;
-    margin: 0;
     width: 50%;
     text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
   .total-container {
@@ -182,6 +195,8 @@
     margin: 0;
     width: 50%;
     text-align: center;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 </style>
 
@@ -212,12 +227,12 @@
       <p class="placeholder">Select a group to view slot count.</p>
     </div>
     <div class="content-container">
-      <p class="content">Group 1</p>
-      <p class="content">7</p>
+      <p class="content">Group</p>
+      <p class="content">0</p>
     </div>
     <div class="total-container">
       <p class="content">Total</p>
-      <p class="total">32</p>
+      <p class="total">0</p>
     </div>
   </div>
 </div>

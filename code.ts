@@ -116,10 +116,9 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
         // pillar 값마다 Rectangle을 먼저 추가
         if (pillar > 0 && i % pillar === 0) {
           const pillarRect = figma.createRectangle();
-          pillarRect.name = `pillar-${i}`;
-          pillarRect.resize(40, 150);
-          pillarRect.fills = [{ type: 'SOLID', color: { r: 1, g: 0, b: 0 } }];
-          pillarRect.cornerRadius = 12;
+          pillarRect.name = `pillar`;
+          pillarRect.resize(28, 128);
+          pillarRect.fills = [{ type: 'SOLID', color: { r: 0.8, g: 0.8, b: 0.8 } }];
           figma.currentPage.appendChild(pillarRect);
           nodes.push(pillarRect);
         }
@@ -132,7 +131,7 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
       
       // Group으로 묶기
       const group = figma.group(nodes, figma.currentPage);
-      group.name = `Generated Group (${count} items)`;
+      group.name = `Group`;
       
       // Auto Layout 적용
       if (group.type === 'GROUP') {
@@ -145,12 +144,12 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
         });
         
         frame.layoutMode = 'HORIZONTAL';
-        frame.itemSpacing = 20;
-        frame.paddingLeft = frame.paddingRight = frame.paddingTop = frame.paddingBottom = 20;
+        frame.itemSpacing = 16;
+        frame.paddingLeft = frame.paddingRight = frame.paddingTop = frame.paddingBottom = 16;
         frame.primaryAxisSizingMode = 'AUTO';
         frame.counterAxisSizingMode = 'AUTO';
 
-        frame.fills = [{ type: 'SOLID', color: { r: 0.9, g: 0.5, b: 0.9 } }];
+        frame.fills = [{ type: 'SOLID', color: { r: 0.33, g: 0.33, b: 0.33 } }];
         frame.cornerRadius = 12;
         
         // Frame을 viewport 중심에 배치
