@@ -15,7 +15,7 @@
 // 선택된 요소 가져오기
 const selection = figma.currentPage.selection;
 
-figma.showUI(__html__, { width: 344, height: 555});
+figma.showUI(__html__, { width: 340, height: 600});
 
 if (selection.length > 0) {
   const selectedNode = selection[0];

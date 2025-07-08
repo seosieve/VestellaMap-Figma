@@ -8,7 +8,7 @@
   
   .container {
     background-color: #1B1C1D;
-    padding: 24px;
+    padding: 20px;
   }
 
   .title {
@@ -101,30 +101,125 @@
     margin-top: 36px;
   }
 
-  div {
-    color: #ffffff;
+  .count-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #505152;
+    overflow: hidden;
+  }
+
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 38px;
+    border-bottom: 1px solid #343637;
+  }
+
+  .header {
+    color: #AFAFAF;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 0;
+    width: 50%;
+    text-align: center;
+  }
+
+  .placeholder-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+  }
+
+  .placeholder {
+    color: #929293;
+    font-size: 14px;
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 38px;
+    border-bottom: 1px solid #343637;
+  }
+
+  .content {
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 400;
+    margin: 0;
+    width: 50%;
+    text-align: center;
+  }
+
+  .total-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 38px;
+    background-color: #2C2D2F;
+  }
+
+  .total {
+    color: #31DD9E;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 0;
+    width: 50%;
+    text-align: center;
   }
 </style>
 
 <div class="container">
   <p class="title">Parking Layout</p>
   <p class="title">Generator</p>
-<div class="generator-container">
-  <div class="input-container">
-    <div class="parameter-container">
-      <p class="parameter">Number of Slots</p>
-      <input id="count" type="number" value="0">
-    </div>
-    <div class="parameter-container">
-      <p class="parameter">Pillar Interval</p>
-      <input id="pillar" type="number" value="0">
-    </div>
-  </div>  
-  <button id="create">Generate</button>
-</div>
-  <!-- <button id="create-circle">선분에 원 그리기</button>
-  <button id="cancel">Cancel</button> -->
+  <div class="generator-container">
+    <div class="input-container">
+      <div class="parameter-container">
+        <p class="parameter">Number of Slots</p>
+        <input id="count" type="number" value="0">
+      </div>
+      <div class="parameter-container">
+        <p class="parameter">Pillar Interval</p>
+        <input id="pillar" type="number" value="0">
+      </div>
+    </div>  
+    <button id="create">Generate</button>
+  </div>
   <p class="subtitle">Slot Count by Group</p>
+  <div class="count-container">
+    <div class="header-container">
+      <p class="header">Group Name</p>
+      <p class="header">Slot Count</p>
+    </div>
+    <!-- <div class="placeholder-container">
+      <p class="placeholder">No groups selected.</p>
+      <p class="placeholder">Select a group to view slot count.</p>
+    </div> -->
+    <div class="content-container">
+      <p class="content">Group 1</p>
+      <p class="content">7</p>
+    </div>
+    <div class="total-container">
+      <p class="content">Total</p>
+      <p class="total">32</p>
+    </div>
+  </div>
   
   <div id="info" style="padding: 10px; font-family: sans-serif;">
     <div>선택된 노드: <span id="selection-count">0</span>개</div>
