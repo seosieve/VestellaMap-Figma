@@ -15,7 +15,7 @@
 // 선택된 요소 가져오기
 const selection = figma.currentPage.selection;
 
-figma.showUI(__html__, { width: 340, height: 600});
+figma.showUI(__html__, { width: 340, height: 540});
 
 if (selection.length > 0) {
   const selectedNode = selection[0];
@@ -96,8 +96,8 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
       return;
     }
 
-    if (count === 0 || pillar === 0) {
-      figma.notify('❎ㅤ개수를 입력해주세요');
+    if (count === 0) {
+      figma.notify('❎ㅤ슬롯 개수를 입력해주세요');
       return;
     }
     

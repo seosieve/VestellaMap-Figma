@@ -96,11 +96,26 @@
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
   }
 
   button:hover {
     color: #05130E;
     background-color: #31DD9E;
+  }
+
+  button:disabled {
+    background-color: #404041;
+    color: #929293;
+    cursor: default;
+    opacity: 0.7;
+  }
+
+  button:disabled:hover {
+    background-color: #404041;
+    color: #929293;
+    cursor: default;
+    opacity: 0.7;
   }
 
   .subtitle {
@@ -207,14 +222,14 @@
     <div class="input-container">
       <div class="parameter-container">
         <p class="parameter">Number of Slots</p>
-        <input id="count" type="number" value="0">
+        <input id="count" type="number" placeholder="0">
       </div>
       <div class="parameter-container">
         <p class="parameter">Pillar Interval</p>
-        <input id="pillar" type="number" value="0">
+        <input id="pillar" type="number" placeholder="0">
       </div>
     </div>  
-    <button id="create">Generate</button>
+    <button id="create" disabled>Generate</button>
   </div>
   <p class="subtitle">Slot Count by Group</p>
   <div class="count-container">
@@ -282,8 +297,27 @@
     }
   }
 
+  function checkButtonState() {
+    const countInput = document.getElementById('count');
+    const createButton = document.getElementById('create');
+    
+    // count input에 값이 있고 0보다 큰 경우에만 버튼 활성화
+    const countValue = parseInt(countInput.value, 10);
+    const hasValidCount = countValue > 0;
+    
+    createButton.disabled = !hasValidCount;
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
-    updateDisplay(0); 
+    updateDisplay(0);
+    
+    // count input에 이벤트 리스너 추가
+    const countInput = document.getElementById('count');
+    countInput.addEventListener('input', checkButtonState);
+    countInput.addEventListener('change', checkButtonState);
+    
+    // 초기 상태 설정
+    checkButtonState();
   });
 
   document.getElementById('create').onclick = () => {
