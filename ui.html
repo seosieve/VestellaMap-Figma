@@ -252,6 +252,52 @@
   </div>
 </div>
 
+
+
+<!-- 초기 상태 설정 -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    updateDisplay(0);
+    
+    // count input에 이벤트 리스너 추가
+    const countInput = document.getElementById('count');
+    countInput.addEventListener('input', checkButtonState);
+    countInput.addEventListener('change', checkButtonState);
+    
+    // 초기 상태 설정
+    checkButtonState();
+  });
+</script>
+
+
+
+<!-- Generate 관련 Script-->
+<script>
+  function checkButtonState() {
+    const countInput = document.getElementById('count');
+    const createButton = document.getElementById('create');
+    
+    // count input에 값이 있고 0보다 큰 경우에만 버튼 활성화
+    const countValue = parseInt(countInput.value, 10);
+    const hasValidCount = countValue > 0;
+    
+    createButton.disabled = !hasValidCount;
+  }
+
+  document.getElementById('create').onclick = () => {
+    const countTextbox = document.getElementById('count');
+    const pillarTextbox = document.getElementById('pillar');
+
+    const count = parseInt(countTextbox.value, 10);
+    const pillar = parseInt(pillarTextbox.value, 10);
+    
+    parent.postMessage({ pluginMessage: { type: 'create-shapes', count, pillar } }, '*')
+  }
+</script>
+
+
+
+<!-- Slot Count 관련 Script-->
 <script>
   function updateDisplay(selectionCount) {
     const placeholderContainer = document.querySelector('.placeholder-container');
@@ -265,6 +311,13 @@
       container.style.display = hasSelection ? 'flex' : 'none';
     });
     totalContainer.style.display = hasSelection ? 'flex' : 'none';
+  }
+
+  function updateTotal(lotCount) {
+    const totalElement = document.querySelector('.total');
+    if (totalElement) {
+      totalElement.textContent = lotCount;
+    }
   }
 
   function createContentContainers(nodeInfo) {
@@ -290,57 +343,8 @@
     });
   }
 
-  function updateTotal(lotCount) {
-    const totalElement = document.querySelector('.total');
-    if (totalElement) {
-      totalElement.textContent = lotCount;
-    }
-  }
-
-  function checkButtonState() {
-    const countInput = document.getElementById('count');
-    const createButton = document.getElementById('create');
-    
-    // count input에 값이 있고 0보다 큰 경우에만 버튼 활성화
-    const countValue = parseInt(countInput.value, 10);
-    const hasValidCount = countValue > 0;
-    
-    createButton.disabled = !hasValidCount;
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    updateDisplay(0);
-    
-    // count input에 이벤트 리스너 추가
-    const countInput = document.getElementById('count');
-    countInput.addEventListener('input', checkButtonState);
-    countInput.addEventListener('change', checkButtonState);
-    
-    // 초기 상태 설정
-    checkButtonState();
-  });
-
-  document.getElementById('create').onclick = () => {
-    const countTextbox = document.getElementById('count');
-    const pillarTextbox = document.getElementById('pillar');
-
-    const count = parseInt(countTextbox.value, 10);
-    const pillar = parseInt(pillarTextbox.value, 10);
-    
-    parent.postMessage({ pluginMessage: { type: 'create-shapes', count, pillar } }, '*')
-  }
-
-  // document.getElementById('create-circle').onclick = () => {
-  //   parent.postMessage({ pluginMessage: { type: 'create-random-circle' } }, '*')
-  // }
-
-  // document.getElementById('cancel').onclick = () => {
-  //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-  // }
-
   window.onmessage = (event) => {
     const msg = event.data.pluginMessage;
-    console.log('받은 메시지:', msg); 
   
     if (msg.type === 'selection-updated') {
       updateDisplay(msg.selectionCount);
@@ -351,4 +355,17 @@
       }
     }
   }
+</script>
+
+
+
+<!-- 개발팀 관련 Script-->
+<script>
+  // document.getElementById('create-circle').onclick = () => {
+  //   parent.postMessage({ pluginMessage: { type: 'create-random-circle' } }, '*')
+  // }
+
+  // document.getElementById('cancel').onclick = () => {
+  //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+  // }
 </script>
