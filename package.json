@@ -1,6 +1,6 @@
 {
   "name": "VestellaMap",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Vestella Map Plugin",
   "main": "code.js",
   "scripts": {
