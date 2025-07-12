@@ -84,7 +84,7 @@ figma.on('selectionchange', () => {
 
 // Show UI 후 메시지 수신 처리
 figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
-  if (msg.type === 'create-shapes') {
+  if (msg.type === 'generate-slots') {
     const count = msg.count;
     const pillar = msg.pillar;
     

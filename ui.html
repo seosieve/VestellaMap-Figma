@@ -14,7 +14,7 @@
     background-color: #1B1C1D;
     font-family: 'Manrope', sans-serif, -apple-system;
   }
-  
+
   .container {
     background-color: #1B1C1D;
     padding: 20px;
@@ -229,7 +229,7 @@
         <input id="pillar" type="number" placeholder="0">
       </div>
     </div>  
-    <button id="create" disabled>Generate</button>
+    <button id="generate-slots" disabled>Generate</button>
   </div>
   <p class="subtitle">Slot Count by Group</p>
   <div class="count-container">
@@ -275,23 +275,23 @@
 <script>
   function checkButtonState() {
     const countInput = document.getElementById('count');
-    const createButton = document.getElementById('create');
+    const generateButton = document.getElementById('generate-slots');
     
     // count input에 값이 있고 0보다 큰 경우에만 버튼 활성화
     const countValue = parseInt(countInput.value, 10);
     const hasValidCount = countValue > 0;
     
-    createButton.disabled = !hasValidCount;
+    generateButton.disabled = !hasValidCount;
   }
 
-  document.getElementById('create').onclick = () => {
+  document.getElementById('generate-slots').onclick = () => {
     const countTextbox = document.getElementById('count');
     const pillarTextbox = document.getElementById('pillar');
 
     const count = parseInt(countTextbox.value, 10);
     const pillar = parseInt(pillarTextbox.value, 10);
     
-    parent.postMessage({ pluginMessage: { type: 'create-shapes', count, pillar } }, '*')
+    parent.postMessage({ pluginMessage: { type: 'generate-slots', count, pillar } }, '*')
   }
 </script>
 
@@ -361,11 +361,7 @@
 
 <!-- 개발팀 관련 Script-->
 <script>
-  // document.getElementById('create-circle').onclick = () => {
-  //   parent.postMessage({ pluginMessage: { type: 'create-random-circle' } }, '*')
-  // }
-
-  // document.getElementById('cancel').onclick = () => {
-  //   parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-  // }
+  document.getElementById('create-circle').onclick = () => {
+    parent.postMessage({ pluginMessage: { type: 'create-random-circle' } }, '*')
+  }
 </script>
