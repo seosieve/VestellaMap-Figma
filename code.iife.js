@@ -109,7 +109,7 @@
   figma.ui.onmessage = (msg) => {
     if (msg.type === "generate-slots") {
       generateSlots(msg);
-    } else if (msg.type === "create-random-circle") {
+    } else if (msg.type === "generate-routes") {
       const selection2 = figma.currentPage.selection;
       if (selection2.length > 0) {
         const selectedNode = selection2[0];

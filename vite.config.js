@@ -6,7 +6,7 @@ export default defineConfig({
     lib: {
       entry: resolve(__dirname, 'src/code.ts'),
       name: 'VestellaMap',
-      fileName: 'code',
+      fileName: () => 'code.js',
       formats: ['iife']
     },
     outDir: '.',
