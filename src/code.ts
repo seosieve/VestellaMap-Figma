@@ -1,11 +1,4 @@
-// This plugin will open a window to prompt the user to enter a number, and
-// it will then create that many rectangles on the screen.
-
-// This file holds the main code for plugins. Code in this file has access to
-// the *figma document* via the figma global object.
-// You can access browser APIs in the <script> tag inside "ui.html" which has a
-// full browser environment (See https://www.figma.com/plugin-docs/how-plugins-run).
-
+/// <reference types="@figma/plugin-typings" />
 
 // Figma Plugin은 실행시 감지 조건이 두 가지가 있음
 
@@ -20,7 +13,7 @@ figma.showUI(__html__, { width: 340, height: 540});
 if (selection.length > 0) {
   const selectedNode = selection[0];
   
-  if (selectedNode.type === 'LINE') {
+  if (selectedNode?.type === 'LINE') {
     const line = selectedNode as LineNode;
     
     // 선분의 시작점과 끝점
@@ -170,7 +163,7 @@ figma.ui.onmessage = (msg: {type: string, count: number, pillar: number}) => {
     if (selection.length > 0) {
       const selectedNode = selection[0];
       
-      if (selectedNode.type === 'LINE') {
+      if (selectedNode?.type === 'LINE') {
         const line = selectedNode as LineNode;
         
         // 선분의 실제 시작점과 끝점 파악
