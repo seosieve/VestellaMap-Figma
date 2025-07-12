@@ -230,6 +230,7 @@
       </div>
     </div>  
     <button id="generate-slots" disabled>Generate</button>
+    <!-- <button id="generate-routes">Generate Routes</button> -->
   </div>
   <p class="subtitle">Slot Count by Group</p>
   <div class="count-container">
@@ -257,16 +258,16 @@
 <!-- 초기 상태 설정 -->
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    updateDisplay(0);
+    updateDisplay(0)
     
     // count input에 이벤트 리스너 추가
-    const countInput = document.getElementById('count');
-    countInput.addEventListener('input', checkButtonState);
-    countInput.addEventListener('change', checkButtonState);
+    const countInput = document.getElementById('count')
+    countInput.addEventListener('input', checkButtonState)
+    countInput.addEventListener('change', checkButtonState)
     
     // 초기 상태 설정
-    checkButtonState();
-  });
+    checkButtonState()
+  })
 </script>
 
 
@@ -274,22 +275,22 @@
 <!-- Generate 관련 Script-->
 <script>
   function checkButtonState() {
-    const countInput = document.getElementById('count');
-    const generateButton = document.getElementById('generate-slots');
+    const countInput = document.getElementById('count')
+    const generateButton = document.getElementById('generate-slots')
     
     // count input에 값이 있고 0보다 큰 경우에만 버튼 활성화
-    const countValue = parseInt(countInput.value, 10);
-    const hasValidCount = countValue > 0;
+    const countValue = parseInt(countInput.value, 10)
+    const hasValidCount = countValue > 0
     
-    generateButton.disabled = !hasValidCount;
+    generateButton.disabled = !hasValidCount
   }
 
   document.getElementById('generate-slots').onclick = () => {
-    const countTextbox = document.getElementById('count');
-    const pillarTextbox = document.getElementById('pillar');
+    const countTextbox = document.getElementById('count')
+    const pillarTextbox = document.getElementById('pillar')
 
-    const count = parseInt(countTextbox.value, 10);
-    const pillar = parseInt(pillarTextbox.value, 10);
+    const count = parseInt(countTextbox.value, 10)
+    const pillar = parseInt(pillarTextbox.value, 10)
     
     parent.postMessage({ pluginMessage: { type: 'generate-slots', count, pillar } }, '*')
   }
@@ -300,58 +301,58 @@
 <!-- Slot Count 관련 Script-->
 <script>
   function updateDisplay(selectionCount) {
-    const placeholderContainer = document.querySelector('.placeholder-container');
-    const contentContainers = document.querySelectorAll('.content-container');
-    const totalContainer = document.querySelector('.total-container');
+    const placeholderContainer = document.querySelector('.placeholder-container')
+    const contentContainers = document.querySelectorAll('.content-container')
+    const totalContainer = document.querySelector('.total-container')
     
-    const hasSelection = selectionCount > 0;
+    const hasSelection = selectionCount > 0
     
-    placeholderContainer.style.display = hasSelection ? 'none' : 'flex';
+    placeholderContainer.style.display = hasSelection ? 'none' : 'flex'
     contentContainers.forEach(container => {
-      container.style.display = hasSelection ? 'flex' : 'none';
-    });
-    totalContainer.style.display = hasSelection ? 'flex' : 'none';
+      container.style.display = hasSelection ? 'flex' : 'none'
+    })
+    totalContainer.style.display = hasSelection ? 'flex' : 'none'
   }
 
   function updateTotal(lotCount) {
-    const totalElement = document.querySelector('.total');
+    const totalElement = document.querySelector('.total')
     if (totalElement) {
-      totalElement.textContent = lotCount;
+      totalElement.textContent = lotCount
     }
   }
 
   function createContentContainers(nodeInfo) {
-    const countContainer = document.querySelector('.count-container');
+    const countContainer = document.querySelector('.count-container')
     
     // 기존 content-container들 제거
-    const existingContents = countContainer.querySelectorAll('.content-container');
-    existingContents.forEach(container => container.remove());
+    const existingContents = countContainer.querySelectorAll('.content-container')
+    existingContents.forEach(container => container.remove())
     
     // 새로운 content-container들 생성
     nodeInfo.forEach(info => {
-      const contentContainer = document.createElement('div');
-      contentContainer.className = 'content-container';
+      const contentContainer = document.createElement('div')
+      contentContainer.className = 'content-container'
       
       contentContainer.innerHTML = `
         <p class="content">${info.name}</p>
         <p class="content">${info.lotCount}</p>
-      `;
+      `
       
       // total-container 앞에 삽입
-      const totalContainer = countContainer.querySelector('.total-container');
-      countContainer.insertBefore(contentContainer, totalContainer);
-    });
+      const totalContainer = countContainer.querySelector('.total-container')
+      countContainer.insertBefore(contentContainer, totalContainer)
+    })
   }
 
   window.onmessage = (event) => {
-    const msg = event.data.pluginMessage;
+    const msg = event.data.pluginMessage
   
     if (msg.type === 'selection-updated') {
-      updateDisplay(msg.selectionCount);
-      updateTotal(msg.lotCount);
+      updateDisplay(msg.selectionCount)
+      updateTotal(msg.lotCount)
 
       if (msg.nodeInfo) {
-        createContentContainers(msg.nodeInfo);
+        createContentContainers(msg.nodeInfo)
       }
     }
   }
