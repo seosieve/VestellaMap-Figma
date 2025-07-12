@@ -347,7 +347,7 @@
   window.onmessage = (event) => {
     const msg = event.data.pluginMessage
   
-    if (msg.type === 'selection-updated') {
+    if (msg.type === 'selection-slots') {
       updateDisplay(msg.selectionCount)
       updateTotal(msg.lotCount)
 
