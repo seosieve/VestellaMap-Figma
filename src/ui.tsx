@@ -45,12 +45,12 @@ const App: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <p className="title">Parking Layout</p>
-      <p className="title">Generator</p>
+      <p style={styles.title}>Parking Layout</p>
+      <p style={styles.title}>Generator</p>
       <div className="generator-container">
         <div className="input-container">
           <div className="parameter-container">
-            <p className="parameter">Number of Slots</p>
+            <p className="parameter">Slots per Row</p>
             <input 
               type="number" 
               placeholder="0"
@@ -109,7 +109,13 @@ const styles = {
   container: {
     backgroundColor: '#1B1C1D',
     padding: '20px'
-  }
+  },
+  title: {
+    color: '#ffffff',
+    fontSize: '24px',
+    fontWeight: '700',
+    margin: '0'
+  } 
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
