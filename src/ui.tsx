@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TabBar from './components/TabBar';
 import Button from './components/Button';
+import DesignScreen from './screens/DesignScreen';
+import DevelopmentScreen from './screens/DevelopmentScreen';
+import SettingScreen from './screens/SettingScreen';
 
 interface NodeInfo {
   name: string;
@@ -48,56 +51,64 @@ const App: React.FC = () => {
 
   const isGenerateDisabled = !count || parseInt(count, 10) <= 0;
 
+  const [activeTab, setActiveTab] = useState('Design');
+
   const tabs = [
-    { id: 'Design', name: 'Design', icon: '🚗' },
-    { id: 'Development', name: 'Development', icon: '🔄' },
-    { id: 'Setting', name: 'Setting', icon: '🔄' },
+    { id: 'Design', label: 'Design' },
+    { id: 'Development', label: 'Development' },
+    { id: 'Setting', label: 'Setting' },
   ];
 
   return (
     <div style={styles.container}>
-      <TabBar tabs={tabs} />
-      <p style={styles.title}>Parking Layout</p>
-      <p style={styles.title}>Generator</p>
-      <div className="generator-container">
-        <div className="input-container">
-          <div className="parameter-container">
-            <p className="parameter">Slots per Row</p>
-            <input type="number" placeholder="0" value={count} onChange={(e) => setCount(e.target.value)} />
-          </div>
-          <div className="parameter-container">
-            <p className="parameter">Pillar Interval</p>
-            <input type="number" placeholder="0" value={pillar} onChange={(e) => setPillar(e.target.value)} />
-          </div>
-        </div>
-        <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />
-      </div>
-      <p className="subtitle">Slot Count by Group</p>
-      <div className="count-container">
-        <div className="header-container">
-          <p className="header">Group Name</p>
-          <p className="header">Slot Count</p>
-        </div>
-        {selectionCount === 0 ? (
-          <div className="placeholder-container">
-            <p className="placeholder">No groups selected.</p>
-            <p className="placeholder">Select a group to view slot count.</p>
-          </div>
-        ) : (
-          <>
-            {nodeInfo.map((info, index) => (
-              <div key={index} className="content-container">
-                <p className="content">{info.name}</p>
-                <p className="content">{info.lotCount}</p>
+      <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      {activeTab === 'Design' && (
+        <>
+          <p style={styles.title}>Parking Layout</p>
+          <p style={styles.title}>Generator</p>
+          <div className="generator-container">
+            <div className="input-container">
+              <div className="parameter-container">
+                <p className="parameter">Slots per Row</p>
+                <input type="number" placeholder="0" value={count} onChange={(e) => setCount(e.target.value)} />
               </div>
-            ))}
-            <div className="total-container">
-              <p className="content">Total</p>
-              <p className="total">{totalLotCount}</p>
+              <div className="parameter-container">
+                <p className="parameter">Pillar Interval</p>
+                <input type="number" placeholder="0" value={pillar} onChange={(e) => setPillar(e.target.value)} />
+              </div>
             </div>
-          </>
-        )}
-      </div>
+            <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />
+            <p className="subtitle">Slot Count by Group</p>
+            <div className="count-container">
+              <div className="header-container">
+                <p className="header">Group Name</p>
+                <p className="header">Slot Count</p>
+              </div>
+              {selectionCount === 0 ? (
+                <div className="placeholder-container">
+                  <p className="placeholder">No groups selected.</p>
+                  <p className="placeholder">Select a group to view slot count.</p>
+                </div>
+              ) : (
+                <>
+                  {nodeInfo.map((info, index) => (
+                    <div key={index} className="content-container">
+                      <p className="content">{info.name}</p>
+                      <p className="content">{info.lotCount}</p>
+                    </div>
+                  ))}
+                  <div className="total-container">
+                    <p className="content">Total</p>
+                    <p className="total">{totalLotCount}</p>
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
+        </>
+      )}
+      {activeTab === 'Development' && <DevelopmentScreen />}
+      {activeTab === 'Setting' && <SettingScreen />}
     </div>
   );
 };
