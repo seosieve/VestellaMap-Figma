@@ -44,7 +44,7 @@ const App: React.FC = () => {
   const isGenerateDisabled = !count || parseInt(count, 10) <= 0;
 
   return (
-    <div className="container">
+    <div style={styles.container}>
       <p className="title">Parking Layout</p>
       <p className="title">Generator</p>
       <div className="generator-container">
@@ -104,6 +104,13 @@ const App: React.FC = () => {
     </div>
   );
 };
+
+const styles = {
+  container: {
+    backgroundColor: '#1B1C1D',
+    padding: '20px'
+  }
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
