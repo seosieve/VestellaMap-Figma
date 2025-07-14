@@ -1,368 +1,223 @@
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-
-<style>
-  * {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-
-  *::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
-  }
-
-  body {
-    background-color: #1B1C1D;
-    font-family: 'Manrope', sans-serif, -apple-system;
-  }
-
-  .container {
-    background-color: #1B1C1D;
-    padding: 20px;
-  }
-
-  .title {
-    color: #ffffff;
-    font-size: 24px;
-    font-weight: 700;
-    margin: 0;
-  } 
-
-  .generator-container {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #2C2D2F;
-    border-radius: 12px;
-    padding: 16px;
-    margin-top: 24px;
-    gap: 16px;
-  }
-
-  .input-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 100%;
-    gap: 8px;
-  }
-
-  .parameter-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .parameter {
-    color: #ffffff;
-    font-size: 14px;
-    font-weight: 400;
-    margin: 0;
-  }
-
-  input {
-    width: 72px;
-    padding: 6px;
-    border: 1px solid #404041;
-    border-radius: 4px;
-    background-color: #404041;
-    color: #ffffff;
-    font-family: 'Manrope', sans-serif, -apple-system;
-    font-size: 14px;
-    font-weight: 800;
-  }
-
-  input:focus {
-    outline: none;
-    border-color: #31DD9E;
-  }
-
-  input[type="number"]::-webkit-inner-spin-button,
-  input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  button {
-    width: 100%;
-    height: 36px;
-    background-color: #22936A;
-    color: #133F2F;
-    border: none;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
-
-  button:hover {
-    color: #05130E;
-    background-color: #31DD9E;
-  }
-
-  button:disabled {
-    background-color: #404041;
-    color: #929293;
-    cursor: default;
-    opacity: 0.7;
-  }
-
-  button:disabled:hover {
-    background-color: #404041;
-    color: #929293;
-    cursor: default;
-    opacity: 0.7;
-  }
-
-  .subtitle {
-    color: #ffffff;
-    font-size: 16px;
-    font-weight: 700;
-    margin-top: 36px;
-  }
-
-  .count-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    border-radius: 8px;
-    border: 1px solid #505152;
-    overflow: hidden;
-  }
-
-  .header-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 38px;
-    border-bottom: 1px solid #343637;
-  }
-
-  .header {
-    color: #AFAFAF;
-    font-size: 13px;
-    font-weight: 300;
-    margin: 0;
-    width: 50%;
-    text-align: center;
-  }
-
-  .placeholder-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100px;
-  }
-
-  .placeholder {
-    color: #929293;
-    font-size: 14px;
-    font-weight: 300;
-    margin: 0;
-  }
-
-  .content-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 38px;
-    border-bottom: 1px solid #343637;
-  }
-
-  .content {
-    color: #FFFFFF;
-    font-size: 13px;
-    font-weight: 400;
-    width: 50%;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-
-  .total-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 38px;
-    background-color: #2C2D2F;
-  }
-
-  .total {
-    color: #31DD9E;
-    font-size: 13px;
-    font-weight: 500;
-    margin: 0;
-    width: 50%;
-    text-align: center;
-    margin-left: 16px;
-    margin-right: 16px;
-  }
-</style>
-
-<div class="container">
-  <p class="title">Parking Layout</p>
-  <p class="title">Generator</p>
-  <div class="generator-container">
-    <div class="input-container">
-      <div class="parameter-container">
-        <p class="parameter">Number of Slots</p>
-        <input id="count" type="number" placeholder="0">
-      </div>
-      <div class="parameter-container">
-        <p class="parameter">Pillar Interval</p>
-        <input id="pillar" type="number" placeholder="0">
-      </div>
-    </div>  
-    <button id="generate-slots" disabled>Generate</button>
-    <!-- <button id="generate-routes">Generate Routes</button> -->
-  </div>
-  <p class="subtitle">Slot Count by Group</p>
-  <div class="count-container">
-    <div class="header-container">
-      <p class="header">Group Name</p>
-      <p class="header">Slot Count</p>
-    </div>
-    <div class="placeholder-container">
-      <p class="placeholder">No groups selected.</p>
-      <p class="placeholder">Select a group to view slot count.</p>
-    </div>
-    <div class="content-container">
-      <p class="content">Group</p>
-      <p class="content">0</p>
-    </div>
-    <div class="total-container">
-      <p class="content">Total</p>
-      <p class="total">0</p>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- 초기 상태 설정 -->
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    updateDisplay(0)
-    
-    // count input에 이벤트 리스너 추가
-    const countInput = document.getElementById('count')
-    countInput.addEventListener('input', checkButtonState)
-    countInput.addEventListener('change', checkButtonState)
-    
-    // 초기 상태 설정
-    checkButtonState()
-  })
-</script>
-
-
-
-<!-- Generate 관련 Script-->
-<script>
-  function checkButtonState() {
-    const countInput = document.getElementById('count')
-    const generateButton = document.getElementById('generate-slots')
-    
-    // count input에 값이 있고 0보다 큰 경우에만 버튼 활성화
-    const countValue = parseInt(countInput.value, 10)
-    const hasValidCount = countValue > 0
-    
-    generateButton.disabled = !hasValidCount
-  }
-
-  document.getElementById('generate-slots').onclick = () => {
-    const countTextbox = document.getElementById('count')
-    const pillarTextbox = document.getElementById('pillar')
-
-    const count = parseInt(countTextbox.value, 10)
-    const pillar = parseInt(pillarTextbox.value, 10)
-    
-    parent.postMessage({ pluginMessage: { type: 'generate-slots', count, pillar } }, '*')
-  }
-</script>
-
-
-
-<!-- Slot Count 관련 Script-->
-<script>
-  function updateDisplay(selectionCount) {
-    const placeholderContainer = document.querySelector('.placeholder-container')
-    const contentContainers = document.querySelectorAll('.content-container')
-    const totalContainer = document.querySelector('.total-container')
-    
-    const hasSelection = selectionCount > 0
-    
-    placeholderContainer.style.display = hasSelection ? 'none' : 'flex'
-    contentContainers.forEach(container => {
-      container.style.display = hasSelection ? 'flex' : 'none'
-    })
-    totalContainer.style.display = hasSelection ? 'flex' : 'none'
-  }
-
-  function updateTotal(lotCount) {
-    const totalElement = document.querySelector('.total')
-    if (totalElement) {
-      totalElement.textContent = lotCount
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
     }
-  }
 
-  function createContentContainers(nodeInfo) {
-    const countContainer = document.querySelector('.count-container')
-    
-    // 기존 content-container들 제거
-    const existingContents = countContainer.querySelectorAll('.content-container')
-    existingContents.forEach(container => container.remove())
-    
-    // 새로운 content-container들 생성
-    nodeInfo.forEach(info => {
-      const contentContainer = document.createElement('div')
-      contentContainer.className = 'content-container'
-      
-      contentContainer.innerHTML = `
-        <p class="content">${info.name}</p>
-        <p class="content">${info.lotCount}</p>
-      `
-      
-      // total-container 앞에 삽입
-      const totalContainer = countContainer.querySelector('.total-container')
-      countContainer.insertBefore(contentContainer, totalContainer)
-    })
-  }
-
-  window.onmessage = (event) => {
-    const msg = event.data.pluginMessage
-  
-    if (msg.type === 'selection-slots') {
-      updateDisplay(msg.selectionCount)
-      updateTotal(msg.lotCount)
-
-      if (msg.nodeInfo) {
-        createContentContainers(msg.nodeInfo)
-      }
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
     }
-  }
-</script>
 
+    body {
+      background-color: #1B1C1D;
+      font-family: 'Manrope', sans-serif, -apple-system;
+    }
 
+    .container {
+      background-color: #1B1C1D;
+      padding: 20px;
+    }
 
-<!-- 개발팀 관련 Script-->
-<script>
-  // document.getElementById('generate-routes').onclick = () => {
-  //   parent.postMessage({ pluginMessage: { type: 'generate-routes' } }, '*')
-  // }
-</script>
+    .title {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+    } 
+
+    .generator-container {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background-color: #2C2D2F;
+      border-radius: 12px;
+      padding: 16px;
+      margin-top: 24px;
+      gap: 16px;
+    }
+
+    .input-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 100%;
+      gap: 8px;
+    }
+
+    .parameter-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .parameter {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    input {
+      width: 72px;
+      padding: 6px;
+      border: 1px solid #404041;
+      border-radius: 4px;
+      background-color: #404041;
+      color: #ffffff;
+      font-family: 'Manrope', sans-serif, -apple-system;
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #31DD9E;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    button {
+      width: 100%;
+      height: 36px;
+      background-color: #22936A;
+      color: #133F2F;
+      border: none;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      color: #05130E;
+      background-color: #31DD9E;
+    }
+
+    button:disabled {
+      background-color: #404041;
+      color: #929293;
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    button:disabled:hover {
+      background-color: #404041;
+      color: #929293;
+      cursor: default;
+      opacity: 0.7;
+    }
+
+    .subtitle {
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: 700;
+      margin-top: 36px;
+    }
+
+    .count-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #505152;
+      overflow: hidden;
+    }
+
+    .header-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 38px;
+      border-bottom: 1px solid #343637;
+    }
+
+    .header {
+      color: #AFAFAF;
+      font-size: 13px;
+      font-weight: 300;
+      margin: 0;
+      width: 50%;
+      text-align: center;
+    }
+
+    .placeholder-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100px;
+    }
+
+    .placeholder {
+      color: #929293;
+      font-size: 14px;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .content-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 38px;
+      border-bottom: 1px solid #343637;
+    }
+
+    .content {
+      color: #FFFFFF;
+      font-size: 13px;
+      font-weight: 400;
+      width: 50%;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+
+    .total-container {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 38px;
+      background-color: #2C2D2F;
+    }
+
+    .total {
+      color: #31DD9E;
+      font-size: 13px;
+      font-weight: 500;
+      margin: 0;
+      width: 50%;
+      text-align: center;
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+</html>
