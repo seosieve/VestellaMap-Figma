@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
+import TabBar from './components/TabBar';
+import Button from './components/Button';
 
 interface NodeInfo {
   name: string;
@@ -43,8 +45,15 @@ const App: React.FC = () => {
 
   const isGenerateDisabled = !count || parseInt(count, 10) <= 0;
 
+  const tabs = [
+    { id: 'Design', name: 'Design', icon: '🚗' },
+    { id: 'Development', name: 'Development', icon: '🔄' },
+    { id: 'Setting', name: 'Setting', icon: '🔄' }
+  ]
+
   return (
     <div style={styles.container}>
+      <TabBar tabs={tabs} />
       <p style={styles.title}>Parking Layout</p>
       <p style={styles.title}>Generator</p>
       <div className="generator-container">
@@ -68,7 +77,9 @@ const App: React.FC = () => {
             />
           </div>
         </div>  
+        <Button title="Generate GOGO" />
         <button 
+          style={styles.executeButton}
           disabled={isGenerateDisabled}
           onClick={handleGenerateClick}
         >
@@ -115,7 +126,19 @@ const styles = {
     fontSize: '24px',
     fontWeight: '700',
     margin: '0'
-  } 
+  },
+  executeButton: {
+    width: '100%',
+    height: '36px',
+    backgroundColor: '#31DD9E',
+    color: '#05130E',
+    border: 'none',
+    borderRadius: '6px',
+    fontSize: '14px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease'
+  },
 }
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
