@@ -1,13 +1,13 @@
-import React from 'react'
+import React from 'react';
 
 interface Tab {
-    id: string
-    icon: string
-    name: string
+  id: string;
+  icon: string;
+  name: string;
 }
 
 interface TabBarProps {
-    tabs: Tab[]
+  tabs: Tab[];
 }
 
 const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
@@ -20,16 +20,16 @@ const TabBar: React.FC<TabBarProps> = ({ tabs }) => {
         </button>
       ))}
     </div>
-  )
-}
+  );
+};
 
 const styles = {
-    container: {
-        display: 'flex',
-        width: '100%',
-        borderBottom: '1px solid #E6E6E6',
-        backgroundColor: '#2C2D2F',
-    }
-}
+  container: {
+    display: 'flex',
+    width: '100%',
+    borderBottom: '1px solid #E6E6E6',
+    backgroundColor: '#2C2D2F',
+  },
+};
 
 export default TabBar;

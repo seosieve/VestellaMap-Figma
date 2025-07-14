@@ -7,7 +7,8 @@
     "build": "webpack --mode=production",
     "dev": "webpack --mode=development --watch",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
-    "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix ."
+    "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
+    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
   "author": "",
   "license": "",
@@ -22,6 +23,7 @@
     "css-loader": "^6.8.1",
     "eslint": "^8.54.0",
     "html-webpack-plugin": "^5.6.3",
+    "prettier": "^3.6.2",
     "react-dev-utils": "^12.0.1",
     "style-loader": "^3.3.3",
     "ts-loader": "^9.5.1",

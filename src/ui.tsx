@@ -19,7 +19,7 @@ const App: React.FC = () => {
     // 메시지 리스너 설정
     window.onmessage = (event) => {
       const msg = event.data.pluginMessage;
-    
+
       if (msg.type === 'selection-slots') {
         setSelectionCount(msg.selectionCount);
         setTotalLotCount(msg.lotCount);
@@ -33,14 +33,17 @@ const App: React.FC = () => {
   const handleGenerateClick = () => {
     const countNum = parseInt(count, 10);
     const pillarNum = parseInt(pillar, 10);
-    
-    parent.postMessage({ 
-      pluginMessage: { 
-        type: 'generate-slots', 
-        count: countNum, 
-        pillar: pillarNum 
-      } 
-    }, '*');
+
+    parent.postMessage(
+      {
+        pluginMessage: {
+          type: 'generate-slots',
+          count: countNum,
+          pillar: pillarNum,
+        },
+      },
+      '*',
+    );
   };
 
   const isGenerateDisabled = !count || parseInt(count, 10) <= 0;
@@ -48,8 +51,8 @@ const App: React.FC = () => {
   const tabs = [
     { id: 'Design', name: 'Design', icon: '🚗' },
     { id: 'Development', name: 'Development', icon: '🔄' },
-    { id: 'Setting', name: 'Setting', icon: '🔄' }
-  ]
+    { id: 'Setting', name: 'Setting', icon: '🔄' },
+  ];
 
   return (
     <div style={styles.container}>
@@ -60,31 +63,14 @@ const App: React.FC = () => {
         <div className="input-container">
           <div className="parameter-container">
             <p className="parameter">Slots per Row</p>
-            <input 
-              type="number" 
-              placeholder="0"
-              value={count}
-              onChange={(e) => setCount(e.target.value)}
-            />
+            <input type="number" placeholder="0" value={count} onChange={(e) => setCount(e.target.value)} />
           </div>
           <div className="parameter-container">
             <p className="parameter">Pillar Interval</p>
-            <input 
-              type="number" 
-              placeholder="0"
-              value={pillar}
-              onChange={(e) => setPillar(e.target.value)}
-            />
+            <input type="number" placeholder="0" value={pillar} onChange={(e) => setPillar(e.target.value)} />
           </div>
-        </div>  
-        <Button title="Generate GOGO" />
-        <button 
-          style={styles.executeButton}
-          disabled={isGenerateDisabled}
-          onClick={handleGenerateClick}
-        >
-          Generate
-        </button>
+        </div>
+        <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />
       </div>
       <p className="subtitle">Slot Count by Group</p>
       <div className="count-container">
@@ -119,13 +105,13 @@ const App: React.FC = () => {
 const styles = {
   container: {
     backgroundColor: '#1B1C1D',
-    padding: '20px'
+    padding: '20px',
   },
   title: {
     color: '#ffffff',
     fontSize: '24px',
     fontWeight: '700',
-    margin: '0'
+    margin: '0',
   },
   executeButton: {
     width: '100%',
@@ -137,13 +123,13 @@ const styles = {
     fontSize: '14px',
     fontWeight: '600',
     cursor: 'pointer',
-    transition: 'all 0.3s ease'
+    transition: 'all 0.3s ease',
   },
-}
+};
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-); 
+  </React.StrictMode>,
+);
