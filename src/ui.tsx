@@ -1,34 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TabBar, { Tab } from './components/TabBar';
-import Button from './components/Button';
+
 import DesignScreen from './screens/DesignScreen';
 import DevelopmentScreen from './screens/DevelopmentScreen';
 import SettingScreen from './screens/SettingScreen';
+import SlotGeneratorContainer from './containers/SlotGeneratorContainer';
 import SlotCountContainer from './containers/SlotCountContainer';
 
 const App: React.FC = () => {
-  const [count, setCount] = useState<string>('');
-  const [pillar, setPillar] = useState<string>('');
-
-  const handleGenerateClick = () => {
-    const countNum = parseInt(count, 10);
-    const pillarNum = parseInt(pillar, 10);
-
-    parent.postMessage(
-      {
-        pluginMessage: {
-          type: 'generate-slots',
-          count: countNum,
-          pillar: pillarNum,
-        },
-      },
-      '*',
-    );
-  };
-
-  const isGenerateDisabled = !count || parseInt(count, 10) <= 0;
-
   const [activeTab, setActiveTab] = useState('Design');
 
   const tabs: Tab[] = [
@@ -43,19 +23,7 @@ const App: React.FC = () => {
         <div style={styles.contentContainer}>
           <p style={styles.title}>Parking Layout</p>
           <p style={styles.title}>Generator</p>
-          <div className="generator-container">
-            <div className="input-container">
-              <div className="parameter-container">
-                <p className="parameter">Slots per Row</p>
-                <input type="number" placeholder="0" value={count} onChange={(e) => setCount(e.target.value)} />
-              </div>
-              <div className="parameter-container">
-                <p className="parameter">Pillar Interval</p>
-                <input type="number" placeholder="0" value={pillar} onChange={(e) => setPillar(e.target.value)} />
-              </div>
-            </div>
-            <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />
-          </div>
+          <SlotGeneratorContainer />
           <p style={styles.subtitle}>Slot Count by Group</p>
           <SlotCountContainer />
         </div>
