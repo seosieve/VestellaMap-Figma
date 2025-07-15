@@ -1,8 +1,9 @@
 import React from 'react';
 
-interface Tab {
+export interface Tab {
   id: string;
   label: string;
+  position: 'left' | 'right';
 }
 
 interface TabBarProps {
@@ -12,20 +13,39 @@ interface TabBarProps {
 }
 
 const TabBar: React.FC<TabBarProps> = ({ tabs, activeTab, onTabChange }) => {
+  const leftTabs = tabs.filter((tab) => tab.position === 'left');
+  const rightTabs = tabs.filter((tab) => tab.position === 'right');
+
   return (
     <div style={styles.container}>
-      {tabs.map((tab) => (
-        <button
-          key={tab.id}
-          style={{
-            ...styles.tab,
-            ...(activeTab === tab.id ? styles.activeTab : {}),
-          }}
-          onClick={() => onTabChange(tab.id)}
-        >
-          {tab.label}
-        </button>
-      ))}
+      <div style={styles.tabGroup}>
+        {leftTabs.map((tab) => (
+          <button
+            key={tab.id}
+            style={{
+              ...styles.tab,
+              ...(activeTab === tab.id ? styles.activeTab : {}),
+            }}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <div style={styles.tabGroup}>
+        {rightTabs.map((tab) => (
+          <button
+            key={tab.id}
+            style={{
+              ...styles.tab,
+              ...(activeTab === tab.id ? styles.activeTab : {}),
+            }}
+            onClick={() => onTabChange(tab.id)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
@@ -34,15 +54,21 @@ const styles = {
   container: {
     display: 'flex',
     width: '100%',
-    borderBottom: '1px solid #E6E6E6',
+    justifyContent: 'space-between',
     backgroundColor: '#1B1C1D',
   },
+  tabGroup: {
+    display: 'flex',
+  },
   tab: {
-    padding: '8px 16px',
+    height: '36px',
+    paddingVertical: '8px',
+    paddingHorizontal: '6px',
     border: 'none',
     background: 'none',
     cursor: 'pointer',
     fontSize: '14px',
+    fontWeight: 'medium',
     color: '#ffffff',
     opacity: 0.7,
     transition: 'all 0.3s ease',
