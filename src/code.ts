@@ -4,7 +4,7 @@ import { selectSlots } from './utils/slotSelector';
 import { generateSlots } from './utils/slotGenerator';
 import { generateRoutes } from './utils/routeGenerator';
 
-figma.showUI(__html__, { width: 340, height: 600 });
+figma.showUI(__html__, { width: 340, height: 580 });
 
 figma.on('selectionchange', () => {
   selectSlots();
