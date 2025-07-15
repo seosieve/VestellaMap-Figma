@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TabBar, { Tab } from './components/TabBar';
 
@@ -15,23 +15,27 @@ const App: React.FC = () => {
     {
       id: 'Design',
       label: 'Design',
-      icon: Design, // 컴포넌트 자체를 전달
+      icon: Design,
       position: 'left',
     },
     {
       id: 'Setting',
       label: '',
-      icon: Setting, // 컴포넌트 자체를 전달
+      icon: Setting,
       position: 'right',
     },
   ];
 
   return (
     <div style={styles.container}>
-      <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
-      {activeTab === 'Design' && <DesignScreen />}
-      {activeTab === 'Development' && <DevelopmentScreen />}
-      {activeTab === 'Setting' && <SettingScreen />}
+      <div style={styles.header}>
+        <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      </div>
+      <div style={styles.content}>
+        {activeTab === 'Design' && <DesignScreen />}
+        {activeTab === 'Development' && <DevelopmentScreen />}
+        {activeTab === 'Setting' && <SettingScreen />}
+      </div>
     </div>
   );
 };
@@ -39,10 +43,27 @@ const App: React.FC = () => {
 const styles = {
   container: {
     backgroundColor: '#1B1C1D',
-    paddingTop: '4px',
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    paddingBottom: '20px',
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column' as const,
+    overflow: 'hidden' as const,
+  },
+  header: {
+    position: 'sticky' as const,
+    top: 0,
+    backgroundColor: '#1B1C1D',
+    paddingTop: '12px',
+    paddingLeft: '32px',
+    paddingRight: '32px',
+    zIndex: 1000,
+  },
+  content: {
+    flex: 1,
+    paddingLeft: '32px',
+    paddingRight: '32px',
+    paddingBottom: '32px',
+    overflowY: 'auto' as const,
+    overflowX: 'hidden' as const,
   },
 };
 

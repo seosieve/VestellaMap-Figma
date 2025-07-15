@@ -16,7 +16,7 @@ const DesignScreen: React.FC = () => {
 
 const styles = {
   container: {
-    paddingTop: '36px',
+    paddingTop: '32px',
   },
   title: {
     color: '#ffffff',
