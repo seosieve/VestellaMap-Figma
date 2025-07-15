@@ -68,7 +68,6 @@ const styles = {
     border: 'none',
     background: 'none',
     cursor: 'pointer',
-    fontFamily: 'Manrope',
     fontSize: '14px',
     fontWeight: '400',
     color: '#AFAFAF',

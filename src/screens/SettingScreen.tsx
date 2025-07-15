@@ -3,7 +3,8 @@ import React from 'react';
 const SettingScreen: React.FC = () => {
   return (
     <div style={styles.container}>
-      <p style={styles.title}> Setting</p>
+      <p style={styles.title}> Settings</p>
+      <p style={styles.subtitle}>Design</p>
     </div>
   );
 };
@@ -22,7 +23,7 @@ const styles = {
     color: '#ffffff',
     fontSize: '16px',
     fontWeight: '700',
-    marginTop: '36px',
+    marginTop: '24px',
   },
 };
 
