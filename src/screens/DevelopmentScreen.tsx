@@ -1,7 +1,7 @@
 import React from 'react';
 
 const DevelopmentScreen: React.FC = () => {
-  return <div>DevelopmentScreen</div>;
+  return <div></div>;
 };
 
 export default DevelopmentScreen;

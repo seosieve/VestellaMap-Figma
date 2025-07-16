@@ -6,6 +6,7 @@ import DesignScreen from './screens/DesignScreen';
 import DevelopmentScreen from './screens/DevelopmentScreen';
 import SettingScreen from './screens/SettingScreen';
 import Design from './atoms/Design';
+import Development from './atoms/Development';
 import Setting from './atoms/Setting';
 
 const App: React.FC = () => {
@@ -16,6 +17,12 @@ const App: React.FC = () => {
       id: 'Design',
       label: 'Design',
       icon: Design,
+      position: 'left',
+    },
+    {
+      id: 'Development',
+      label: 'Development',
+      icon: Development,
       position: 'left',
     },
     {

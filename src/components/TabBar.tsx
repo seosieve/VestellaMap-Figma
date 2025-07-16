@@ -57,6 +57,7 @@ const styles = {
   },
   tabGroup: {
     display: 'flex',
+    gap: '8px',
   },
   tab: {
     height: '36px',
