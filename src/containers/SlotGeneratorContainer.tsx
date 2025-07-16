@@ -6,7 +6,7 @@ import Button from '../components/Button';
 const SlotGeneratorContainer: React.FC = () => {
   const [count, setCount] = useState<string>('');
   const [pillar, setPillar] = useState<string>('');
-  const [checked, setChecked] = useState<boolean>(false);
+  const [multiple, setMultiple] = useState<boolean>(false);
 
   const handleGenerateClick = () => {
     const countNum = parseInt(count, 10);
@@ -18,6 +18,7 @@ const SlotGeneratorContainer: React.FC = () => {
           type: 'generate-slots',
           count: countNum,
           pillar: pillarNum,
+          multiple: multiple,
         },
       },
       '*',
@@ -32,7 +33,7 @@ const SlotGeneratorContainer: React.FC = () => {
         <InputBox title="Slots per Row" value={count} onChange={setCount} />
         <InputBox title="Pillar Interval" value={pillar} onChange={setPillar} />
       </div>
-      <CheckBox checked={checked} onChange={setChecked} />
+      <CheckBox checked={multiple} onChange={setMultiple} />
       <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />
     </div>
   );

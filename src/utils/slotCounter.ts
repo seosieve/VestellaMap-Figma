@@ -1,6 +1,6 @@
-// slotSelector.ts
+// slotCounter.ts
 
-export function selectSlots() {
+export function countSlots() {
   const selection = figma.currentPage.selection;
 
   // 재귀적으로 lot 개수를 세는 함수
