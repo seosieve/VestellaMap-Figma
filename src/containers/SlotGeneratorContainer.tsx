@@ -1,9 +1,8 @@
 import React, { useState, CSSProperties } from 'react';
+import InputBox from '../components/InputBox';
 import Button from '../components/Button';
 
 const SlotGeneratorContainer: React.FC = () => {
-  const [countFocused, setCountFocused] = useState<boolean>(false);
-  const [pillarFocused, setPillarFocused] = useState<boolean>(false);
   const [count, setCount] = useState<string>('');
   const [pillar, setPillar] = useState<string>('');
 
@@ -28,36 +27,12 @@ const SlotGeneratorContainer: React.FC = () => {
   return (
     <div style={styles.container}>
       <div style={styles.inputContainer}>
-        <div style={styles.parameterContainer}>
-          <p style={styles.parameter}>Slots per Row</p>
-          <input
-            style={{
-              ...styles.input,
-              ...(countFocused && styles.inputFocused),
-            }}
-            type="number"
-            placeholder="0"
-            value={count}
-            onChange={(e) => setCount(e.target.value)}
-            onFocus={() => setCountFocused(true)}
-            onBlur={() => setCountFocused(false)}
-          />
-        </div>
-        <div style={styles.parameterContainer}>
-          <p style={styles.parameter}>Pillar Interval</p>
-          <input
-            style={{
-              ...styles.input,
-              ...(pillarFocused && styles.inputFocused),
-            }}
-            type="number"
-            placeholder="0"
-            value={pillar}
-            onChange={(e) => setPillar(e.target.value)}
-            onFocus={() => setPillarFocused(true)}
-            onBlur={() => setPillarFocused(false)}
-          />
-        </div>
+        <InputBox title="Slots per Row" value={count} onChange={setCount} />
+        <InputBox title="Pillar Interval" value={pillar} onChange={setPillar} />
+      </div>
+      <div style={styles.multipleContainer}>
+        <p style={styles.multiple}>Generate 2 Rows</p>
+        <input type="checkbox" />
       </div>
       <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />
     </div>
@@ -83,33 +58,18 @@ const styles: { [key: string]: CSSProperties } = {
     width: '100%',
     gap: '8px',
   },
-  parameterContainer: {
+  multipleContainer: {
     display: 'flex',
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
+    justifyContent: 'flex-end',
   },
-  parameter: {
+  multiple: {
     color: '#ffffff',
-    fontSize: '14px',
-    fontWeight: 'medium',
+    fontSize: '12px',
+    fontWeight: '400',
     margin: '0',
-  },
-  input: {
-    width: '72px',
-    padding: '6px',
-    border: '1px solid #404041',
-    borderRadius: '4px',
-    backgroundColor: '#404041',
-    color: '#ffffff',
-    fontFamily: 'Manrope',
-    fontSize: '14px',
-    fontWeight: '800',
-  },
-  inputFocused: {
-    outline: 'none',
-    border: '1px solid #31dd9e',
   },
 };
 

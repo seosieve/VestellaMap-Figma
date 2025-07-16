@@ -1,10 +1,12 @@
 import React from 'react';
+import SettingDesignContainer from '../containers/SettingDesignContainer';
 
 const SettingScreen: React.FC = () => {
   return (
     <div style={styles.container}>
       <p style={styles.title}> Settings</p>
       <p style={styles.subtitle}>Design</p>
+      <SettingDesignContainer />
     </div>
   );
 };
