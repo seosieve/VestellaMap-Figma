@@ -64,6 +64,8 @@ export function generateSlots(msg: { type: string; count: number; pillar: number
       frame.paddingLeft = frame.paddingRight = frame.paddingTop = frame.paddingBottom = 16;
       frame.primaryAxisSizingMode = 'AUTO';
       frame.counterAxisSizingMode = 'AUTO';
+      frame.primaryAxisAlignItems = 'CENTER';
+      frame.counterAxisAlignItems = 'CENTER';
 
       frame.fills = [{ type: 'SOLID', color: { r: 0.33, g: 0.33, b: 0.33 } }];
       frame.cornerRadius = 12;
