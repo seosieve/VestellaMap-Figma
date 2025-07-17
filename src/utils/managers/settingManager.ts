@@ -1,6 +1,13 @@
 // settingManager.ts
 
-import { get, set } from './managers/clientStorageManager';
+export async function get(name: string, defaultValue: number) {
+  const value = (await figma.clientStorage.getAsync(name)) || defaultValue;
+  return value;
+}
+
+export async function set(name: string, value: number) {
+  await figma.clientStorage.setAsync(name, value);
+}
 
 export interface DesignSettings {
   slotGap: number;
@@ -17,10 +24,10 @@ export const DEFAULT_SETTINGS: DesignSettings = {
 };
 
 export async function loadSettings(): Promise<DesignSettings> {
-  const slotGap = await get('slotGap', 16);
-  const rowGap = await get('rowGap', 16);
-  const backgroundPadding = await get('backgroundPadding', 16);
-  const pillarWidth = await get('pillarWidth', 28);
+  const slotGap = await get('slotGap', DEFAULT_SETTINGS.slotGap);
+  const rowGap = await get('rowGap', DEFAULT_SETTINGS.rowGap);
+  const backgroundPadding = await get('backgroundPadding', DEFAULT_SETTINGS.backgroundPadding);
+  const pillarWidth = await get('pillarWidth', DEFAULT_SETTINGS.pillarWidth);
   return { slotGap, rowGap, backgroundPadding, pillarWidth };
 }
 
