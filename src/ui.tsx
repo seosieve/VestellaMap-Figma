@@ -39,7 +39,7 @@ const App: React.FC = () => {
   ];
 
   const handleTabChange = (tabId: string) => {
-    if (hasUnsavedChanges) {
+    if (hasUnsavedChanges && tabId !== 'Setting') {
       setIsModalOpen(true);
       setPendingTabId(tabId);
       return;
