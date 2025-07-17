@@ -1,4 +1,5 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
+import { DEFAULT_SETTINGS, DesignSettings } from '../utils/settingManager';
 import InputBox from '../components/InputBox';
 import Button from '../components/Button';
 
@@ -8,16 +9,19 @@ const SettingDesignContainer: React.FC = () => {
   const [backgroundPadding, setBackgroundPadding] = useState<number>(0);
   const [pillarWidth, setPillarWidth] = useState<number>(0);
 
+  const [initialValues, setInitialValues] = useState<DesignSettings>(DEFAULT_SETTINGS);
+
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: 'load-settings' } }, '*');
 
     window.onmessage = (event) => {
       const msg = event.data.pluginMessage;
       if (msg.type === 'settings-loaded') {
-        setSlotGap(msg.settings.slotGap);
-        setRowGap(msg.settings.rowGap);
-        setBackgroundPadding(msg.settings.backgroundPadding);
-        setPillarWidth(msg.settings.pillarWidth);
+        setSlotGap(msg.slotGap);
+        setRowGap(msg.rowGap);
+        setBackgroundPadding(msg.backgroundPadding);
+        setPillarWidth(msg.pillarWidth);
+        setInitialValues(msg);
       }
     };
   }, []);
@@ -37,6 +41,12 @@ const SettingDesignContainer: React.FC = () => {
     );
   };
 
+  const isSaveDisabled =
+    slotGap === initialValues.slotGap &&
+    rowGap === initialValues.rowGap &&
+    backgroundPadding === initialValues.backgroundPadding &&
+    pillarWidth === initialValues.pillarWidth;
+
   return (
     <div style={styles.container}>
       <div style={styles.inputContainer}>
@@ -45,7 +55,7 @@ const SettingDesignContainer: React.FC = () => {
         <InputBox title="Background Padding" value={backgroundPadding} onChange={setBackgroundPadding} />
         <InputBox title="Pillar Width" value={pillarWidth} onChange={setPillarWidth} />
       </div>
-      <Button title="Save" onClick={handleSave} />
+      <Button title="Save" disabled={isSaveDisabled} onClick={handleSave} />
     </div>
   );
 };

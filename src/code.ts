@@ -26,7 +26,7 @@ figma.ui.onmessage = async (msg) => {
     await saveSettings(msg);
   } else if (msg.type === 'load-settings') {
     const settings = await loadSettings();
-    figma.ui.postMessage({ type: 'settings-loaded', settings });
+    figma.ui.postMessage({ type: 'settings-loaded', ...settings });
   }
 };
 

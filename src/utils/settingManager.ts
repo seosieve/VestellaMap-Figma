@@ -2,12 +2,19 @@
 
 import { get, set } from './managers/clientStorageManager';
 
-interface DesignSettings {
+export interface DesignSettings {
   slotGap: number;
   rowGap: number;
   backgroundPadding: number;
   pillarWidth: number;
 }
+
+export const DEFAULT_SETTINGS: DesignSettings = {
+  slotGap: 16,
+  rowGap: 16,
+  backgroundPadding: 16,
+  pillarWidth: 28,
+};
 
 export async function loadSettings(): Promise<DesignSettings> {
   const slotGap = await get('slotGap', 16);
@@ -17,7 +24,7 @@ export async function loadSettings(): Promise<DesignSettings> {
   return { slotGap, rowGap, backgroundPadding, pillarWidth };
 }
 
-export async function saveSettings(msg: any) {
+export async function saveSettings(msg: DesignSettings) {
   await set('slotGap', msg.slotGap);
   await set('rowGap', msg.rowGap);
   await set('backgroundPadding', msg.backgroundPadding);
