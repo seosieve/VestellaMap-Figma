@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import SettingDesignContainer from '../containers/SettingDesignContainer';
 
 interface SettingScreenProps {
-  onSettingChage: (changed: boolean) => void;
+  onSettingChange: (changed: boolean) => void;
 }
 
-const SettingScreen: React.FC<SettingScreenProps> = ({ onSettingChage }) => {
+const SettingScreen = forwardRef<{ handleSave: () => Promise<void> }, SettingScreenProps>((props, ref) => {
   return (
     <div style={styles.container}>
       <p style={styles.title}> Settings</p>
       <p style={styles.subtitle}>Design</p>
-      <SettingDesignContainer onSettingChage={onSettingChage} />
+      <SettingDesignContainer ref={ref} onSettingChange={props.onSettingChange} />
     </div>
   );
-};
+});
 
 const styles = {
   container: {

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import ReactDOM from 'react-dom/client';
 import TabBar, { Tab } from './components/TabBar';
 
 import DesignScreen from './screens/DesignScreen';
 import DevelopmentScreen from './screens/DevelopmentScreen';
 import SettingScreen from './screens/SettingScreen';
+import WarningModal from './screens/WarningModal';
 import Design from './atoms/Design';
 import Development from './atoms/Development';
 import Setting from './atoms/Setting';
@@ -12,6 +13,9 @@ import Setting from './atoms/Setting';
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Design');
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [pendingTabId, setPendingTabId] = useState<string | null>(null);
+  const settingsRef = useRef<{ handleSave: () => Promise<void> }>(null);
 
   const tabs: Tab[] = [
     {
@@ -36,12 +40,23 @@ const App: React.FC = () => {
 
   const handleTabChange = (tabId: string) => {
     if (hasUnsavedChanges) {
-      const confirm = window.confirm('You have unsaved changes. Are you sure you want to switch tabs?');
-      if (!confirm) {
-        return;
-      }
+      setIsModalOpen(true);
+      setPendingTabId(tabId);
+      return;
     }
     setActiveTab(tabId);
+  };
+
+  const handleConfirm = async () => {
+    // settingsRef를 통해 저장 함수 호출
+    await settingsRef.current?.handleSave();
+
+    if (pendingTabId) {
+      setActiveTab(pendingTabId);
+      setPendingTabId(null);
+    }
+    setIsModalOpen(false);
+    setHasUnsavedChanges(false);
   };
 
   return (
@@ -52,8 +67,9 @@ const App: React.FC = () => {
       <div style={styles.content}>
         {activeTab === 'Design' && <DesignScreen />}
         {activeTab === 'Development' && <DevelopmentScreen />}
-        {activeTab === 'Setting' && <SettingScreen onSettingChage={setHasUnsavedChanges} />}
+        {activeTab === 'Setting' && <SettingScreen ref={settingsRef} onSettingChange={setHasUnsavedChanges} />}
       </div>
+      <WarningModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />
     </div>
   );
 };
