@@ -11,6 +11,7 @@ import Setting from './atoms/Setting';
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('Design');
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const tabs: Tab[] = [
     {
@@ -33,15 +34,25 @@ const App: React.FC = () => {
     },
   ];
 
+  const handleTabChange = (tabId: string) => {
+    if (hasUnsavedChanges) {
+      const confirm = window.confirm('You have unsaved changes. Are you sure you want to switch tabs?');
+      if (!confirm) {
+        return;
+      }
+    }
+    setActiveTab(tabId);
+  };
+
   return (
     <div style={styles.container}>
       <div style={styles.header}>
-        <TabBar tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+        <TabBar tabs={tabs} activeTab={activeTab} onTabChange={handleTabChange} />
       </div>
       <div style={styles.content}>
         {activeTab === 'Design' && <DesignScreen />}
         {activeTab === 'Development' && <DevelopmentScreen />}
-        {activeTab === 'Setting' && <SettingScreen />}
+        {activeTab === 'Setting' && <SettingScreen onSettingChage={setHasUnsavedChanges} />}
       </div>
     </div>
   );

@@ -3,7 +3,11 @@ import { DEFAULT_SETTINGS, DesignSettings } from '../utils/settingManager';
 import InputBox from '../components/InputBox';
 import Button from '../components/Button';
 
-const SettingDesignContainer: React.FC = () => {
+interface SettingDesignContainerProps {
+  onSettingChage: (hasChanges: boolean) => void;
+}
+
+const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSettingChage }) => {
   const [slotGap, setSlotGap] = useState<number>(0);
   const [rowGap, setRowGap] = useState<number>(0);
   const [backgroundPadding, setBackgroundPadding] = useState<number>(0);
@@ -26,7 +30,27 @@ const SettingDesignContainer: React.FC = () => {
     };
   }, []);
 
+  // 파라미터 비교 함수
+  const checkValues = (operator: '===' | '!==') => [
+    eval(`slotGap ${operator} initialValues.slotGap`),
+    eval(`rowGap ${operator} initialValues.rowGap`),
+    eval(`backgroundPadding ${operator} initialValues.backgroundPadding`),
+    eval(`pillarWidth ${operator} initialValues.pillarWidth`),
+  ];
+
+  useEffect(() => {
+    // 설정 변경 여부 확인
+    const hasChanges = checkValues('!==').some(Boolean);
+
+    onSettingChage(hasChanges);
+  }, [slotGap, rowGap, backgroundPadding, pillarWidth, initialValues]);
+
   const handleSave = () => {
+    // 현재 값으로 초기화
+    setInitialValues({ slotGap, rowGap, backgroundPadding, pillarWidth });
+    // 설정 변경 여부 초기화
+    onSettingChage(false);
+
     parent.postMessage(
       {
         pluginMessage: {
@@ -41,11 +65,7 @@ const SettingDesignContainer: React.FC = () => {
     );
   };
 
-  const isSaveDisabled =
-    slotGap === initialValues.slotGap &&
-    rowGap === initialValues.rowGap &&
-    backgroundPadding === initialValues.backgroundPadding &&
-    pillarWidth === initialValues.pillarWidth;
+  const isSaveDisabled = checkValues('===').every(Boolean);
 
   return (
     <div style={styles.container}>

@@ -1,12 +1,16 @@
 import React from 'react';
 import SettingDesignContainer from '../containers/SettingDesignContainer';
 
-const SettingScreen: React.FC = () => {
+interface SettingScreenProps {
+  onSettingChage: (changed: boolean) => void;
+}
+
+const SettingScreen: React.FC<SettingScreenProps> = ({ onSettingChage }) => {
   return (
     <div style={styles.container}>
       <p style={styles.title}> Settings</p>
       <p style={styles.subtitle}>Design</p>
-      <SettingDesignContainer />
+      <SettingDesignContainer onSettingChage={onSettingChage} />
     </div>
   );
 };

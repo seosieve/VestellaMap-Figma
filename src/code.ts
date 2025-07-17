@@ -7,11 +7,6 @@ import { saveSettings, loadSettings } from './utils/settingManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
 
-// 플러그인 실행 시
-figma.on('run', () => {
-  figma.notify('Hello! 👋');
-});
-
 figma.on('selectionchange', () => {
   countSlots();
 });
@@ -24,6 +19,7 @@ figma.ui.onmessage = async (msg) => {
     generateRoutes();
   } else if (msg.type === 'save-settings') {
     await saveSettings(msg);
+    figma.notify('🌿 설정이 저장되었습니다.');
   } else if (msg.type === 'load-settings') {
     const settings = await loadSettings();
     figma.ui.postMessage({ type: 'settings-loaded', ...settings });
