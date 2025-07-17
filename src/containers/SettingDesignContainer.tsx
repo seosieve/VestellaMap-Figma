@@ -27,12 +27,10 @@ const SettingDesignContainer: React.FC = () => {
       {
         pluginMessage: {
           type: 'save-settings',
-          settings: {
-            slotGap: parseInt(slotGap),
-            rowGap: parseInt(rowGap),
-            backgroundPadding: parseInt(backgroundPadding),
-            pillarWidth: parseInt(pillarWidth),
-          },
+          slotGap: parseInt(slotGap),
+          rowGap: parseInt(rowGap),
+          backgroundPadding: parseInt(backgroundPadding),
+          pillarWidth: parseInt(pillarWidth),
         },
       },
       '*',

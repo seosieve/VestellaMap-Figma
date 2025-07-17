@@ -7,6 +7,11 @@ import { saveSettings, loadSettings } from './utils/settingManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
 
+// 플러그인 실행 시
+figma.on('run', () => {
+  figma.notify('Hello! 👋');
+});
+
 figma.on('selectionchange', () => {
   countSlots();
 });
@@ -18,18 +23,14 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'generate-routes') {
     generateRoutes();
   } else if (msg.type === 'save-settings') {
-    await saveSettings(msg.settings);
-    figma.notify('설정이 저장되었습니다.');
+    await saveSettings(msg);
   } else if (msg.type === 'load-settings') {
     const settings = await loadSettings();
-    figma.ui.postMessage({
-      type: 'settings-loaded',
-      settings,
-    });
+    figma.ui.postMessage({ type: 'settings-loaded', settings });
   }
 };
 
-// 플러그인이 종료될 때 실행될 함수
+// 플러그인 종료 시
 figma.on('close', () => {
   figma.notify('Bye bye! 👋');
 });
