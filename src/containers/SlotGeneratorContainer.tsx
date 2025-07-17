@@ -4,28 +4,21 @@ import CheckBox from '../components/CheckBox';
 import Button from '../components/Button';
 
 const SlotGeneratorContainer: React.FC = () => {
-  const [count, setCount] = useState<string>('');
-  const [pillar, setPillar] = useState<string>('');
+  const [count, setCount] = useState<number>(0);
+  const [pillar, setPillar] = useState<number>(0);
   const [multiple, setMultiple] = useState<boolean>(false);
 
   const handleGenerateClick = () => {
-    const countNum = parseInt(count, 10);
-    const pillarNum = parseInt(pillar, 10);
+    const countNum = count;
+    const pillarNum = pillar;
 
     parent.postMessage(
-      {
-        pluginMessage: {
-          type: 'generate-slots',
-          count: countNum,
-          pillar: pillarNum,
-          multiple: multiple,
-        },
-      },
+      { pluginMessage: { type: 'generate-slots', count: countNum, pillar: pillarNum, multiple: multiple } },
       '*',
     );
   };
 
-  const isGenerateDisabled = !count || parseInt(count, 10) <= 0;
+  const isGenerateDisabled = !count || count <= 0;
 
   return (
     <div style={styles.container}>

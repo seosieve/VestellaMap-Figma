@@ -2,8 +2,8 @@ import React, { useState, CSSProperties } from 'react';
 
 interface InputBoxProps {
   title: string;
-  value: string;
-  onChange: (value: string) => void;
+  value: number;
+  onChange: (value: number) => void;
 }
 
 const InputBox: React.FC<InputBoxProps> = ({ title, value, onChange }) => {
@@ -20,7 +20,7 @@ const InputBox: React.FC<InputBoxProps> = ({ title, value, onChange }) => {
         type="number"
         placeholder="0"
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange(parseInt(e.target.value))}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
       />

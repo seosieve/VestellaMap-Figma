@@ -3,10 +3,10 @@ import InputBox from '../components/InputBox';
 import Button from '../components/Button';
 
 const SettingDesignContainer: React.FC = () => {
-  const [slotGap, setSlotGap] = useState<string>('');
-  const [rowGap, setRowGap] = useState<string>('');
-  const [backgroundPadding, setBackgroundPadding] = useState<string>('');
-  const [pillarWidth, setPillarWidth] = useState<string>('');
+  const [slotGap, setSlotGap] = useState<number>(0);
+  const [rowGap, setRowGap] = useState<number>(0);
+  const [backgroundPadding, setBackgroundPadding] = useState<number>(0);
+  const [pillarWidth, setPillarWidth] = useState<number>(0);
 
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: 'load-settings' } }, '*');
@@ -14,10 +14,10 @@ const SettingDesignContainer: React.FC = () => {
     window.onmessage = (event) => {
       const msg = event.data.pluginMessage;
       if (msg.type === 'settings-loaded') {
-        setSlotGap(msg.settings.slotGap.toString());
-        setRowGap(msg.settings.rowGap.toString());
-        setBackgroundPadding(msg.settings.backgroundPadding.toString());
-        setPillarWidth(msg.settings.pillarWidth.toString());
+        setSlotGap(msg.settings.slotGap);
+        setRowGap(msg.settings.rowGap);
+        setBackgroundPadding(msg.settings.backgroundPadding);
+        setPillarWidth(msg.settings.pillarWidth);
       }
     };
   }, []);
@@ -27,10 +27,10 @@ const SettingDesignContainer: React.FC = () => {
       {
         pluginMessage: {
           type: 'save-settings',
-          slotGap: parseInt(slotGap),
-          rowGap: parseInt(rowGap),
-          backgroundPadding: parseInt(backgroundPadding),
-          pillarWidth: parseInt(pillarWidth),
+          slotGap: slotGap,
+          rowGap: rowGap,
+          backgroundPadding: backgroundPadding,
+          pillarWidth: pillarWidth,
         },
       },
       '*',
