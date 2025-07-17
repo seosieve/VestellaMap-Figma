@@ -2,11 +2,13 @@ import React from 'react';
 import { CSSProperties } from 'react';
 import Button from '../components/Button';
 
-const WarningModal: React.FC<{
+interface WarningModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-}> = ({ isOpen, onClose, onConfirm }) => {
+}
+
+const WarningModal: React.FC<WarningModalProps> = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (

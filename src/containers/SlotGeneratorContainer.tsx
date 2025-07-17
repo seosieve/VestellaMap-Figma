@@ -23,8 +23,8 @@ const SlotGeneratorContainer: React.FC = () => {
   return (
     <div style={styles.container}>
       <div style={styles.inputContainer}>
-        <InputBox title="Slots per Row" value={count} onChange={setCount} />
-        <InputBox title="Pillar Interval" value={pillar} onChange={setPillar} />
+        <InputBox title="Slots per Row" onChange={setCount} />
+        <InputBox title="Pillar Interval" onChange={setPillar} />
       </div>
       <CheckBox checked={multiple} onChange={setMultiple} />
       <Button title="Generate" disabled={isGenerateDisabled} onClick={handleGenerateClick} />

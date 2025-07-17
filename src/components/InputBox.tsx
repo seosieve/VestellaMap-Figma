@@ -2,7 +2,7 @@ import React, { useState, CSSProperties } from 'react';
 
 interface InputBoxProps {
   title: string;
-  value: number;
+  value?: number;
   onChange: (value: number) => void;
 }
 
@@ -19,7 +19,7 @@ const InputBox: React.FC<InputBoxProps> = ({ title, value, onChange }) => {
         }}
         type="number"
         placeholder="0"
-        value={value}
+        value={value ?? undefined}
         onChange={(e) => onChange(parseInt(e.target.value))}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
