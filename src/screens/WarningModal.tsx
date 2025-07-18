@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { CSSProperties } from 'react';
 import Button from '../components/Button';
+import CancelButton from '../components/CancelButton';
+import Warning from '../atoms/Warning';
 
 interface WarningModalProps {
   isOpen: boolean;
@@ -42,10 +44,13 @@ const WarningModal: React.FC<WarningModalProps> = ({ isOpen, onClose, onConfirm 
           transition: 'transform 0.3s ease-in-out, opacity 0.3s ease-in-out',
         }}
       >
-        <p style={styles.message}>저장되지 않은 변경사항이 있습니다.</p>
+        <div style={styles.titleContainer}>
+          <Warning width={36} height={36} color="#AFAFAF" />
+          <p style={styles.message}> You have unsaved changes.</p>
+        </div>
         <div style={styles.buttonContainer}>
-          <Button title="저장하고 이동" onClick={onConfirm} />
-          <Button title="취소" onClick={onClose} />
+          <Button title="Exit With Saving" onClick={onConfirm} />
+          <CancelButton onClick={onClose} />
         </div>
       </div>
     </div>
@@ -63,22 +68,36 @@ const styles: { [key: string]: CSSProperties } = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingBottom: '40px',
     zIndex: 1000,
   },
   modal: {
     backgroundColor: '#2c2d2f',
     padding: '16px',
-    borderRadius: '8px',
-    width: '280px',
+    borderRadius: '12px',
+    width: '260px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '24px',
+  },
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: '4px',
   },
   message: {
     color: '#ffffff',
     fontSize: '14px',
+    fontWeight: '600',
     textAlign: 'center',
-    margin: '0 0 16px 0',
+    margin: '0',
   },
   buttonContainer: {
     display: 'flex',
+    width: '100%',
+    flexDirection: 'column',
     gap: '8px',
     justifyContent: 'center',
   },
