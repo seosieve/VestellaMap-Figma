@@ -3,7 +3,7 @@
 import { countSlots } from './utils/slotCounter';
 import { generateSlots } from './utils/slotGenerator';
 import { generateRoutes } from './utils/routeGenerator';
-import { saveSettings, loadSettings } from './utils/managers/settingManager';
+import { saveSettings, loadSettings } from './utils/settingManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
 
@@ -16,7 +16,7 @@ figma.ui.onmessage = async (msg) => {
   if (msg.type === 'generate-slots') {
     await generateSlots(msg);
   } else if (msg.type === 'generate-routes') {
-    generateRoutes();
+    generateRoutes(msg);
   } else if (msg.type === 'save-settings') {
     await saveSettings(msg);
     figma.notify('🌿 설정이 저장되었습니다.');

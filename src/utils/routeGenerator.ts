@@ -1,8 +1,15 @@
 // routeGenerator.ts
 
-export function generateRoutes() {
+export enum Point {
+  start = 'start',
+  end = 'end',
+}
+
+export function generateRoutes(msg: { point: Point }) {
   // 선택된 선분에 랜덤 위치에 원 그리기
   const selection = figma.currentPage.selection;
+
+  figma.notify(msg.point);
 
   if (selection.length > 0) {
     const selectedNode = selection[0];

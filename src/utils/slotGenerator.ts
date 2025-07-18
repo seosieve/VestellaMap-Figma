@@ -1,6 +1,6 @@
 // slotGenerator.ts
 
-import { DesignSettings, loadSettings } from './managers/settingManager';
+import { DesignSettings, loadSettings } from './settingManager';
 
 export async function generateSlots(msg: { type: string; count: number; pillar: number; multiple: boolean }) {
   const count = msg.count;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
-import { DEFAULT_SETTINGS, DesignSettings } from '../utils/managers/settingManager';
+import { DefaultValue, DesignSettings } from '../utils/settingManager';
 import InputBox from '../components/InputBox';
 import Button from '../components/Button';
 
@@ -13,7 +13,7 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
   const [backgroundPadding, setBackgroundPadding] = useState<number>(0);
   const [pillarWidth, setPillarWidth] = useState<number>(0);
   const [isSaveDisabled, setIsSaveDisabled] = useState<boolean>(false);
-  const [initialValues, setInitialValues] = useState<DesignSettings>(DEFAULT_SETTINGS);
+  const [initialValues, setInitialValues] = useState<DesignSettings>(DefaultValue);
 
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: 'load-settings' } }, '*');

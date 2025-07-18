@@ -1,15 +1,16 @@
 import React, { CSSProperties } from 'react';
 import Button from '../components/Button';
+import { Point } from '../utils/routeGenerator';
 
 const RouteGeneratorContainer: React.FC = () => {
-  const handleGenerateClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'generate-routes' } }, '*');
+  const handleGenerateClick = (point: Point) => {
+    parent.postMessage({ pluginMessage: { type: 'generate-routes', point: point } }, '*');
   };
 
   return (
     <div style={styles.buttonContainer}>
-      <Button title="시작점에 생성" onClick={handleGenerateClick} />
-      <Button title="끝점에 생성" onClick={handleGenerateClick} />
+      <Button title="시작점에 생성" onClick={() => handleGenerateClick(Point.start)} />
+      <Button title="끝점에 생성" onClick={() => handleGenerateClick(Point.end)} />
     </div>
   );
 };
