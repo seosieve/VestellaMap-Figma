@@ -60,13 +60,10 @@ export function generateRoutes() {
       circle.name = `Circle on Line`;
 
       figma.currentPage.appendChild(circle);
-      figma.currentPage.selection = [circle];
-
-      figma.notify(`원 생성: 중점(${circleCenter.x.toFixed(1)}, ${circleCenter.y.toFixed(1)})`);
     } else {
-      figma.notify('선분을 선택해주세요');
+      figma.notify('❎ㅤ선분을 선택해주세요');
     }
   } else {
-    figma.notify('선분을 선택해주세요');
+    figma.notify('❎ㅤ선분을 선택해주세요');
   }
 }
