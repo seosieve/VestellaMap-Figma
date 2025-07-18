@@ -5,15 +5,15 @@ interface SettingScreenProps {
   onSettingChange: (changed: boolean) => void;
 }
 
-const SettingScreen = forwardRef<{ handleSave: () => Promise<void> }, SettingScreenProps>((props, ref) => {
+const SettingScreen: React.FC<SettingScreenProps> = ({ onSettingChange }) => {
   return (
     <div style={styles.container}>
       <p style={styles.title}> Settings</p>
       <p style={styles.subtitle}>Design</p>
-      <SettingDesignContainer ref={ref} onSettingChange={props.onSettingChange} />
+      <SettingDesignContainer onSettingChange={onSettingChange} />
     </div>
   );
-});
+};
 
 const styles = {
   container: {

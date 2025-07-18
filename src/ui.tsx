@@ -15,7 +15,6 @@ const App: React.FC = () => {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [pendingTabId, setPendingTabId] = useState<string | null>(null);
-  const settingsRef = useRef<{ handleSave: () => Promise<void> }>(null);
 
   const tabs: Tab[] = [
     {
@@ -48,9 +47,6 @@ const App: React.FC = () => {
   };
 
   const handleConfirm = async () => {
-    // settingsRef를 통해 저장 함수 호출
-    await settingsRef.current?.handleSave();
-
     if (pendingTabId) {
       setActiveTab(pendingTabId);
       setPendingTabId(null);
@@ -67,7 +63,7 @@ const App: React.FC = () => {
       <div style={styles.content}>
         {activeTab === 'Design' && <DesignScreen />}
         {activeTab === 'Development' && <DevelopmentScreen />}
-        {activeTab === 'Setting' && <SettingScreen ref={settingsRef} onSettingChange={setHasUnsavedChanges} />}
+        {activeTab === 'Setting' && <SettingScreen onSettingChange={setHasUnsavedChanges} />}
       </div>
       <WarningModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />
     </div>

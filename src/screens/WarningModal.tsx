@@ -49,7 +49,7 @@ const WarningModal: React.FC<WarningModalProps> = ({ isOpen, onClose, onConfirm 
           <p style={styles.message}> You have unsaved changes.</p>
         </div>
         <div style={styles.buttonContainer}>
-          <Button title="Exit With Saving" onClick={onConfirm} />
+          <Button title="Exit Without Saving" onClick={onConfirm} />
           <CancelButton onClick={onClose} />
         </div>
       </div>
