@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TabBar, { Tab } from './components/TabBar';
 

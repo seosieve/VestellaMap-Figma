@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import SettingDesignContainer from '../containers/SettingDesignContainer';
 
 interface SettingScreenProps {

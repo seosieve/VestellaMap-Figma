@@ -1,4 +1,4 @@
-import React, { useEffect, useState, CSSProperties, useImperativeHandle } from 'react';
+import React, { useEffect, useState, CSSProperties } from 'react';
 import { DEFAULT_SETTINGS, DesignSettings } from '../utils/managers/settingManager';
 import InputBox from '../components/InputBox';
 import Button from '../components/Button';
