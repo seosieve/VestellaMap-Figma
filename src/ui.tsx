@@ -23,12 +23,12 @@ const App: React.FC = () => {
       icon: Design,
       position: 'left',
     },
-    // {
-    //   id: 'Development',
-    //   label: 'Development',
-    //   icon: Development,
-    //   position: 'left',
-    // },
+    {
+      id: 'Development',
+      label: 'Development',
+      icon: Development,
+      position: 'left',
+    },
     {
       id: 'Setting',
       label: '',

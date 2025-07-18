@@ -12,7 +12,7 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
   const [rowGap, setRowGap] = useState<number>(0);
   const [backgroundPadding, setBackgroundPadding] = useState<number>(0);
   const [pillarWidth, setPillarWidth] = useState<number>(0);
-
+  const [isSaveDisabled, setIsSaveDisabled] = useState<boolean>(false);
   const [initialValues, setInitialValues] = useState<DesignSettings>(DEFAULT_SETTINGS);
 
   useEffect(() => {
@@ -41,8 +41,10 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
   useEffect(() => {
     // 설정 변경 여부 확인
     const hasChanges = checkValues('!==').some(Boolean);
+    const isAllSame = checkValues('===').every(Boolean);
 
     onSettingChange(hasChanges);
+    setIsSaveDisabled(isAllSame);
   }, [slotGap, rowGap, backgroundPadding, pillarWidth, initialValues]);
 
   const handleSave = async () => {
@@ -52,20 +54,10 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
     onSettingChange(false);
 
     parent.postMessage(
-      {
-        pluginMessage: {
-          type: 'save-settings',
-          slotGap: slotGap,
-          rowGap: rowGap,
-          backgroundPadding: backgroundPadding,
-          pillarWidth: pillarWidth,
-        },
-      },
+      { pluginMessage: { type: 'save-settings', slotGap, rowGap, backgroundPadding, pillarWidth } },
       '*',
     );
   };
-
-  const isSaveDisabled = checkValues('===').every(Boolean);
 
   return (
     <div style={styles.container}>
