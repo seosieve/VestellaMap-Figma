@@ -1,15 +1,62 @@
 // routeGenerator.ts
 
-export enum Point {
-  start = 'start',
-  end = 'end',
-}
+export type GenerateSpot = 'start' | 'intersect' | 'end';
 
-export function generateRoutes(msg: { point: Point }) {
-  // 선택된 선분에 랜덤 위치에 원 그리기
+type Point = [x: number, y: number];
+
+export function generateRoutes(msg: { spot: GenerateSpot }) {
   const selection = figma.currentPage.selection;
 
-  figma.notify(msg.point);
+  if (selection.length > 0) {
+    const selectedNode = selection[0];
+
+    if (selectedNode?.type === 'LINE') {
+      const line = selectedNode as LineNode;
+
+      const startPoint: Point = [line.x, line.y];
+      const endPoint = calculateRoutePoint(line);
+
+      figma.notify(JSON.stringify(msg));
+
+      if (msg.spot === 'start') {
+        figma.notify('start');
+        generateRoute(startPoint);
+      } else if (msg.spot === 'end') {
+        generateRoute(endPoint);
+      } else if (msg.spot === 'intersect') {
+        return;
+      }
+    }
+  } else {
+    figma.notify('❎ㅤ선분을 선택해주세요');
+  }
+}
+
+// 선분 끝점 계산
+function calculateRoutePoint(line: LineNode): Point {
+  const startPoint = { x: line.x, y: line.y };
+  const rotationRad = (-line.rotation * Math.PI) / 180;
+  return [startPoint.x + line.width * Math.cos(rotationRad), startPoint.y + line.width * Math.sin(rotationRad)];
+}
+
+// Route 원 생성
+function generateRoute(point: Point) {
+  const circle = figma.createEllipse();
+  const diameter = 200;
+  circle.resize(diameter, diameter);
+  circle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
+  circle.name = 'Route';
+
+  const circleCenter: Point = [point[0], point[1]];
+  circle.x = circleCenter[0] - diameter / 2;
+  circle.y = circleCenter[1] - diameter / 2;
+
+  figma.currentPage.appendChild(circle);
+}
+
+export function generateRoutes2() {
+  // 선택된 선분에 랜덤 위치에 원 그리기
+  const selection = figma.currentPage.selection;
 
   if (selection.length > 0) {
     const selectedNode = selection[0];
