@@ -2,7 +2,7 @@
 
 export type GenerateSpot = 'start' | 'intersect' | 'end';
 
-type Point = [x: number, y: number];
+export type Point = [x: number, y: number];
 
 export function generateRoutes(msg: { spot: GenerateSpot }) {
   const selection = figma.currentPage.selection;
@@ -37,20 +37,20 @@ export function generateRoutes(msg: { spot: GenerateSpot }) {
 }
 
 // 선분 시작점 계산
-function calculateStartPoint(line: LineNode): Point {
+export function calculateStartPoint(line: LineNode): Point {
   const { offsetX, offsetY } = calculateLineMetrics(line);
   return [line.x + offsetX, line.y + offsetY];
 }
 
 // 선분 끝점 계산
-function calculateEndPoint(line: LineNode): Point {
+export function calculateEndPoint(line: LineNode): Point {
   const { radian, offsetX, offsetY } = calculateLineMetrics(line);
   const endPoint = { x: line.x + line.width * Math.cos(radian), y: line.y + line.width * Math.sin(radian) };
   return [endPoint.x + offsetX, endPoint.y + offsetY];
 }
 
 // 선분 교차점 계산
-function calculateIntersectPoint(line1: LineNode, line2: LineNode): Point | null {
+export function calculateIntersectPoint(line1: LineNode, line2: LineNode): Point | null {
   // 각 선의 회전각을 라디안으로 변환
   const metrics1 = calculateLineMetrics(line1);
   const metrics2 = calculateLineMetrics(line2);

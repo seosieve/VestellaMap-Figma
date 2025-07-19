@@ -1,20 +1,28 @@
 import React, { useState } from 'react';
+import { GenerateSpot } from '../utils/routeGenerator';
 
 interface CircleButtonProps {
   disabled: boolean;
   onClick: () => void;
+  onHoverChange: (isHovered: boolean, type: GenerateSpot) => void;
+  type: GenerateSpot;
 }
 
-const CircleButton: React.FC<CircleButtonProps> = ({ disabled, onClick }) => {
+const CircleButton: React.FC<CircleButtonProps> = ({ disabled, onClick, onHoverChange, type }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const handleHover = (hovered: boolean) => {
+    setIsHovered(hovered);
+    onHoverChange(hovered, type);
+  };
 
   return (
     <button
       style={disabled ? styles.disabled : isHovered ? styles.hover : styles.default}
       disabled={disabled}
       onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseEnter={() => handleHover(true)}
+      onMouseLeave={() => handleHover(false)}
     />
   );
 };

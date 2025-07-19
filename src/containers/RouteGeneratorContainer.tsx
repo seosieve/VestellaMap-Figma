@@ -6,9 +6,20 @@ const RouteGeneratorContainer: React.FC = () => {
   const [buttonStates, setButtonStates] = useState({ start: false, intersect: false, end: false });
   const [horizontalLineColor, setHorizontalLineColor] = useState<string>('#404041');
   const [verticalLineOpacity, setVerticalLineOpacity] = useState<string>('33%');
+  const [hoveredButton, setHoveredButton] = useState<{ type: GenerateSpot; isHovered: boolean } | null>(null);
 
   const handleGenerateClick = (spot: GenerateSpot) => {
     parent.postMessage({ pluginMessage: { type: 'generate-routes', spot: spot } }, '*');
+  };
+
+  const handleHoverChange = (isHovered: boolean, type: GenerateSpot) => {
+    if (isHovered) {
+      setHoveredButton({ type, isHovered });
+      parent.postMessage({ pluginMessage: { type: 'show-preview-ellipse', buttonType: type } }, '*');
+    } else {
+      setHoveredButton(null);
+      parent.postMessage({ pluginMessage: { type: 'hide-preview-ellipse' } }, '*');
+    }
   };
 
   useEffect(() => {
@@ -33,9 +44,24 @@ const RouteGeneratorContainer: React.FC = () => {
         <div style={{ ...styles.verticalLine, opacity: verticalLineOpacity }} />
       </div>
       <div style={styles.buttonContainer}>
-        <CircleButton disabled={!buttonStates.start} onClick={() => handleGenerateClick('start')} />
-        <CircleButton disabled={!buttonStates.intersect} onClick={() => handleGenerateClick('intersect')} />
-        <CircleButton disabled={!buttonStates.end} onClick={() => handleGenerateClick('end')} />
+        <CircleButton
+          type="start"
+          disabled={!buttonStates.start}
+          onClick={() => handleGenerateClick('start')}
+          onHoverChange={handleHoverChange}
+        />
+        <CircleButton
+          type="intersect"
+          disabled={!buttonStates.intersect}
+          onClick={() => handleGenerateClick('intersect')}
+          onHoverChange={handleHoverChange}
+        />
+        <CircleButton
+          type="end"
+          disabled={!buttonStates.end}
+          onClick={() => handleGenerateClick('end')}
+          onHoverChange={handleHoverChange}
+        />
       </div>
     </div>
   );

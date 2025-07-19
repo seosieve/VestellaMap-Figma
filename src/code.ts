@@ -4,6 +4,7 @@ import { countSlots } from './utils/slotCounter';
 import { detectLine } from './utils/lineDetector';
 import { generateSlots } from './utils/slotGenerator';
 import { generateRoutes } from './utils/routeGenerator';
+import { showPreviewEllipse, hidePreviewEllipse } from './utils/previewGenerator';
 import { saveSettings, loadSettings } from './utils/settingManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
@@ -18,6 +19,10 @@ figma.on('selectionchange', () => {
 figma.ui.onmessage = async (msg) => {
   if (msg.type === 'generate-slots') {
     await generateSlots(msg);
+  } else if (msg.type === 'show-preview-ellipse') {
+    showPreviewEllipse(msg);
+  } else if (msg.type === 'hide-preview-ellipse') {
+    hidePreviewEllipse();
   } else if (msg.type === 'generate-routes') {
     generateRoutes(msg);
   } else if (msg.type === 'reset-settings') {
