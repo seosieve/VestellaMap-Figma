@@ -1,6 +1,7 @@
 /// <reference types="@figma/plugin-typings" />
 
 import { countSlots } from './utils/slotCounter';
+import { detectLine } from './utils/lineDetector';
 import { generateSlots } from './utils/slotGenerator';
 import { generateRoutes } from './utils/routeGenerator';
 import { saveSettings, loadSettings } from './utils/settingManager';
@@ -10,6 +11,7 @@ figma.showUI(__html__, { width: 344, height: 612 });
 // 노드 선택 시
 figma.on('selectionchange', () => {
   countSlots();
+  detectLine();
 });
 
 // 메시지 수신 처리
