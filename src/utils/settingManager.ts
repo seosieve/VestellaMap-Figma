@@ -8,10 +8,10 @@ export interface DesignSettings {
 }
 
 export const DefaultValue: DesignSettings = {
-  slotGap: 16,
+  slotGap: 4,
   rowGap: 16,
-  backgroundPadding: 16,
-  pillarWidth: 28,
+  backgroundPadding: 24,
+  pillarWidth: 10,
 };
 
 export async function get(name: string, defaultValue: number) {

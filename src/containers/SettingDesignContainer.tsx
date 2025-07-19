@@ -1,7 +1,8 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
 import { DefaultValue, DesignSettings } from '../utils/settingManager';
-import InputBox from '../components/InputBox';
+import ResetButton from '../components/ResetButton';
 import Button from '../components/Button';
+import InputBox from '../components/InputBox';
 
 interface SettingDesignContainerProps {
   onSettingChange: (hasChanges: boolean) => void;
@@ -47,12 +48,20 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
     setIsSaveDisabled(isAllSame);
   }, [slotGap, rowGap, backgroundPadding, pillarWidth, initialValues]);
 
-  const handleSave = async () => {
-    // 현재 값으로 초기화
-    setInitialValues({ slotGap, rowGap, backgroundPadding, pillarWidth });
-    // 설정 변경 여부 초기화
+  const handleReset = () => {
+    const { slotGap, rowGap, backgroundPadding, pillarWidth } = DefaultValue;
+    setInitialValues(DefaultValue);
+    setSlotGap(slotGap);
+    setRowGap(rowGap);
+    setBackgroundPadding(backgroundPadding);
+    setPillarWidth(pillarWidth);
     onSettingChange(false);
+    parent.postMessage({ pluginMessage: { type: 'reset-settings', ...DefaultValue } }, '*');
+  };
 
+  const handleSave = async () => {
+    setInitialValues({ slotGap, rowGap, backgroundPadding, pillarWidth });
+    onSettingChange(false);
     parent.postMessage(
       { pluginMessage: { type: 'save-settings', slotGap, rowGap, backgroundPadding, pillarWidth } },
       '*',
@@ -61,6 +70,10 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
 
   return (
     <div style={styles.container}>
+      <div style={styles.headerContainer}>
+        <p style={styles.title}>Design</p>
+        <ResetButton onClick={handleReset} />
+      </div>
       <div style={styles.inputContainer}>
         <InputBox title="Slot Gap" value={slotGap} onChange={setSlotGap} />
         <InputBox title="Row Gap" value={rowGap} onChange={setRowGap} />
@@ -81,8 +94,20 @@ const styles: { [key: string]: CSSProperties } = {
     backgroundColor: '#2c2d2f',
     borderRadius: '12px',
     padding: '16px',
-    marginTop: '12px',
     gap: '16px',
+  },
+  headerContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  title: {
+    fontSize: '20px',
+    fontWeight: '700',
+    color: '#FFFFFF',
+    margin: '0',
   },
   inputContainer: {
     display: 'flex',
