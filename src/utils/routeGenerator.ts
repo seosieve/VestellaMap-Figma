@@ -13,13 +13,10 @@ export function generateRoutes(msg: { spot: GenerateSpot }) {
     if (selectedNode?.type === 'LINE') {
       const line = selectedNode as LineNode;
 
-      const startPoint: Point = [line.x, line.y];
-      const endPoint = calculateRoutePoint(line);
-
-      figma.notify(JSON.stringify(msg));
+      const startPoint = calculateStartPoint(line);
+      const endPoint = calculateEndPoint(line);
 
       if (msg.spot === 'start') {
-        figma.notify('start');
         generateRoute(startPoint);
       } else if (msg.spot === 'end') {
         generateRoute(endPoint);
@@ -32,14 +29,32 @@ export function generateRoutes(msg: { spot: GenerateSpot }) {
   }
 }
 
-// 선분 끝점 계산
-function calculateRoutePoint(line: LineNode): Point {
-  const startPoint = { x: line.x, y: line.y };
-  const rotationRad = (-line.rotation * Math.PI) / 180;
-  return [startPoint.x + line.width * Math.cos(rotationRad), startPoint.y + line.width * Math.sin(rotationRad)];
+// 선분 시작점 계산
+function calculateStartPoint(line: LineNode): Point {
+  const { offsetX, offsetY } = calculateLineMetrics(line);
+  return [line.x + offsetX, line.y + offsetY];
 }
 
-// Route 원 생성
+// 선분 끝점 계산
+function calculateEndPoint(line: LineNode): Point {
+  const { rotationRad, offsetX, offsetY } = calculateLineMetrics(line);
+  const endPoint = { x: line.x + line.width * Math.cos(rotationRad), y: line.y + line.width * Math.sin(rotationRad) };
+  return [endPoint.x + offsetX, endPoint.y + offsetY];
+}
+
+// 공통 유틸리티 함수
+function calculateLineMetrics(line: LineNode) {
+  const strokeWeight = typeof line.strokeWeight === 'number' ? line.strokeWeight : 1;
+  const strokeOffset = strokeWeight / 2;
+  const rotationRad = (-line.rotation * Math.PI) / 180;
+
+  const offsetX = strokeOffset * Math.sin(rotationRad);
+  const offsetY = -strokeOffset * Math.cos(rotationRad);
+
+  return { rotationRad, offsetX, offsetY };
+}
+
+// Route Ellipse 생성
 function generateRoute(point: Point) {
   const circle = figma.createEllipse();
   const diameter = 200;
@@ -52,72 +67,4 @@ function generateRoute(point: Point) {
   circle.y = circleCenter[1] - diameter / 2;
 
   figma.currentPage.appendChild(circle);
-}
-
-export function generateRoutes2() {
-  // 선택된 선분에 랜덤 위치에 원 그리기
-  const selection = figma.currentPage.selection;
-
-  if (selection.length > 0) {
-    const selectedNode = selection[0];
-
-    if (selectedNode?.type === 'LINE') {
-      const line = selectedNode as LineNode;
-
-      // 선분의 실제 시작점과 끝점 파악
-      // Line의 경우 실제로는 vector 속성을 사용해야 할 수도 있음
-      console.log('Line 정보:', {
-        x: line.x,
-        y: line.y,
-        width: line.width,
-        height: line.height,
-        rotation: line.rotation,
-      });
-
-      // Line의 실제 끝점 계산 (rotation과 width 사용)
-      const startPoint = { x: line.x, y: line.y };
-
-      // rotation을 라디안으로 변환 (반대 방향으로)
-      const rotationRad = (-line.rotation * Math.PI) / 180;
-
-      // rotation과 width를 사용해서 끝점 계산
-      const endPoint = {
-        x: startPoint.x + line.width * Math.cos(rotationRad),
-        y: startPoint.y + line.width * Math.sin(rotationRad),
-      };
-
-      // 선분 위의 랜덤한 위치 계산
-      const randomRatio = Math.random();
-      const circleCenter = {
-        x: startPoint.x + (endPoint.x - startPoint.x) * randomRatio,
-        y: startPoint.y + (endPoint.y - startPoint.y) * randomRatio,
-      };
-
-      console.log('선분 정보:', {
-        startPoint,
-        endPoint,
-        rotation: line.rotation,
-        width: line.width,
-        circleCenter,
-      });
-
-      // 원 생성 (중점 기준)
-      const circle = figma.createEllipse();
-      const diameter = 200; // 원 지름
-      circle.resize(diameter, diameter);
-
-      // 원의 중점을 계산된 위치에 배치
-      circle.x = circleCenter.x - diameter / 2;
-      circle.y = circleCenter.y - diameter / 2;
-
-      circle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
-      circle.name = `Circle on Line`;
-
-      figma.currentPage.appendChild(circle);
-    } else {
-      figma.notify('❎ㅤ선분을 선택해주세요');
-    }
-  } else {
-    figma.notify('❎ㅤ선분을 선택해주세요');
-  }
 }
