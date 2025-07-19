@@ -50,11 +50,11 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
 
   const handleReset = () => {
     const { slotGap, rowGap, backgroundPadding, pillarWidth } = DefaultValue;
-    setInitialValues(DefaultValue);
     setSlotGap(slotGap);
     setRowGap(rowGap);
     setBackgroundPadding(backgroundPadding);
     setPillarWidth(pillarWidth);
+    setInitialValues(DefaultValue);
     onSettingChange(false);
     parent.postMessage({ pluginMessage: { type: 'reset-settings', ...DefaultValue } }, '*');
   };
