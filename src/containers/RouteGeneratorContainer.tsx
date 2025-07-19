@@ -1,5 +1,5 @@
 import React, { CSSProperties } from 'react';
-import Button from '../components/Button';
+import CircleButton from '../components/CircleButton';
 import { GenerateSpot } from '../utils/routeGenerator';
 
 const RouteGeneratorContainer: React.FC = () => {
@@ -8,19 +8,61 @@ const RouteGeneratorContainer: React.FC = () => {
   };
 
   return (
-    <div style={styles.buttonContainer}>
-      <Button title="시작점" onClick={() => handleGenerateClick('start')} />
-      <Button title="사이점" onClick={() => handleGenerateClick('intersect')} />
-      <Button title="끝점" onClick={() => handleGenerateClick('end')} />
+    <div style={styles.container}>
+      <div style={styles.crossBackground}>
+        <div style={styles.horizontalLine} />
+        <div style={styles.verticalLine} />
+      </div>
+      <div style={styles.buttonContainer}>
+        <CircleButton disabled onClick={() => handleGenerateClick('start')} />
+        <CircleButton disabled onClick={() => handleGenerateClick('intersect')} />
+        <CircleButton disabled onClick={() => handleGenerateClick('end')} />
+      </div>
     </div>
   );
 };
 
 const styles: { [key: string]: CSSProperties } = {
-  buttonContainer: {
+  container: {
+    position: 'relative',
     display: 'flex',
-    flexDirection: 'row',
-    gap: '16px',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '80px',
+    backgroundColor: '#2c2d2f',
+    borderRadius: '12px',
+    padding: '16px',
+    marginTop: '24px',
+  },
+  crossBackground: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  horizontalLine: {
+    position: 'absolute',
+    width: 'calc(100% - 32px)',
+    height: '1px',
+    backgroundColor: '#404041',
+  },
+  verticalLine: {
+    position: 'absolute',
+    width: '1px',
+    height: 'calc(100% - 32px)',
+    background: 'linear-gradient(180deg, #40404133, #404041, #40404133)',
+  },
+  buttonContainer: {
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    justifyContent: 'space-between',
+    width: '100%',
+    zIndex: 1,
   },
 };
 
