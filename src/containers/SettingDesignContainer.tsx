@@ -49,23 +49,31 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
   }, [slotGap, rowGap, backgroundPadding, pillarWidth, initialValues]);
 
   const handleReset = () => {
-    const { slotGap, rowGap, backgroundPadding, pillarWidth } = DefaultValue;
-    setSlotGap(slotGap);
-    setRowGap(rowGap);
-    setBackgroundPadding(backgroundPadding);
-    setPillarWidth(pillarWidth);
-    setInitialValues(DefaultValue);
+    updateAllValues(DefaultValue);
     onSettingChange(false);
     parent.postMessage({ pluginMessage: { type: 'reset-settings', ...DefaultValue } }, '*');
   };
 
   const handleSave = async () => {
-    setInitialValues({ slotGap, rowGap, backgroundPadding, pillarWidth });
+    // 최대값 체크
+    const checkedValues: DesignSettings = {
+      slotGap: Math.min(slotGap, 100),
+      rowGap: Math.min(rowGap, 100),
+      backgroundPadding: Math.min(backgroundPadding, 100),
+      pillarWidth: Math.min(pillarWidth, 100),
+    };
+
+    updateAllValues(checkedValues);
     onSettingChange(false);
-    parent.postMessage(
-      { pluginMessage: { type: 'save-settings', slotGap, rowGap, backgroundPadding, pillarWidth } },
-      '*',
-    );
+    parent.postMessage({ pluginMessage: { type: 'save-settings', ...checkedValues } }, '*');
+  };
+
+  const updateAllValues = (values: DesignSettings) => {
+    setSlotGap(values.slotGap);
+    setRowGap(values.rowGap);
+    setBackgroundPadding(values.backgroundPadding);
+    setPillarWidth(values.pillarWidth);
+    setInitialValues(values);
   };
 
   return (
