@@ -1,6 +1,7 @@
 /// <reference types="@figma/plugin-typings" />
 
 import { countSlots } from './services/slotCounter';
+import { numberBeacons } from './services/beaconNumberer';
 import { countBeacons } from './services/beaconCounter';
 import { detectLine } from './services/lineDetector';
 import { generateSlots } from './services/slotGenerator';
@@ -31,7 +32,7 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'generate-routes') {
     generateRoutes(msg);
   } else if (msg.type === 'numbering-beacons') {
-    showNotification('🌿 비콘 번호 설정 중입니다.');
+    numberBeacons();
   } else if (msg.type === 'reset-settings') {
     await saveSettings(msg);
     showNotification('🌿 설정이 초기화되었습니다.');

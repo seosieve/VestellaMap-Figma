@@ -9,7 +9,7 @@ const BeaconGeneratorContainer: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <Button title="Set Beacon Number" onClick={handleNumberingClick} />
+      <Button title="Show Beacon Number" onClick={handleNumberingClick} />
     </div>
   );
 };
@@ -20,7 +20,7 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '80px',
+    height: '48px',
     backgroundColor: Colors.shadow,
     borderRadius: '12px',
     padding: '16px',
