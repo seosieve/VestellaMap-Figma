@@ -1,6 +1,7 @@
 // slotGenerator.ts
 
 import { DesignSettings, loadSettings } from './settingManager';
+import { showNotification } from '../managers/notificationManager';
 
 export async function generateSlots(msg: { type: string; count: number; pillar: number; multiple: boolean }) {
   const count = msg.count;
@@ -12,12 +13,12 @@ export async function generateSlots(msg: { type: string; count: number; pillar: 
   const currentSelection = figma.currentPage.selection;
 
   if (currentSelection.length === 0) {
-    figma.notify('❎ㅤ복사할 노드를 선택해주세요');
+    showNotification('❎ㅤ복사할 노드를 선택해주세요');
     return;
   }
 
   if (count === 0) {
-    figma.notify('❎ㅤ슬롯 개수를 입력해주세요');
+    showNotification('❎ㅤ슬롯 개수를 입력해주세요');
     return;
   }
 
@@ -25,7 +26,7 @@ export async function generateSlots(msg: { type: string; count: number; pillar: 
 
   // 노드가 여전히 존재하는지 확인
   if (!selectedNode || !selectedNode.parent) {
-    figma.notify('선택된 노드가 유효하지 않습니다. 다시 선택해주세요.');
+    showNotification('선택된 노드가 유효하지 않습니다. 다시 선택해주세요.');
     return;
   }
 
@@ -36,7 +37,7 @@ export async function generateSlots(msg: { type: string; count: number; pillar: 
       generateSingle(count, pillar, selectedNode, settings);
     }
   } catch (error) {
-    figma.notify('노드 복사 중 오류가 발생했습니다. 다시 시도해주세요.');
+    showNotification('노드 복사 중 오류가 발생했습니다. 다시 시도해주세요.');
     return;
   }
 }

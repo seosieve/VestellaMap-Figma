@@ -2,6 +2,7 @@
 
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
+import { showNotification } from '../managers/notificationManager';
 
 export type GenerateSpot = 'start' | 'intersect' | 'end';
 
@@ -23,10 +24,10 @@ export function generateRoutes(msg: { spot: GenerateSpot }) {
       const intersectPoint = calculateIntersectPoint(line, intersectLine);
       switch (intersectPoint) {
         case 'parallel':
-          figma.notify('❎ㅤ평행한 선분입니다');
+          showNotification('❎ㅤ평행한 선분입니다');
           break;
         case 'noIntersect':
-          figma.notify('❎ㅤ교차점이 없는 선분입니다');
+          showNotification('❎ㅤ교차점이 없는 선분입니다');
           break;
         default:
           generateEllipse(intersectPoint);
