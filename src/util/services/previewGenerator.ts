@@ -1,5 +1,7 @@
 // previewGenerator.ts
 
+import { Colors } from '../../constant/color';
+import { hexToRgb } from '../managers/colorManager';
 import { Point, GenerateSpot, calculateStartPoint, calculateEndPoint, calculateIntersectPoint } from './routeGenerator';
 
 export function showPreviewEllipse(msg: { buttonType: GenerateSpot }) {
@@ -34,7 +36,7 @@ export function generatePreviewEllipse(point: Point) {
   const diameter = 200;
 
   circle.resize(diameter, diameter);
-  circle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
+  circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
   circle.opacity = 0.1;
   circle.name = 'preview-circle';
   circle.locked = true;

@@ -1,4 +1,5 @@
 import React, { useState, CSSProperties } from 'react';
+import { Colors } from '../../constant/color';
 import InputBox from '../components/InputBox';
 import CheckBox from '../components/CheckBox';
 import Button from '../components/Button';
@@ -38,7 +39,7 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#2c2d2f',
+    backgroundColor: Colors.shadow,
     borderRadius: '12px',
     padding: '16px',
     marginTop: '24px',

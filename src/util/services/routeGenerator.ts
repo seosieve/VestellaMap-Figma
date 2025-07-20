@@ -1,5 +1,8 @@
 // routeGenerator.ts
 
+import { Colors } from '../../constant/color';
+import { hexToRgb } from '../managers/colorManager';
+
 export type GenerateSpot = 'start' | 'intersect' | 'end';
 
 export type Point = [x: number, y: number];
@@ -131,7 +134,7 @@ function generateEllipse(point: Point) {
   const circle = figma.createEllipse();
   const diameter = 200;
   circle.resize(diameter, diameter);
-  circle.fills = [{ type: 'SOLID', color: { r: 0.5, g: 0.5, b: 0.5 } }];
+  circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
   circle.name = 'Route';
 
   const circleCenter: Point = [point[0], point[1]];

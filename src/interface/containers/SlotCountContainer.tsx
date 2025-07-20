@@ -1,4 +1,5 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
+import { Colors } from '../../constant/color';
 
 interface NodeInfo {
   name: string;
@@ -61,7 +62,7 @@ const styles: { [key: string]: CSSProperties } = {
     alignItems: 'center',
     width: '100%',
     borderRadius: '8px',
-    border: '1px solid #505152',
+    border: `1px solid ${Colors.medium}`,
     overflow: 'hidden',
   },
   titleContainer: {
@@ -71,10 +72,10 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'center',
     width: '100%',
     height: '38px',
-    borderBottom: '1px solid #343637',
+    borderBottom: `1px solid ${Colors.shadow}`,
   },
   title: {
-    color: '#afafaf',
+    color: Colors.base,
     fontSize: '13px',
     fontWeight: '300',
     margin: '0',
@@ -90,7 +91,7 @@ const styles: { [key: string]: CSSProperties } = {
     height: '100px',
   },
   empty: {
-    color: '#929293',
+    color: Colors.base,
     fontSize: '14px',
     fontWeight: '300',
     margin: '0',
@@ -102,10 +103,10 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'center',
     width: '100%',
     height: '38px',
-    borderBottom: '1px solid #343637',
+    borderBottom: `1px solid ${Colors.shadow}`,
   },
   content: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '13px',
     fontWeight: '400',
     width: '50%',
@@ -123,10 +124,10 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'center',
     width: '100%',
     height: '38px',
-    backgroundColor: '#2c2d2f',
+    backgroundColor: Colors.shadow,
   },
   total: {
-    color: '#31dd9e',
+    color: Colors.mintBase,
     fontSize: '13px',
     fontWeight: '500',
     margin: '0',

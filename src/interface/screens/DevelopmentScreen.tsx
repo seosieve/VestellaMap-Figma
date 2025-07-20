@@ -1,4 +1,5 @@
 import React from 'react';
+import { Colors } from '../../constant/color';
 import RouteGeneratorContainer from '../containers/RouteGeneratorContainer';
 
 const DevelopmentScreen: React.FC = () => {
@@ -20,13 +21,13 @@ const styles = {
     paddingTop: '32px',
   },
   title: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '24px',
     fontWeight: '700',
     margin: '0',
   },
   subtitle: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '16px',
     fontWeight: '700',
     marginTop: '36px',

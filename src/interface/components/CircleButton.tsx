@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Colors } from '../../constant/color';
 import { GenerateSpot } from '../../../src/util/services/routeGenerator';
 
 interface CircleButtonProps {
@@ -31,8 +32,8 @@ const styles = {
   default: {
     width: '36px',
     height: '36px',
-    backgroundColor: '#31DD9E',
-    border: '4px solid #31DD9E',
+    backgroundColor: Colors.mintBase,
+    border: `4px solid ${Colors.mintBase}`,
     borderRadius: '50%',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
@@ -40,8 +41,8 @@ const styles = {
   disabled: {
     width: '36px',
     height: '36px',
-    backgroundColor: '#404041',
-    border: '4px solid #505152',
+    backgroundColor: Colors.dark,
+    border: `4px solid ${Colors.medium}`,
     borderRadius: '50%',
     cursor: 'default',
     transition: 'all 0.3s ease',
@@ -49,8 +50,8 @@ const styles = {
   hover: {
     width: '36px',
     height: '36px',
-    backgroundColor: '#31DD9E',
-    border: '6px solid #50F4B8',
+    backgroundColor: Colors.mintBase,
+    border: `6px solid ${Colors.mintBright}`,
     borderRadius: '50%',
     cursor: 'pointer',
     transition: 'all 0.3s ease',

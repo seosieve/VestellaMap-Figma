@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Colors } from '../../constant/color';
 
 interface ButtonProps {
   title: string;
@@ -26,8 +27,8 @@ const styles = {
   default: {
     width: '100%',
     height: '36px',
-    backgroundColor: '#31DD9E',
-    color: '#05130E',
+    backgroundColor: Colors.mintBase,
+    color: Colors.mintBlack,
     border: 'none',
     borderRadius: '8px',
     fontSize: '14px',
@@ -38,8 +39,8 @@ const styles = {
   disabled: {
     width: '100%',
     height: '36px',
-    backgroundColor: '#22936A',
-    color: '#133F2F',
+    backgroundColor: Colors.mintDark,
+    color: Colors.mintShadow,
     border: 'none',
     borderRadius: '8px',
     fontSize: '14px',
@@ -50,8 +51,8 @@ const styles = {
   hover: {
     width: '100%',
     height: '36px',
-    backgroundColor: '#50F4B8',
-    color: '#05130E',
+    backgroundColor: Colors.mintBright,
+    color: Colors.mintBlack,
     border: 'none',
     borderRadius: '8px',
     fontSize: '14px',

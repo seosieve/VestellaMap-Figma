@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Colors } from '../../constant/color';
 
 interface CancelButtonProps {
   onClick?: () => void;
@@ -24,7 +25,7 @@ const styles = {
     width: '100%',
     height: '36px',
     backgroundColor: 'transparent',
-    color: '#AFAFAF',
+    color: Colors.base,
     border: 'none',
     fontSize: '14px',
     fontWeight: '700',
@@ -35,7 +36,7 @@ const styles = {
     width: '100%',
     height: '36px',
     backgroundColor: 'transparent',
-    color: '#FFFFFF',
+    color: Colors.white,
     border: 'none',
     fontSize: '14px',
     fontWeight: '700',

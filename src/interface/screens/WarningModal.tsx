@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { CSSProperties } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
+import { Colors } from '../../constant/color';
 import Button from '../components/Button';
 import CancelButton from '../components/CancelButton';
 import Warning from '../atoms/Warning';
@@ -45,7 +45,7 @@ const WarningModal: React.FC<WarningModalProps> = ({ isOpen, onClose, onConfirm 
         }}
       >
         <div style={styles.titleContainer}>
-          <Warning width={36} height={36} color="#AFAFAF" />
+          <Warning width={36} height={36} color={Colors.base} />
           <p style={styles.message}> You have unsaved changes.</p>
         </div>
         <div style={styles.buttonContainer}>
@@ -72,7 +72,7 @@ const styles: { [key: string]: CSSProperties } = {
     zIndex: 1000,
   },
   modal: {
-    backgroundColor: '#2c2d2f',
+    backgroundColor: Colors.shadow,
     padding: '16px',
     borderRadius: '12px',
     width: '260px',
@@ -88,7 +88,7 @@ const styles: { [key: string]: CSSProperties } = {
     gap: '4px',
   },
   message: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '14px',
     fontWeight: '600',
     textAlign: 'center',

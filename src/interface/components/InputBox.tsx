@@ -1,4 +1,5 @@
 import React, { useState, CSSProperties } from 'react';
+import { Colors } from '../../constant/color';
 
 interface InputBoxProps {
   title: string;
@@ -37,7 +38,7 @@ const styles: { [key: string]: CSSProperties } = {
     width: '100%',
   },
   title: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '14px',
     fontWeight: '400',
     margin: '0',
@@ -45,17 +46,17 @@ const styles: { [key: string]: CSSProperties } = {
   input: {
     width: '72px',
     padding: '6px',
-    border: '1px solid #404041',
+    border: `1px solid ${Colors.dark}`,
     borderRadius: '4px',
-    backgroundColor: '#404041',
-    color: '#ffffff',
+    backgroundColor: Colors.dark,
+    color: Colors.white,
     fontFamily: 'Manrope',
     fontSize: '14px',
     fontWeight: '800',
   },
   inputFocused: {
     outline: 'none',
-    border: '1px solid #31dd9e',
+    border: `1px solid ${Colors.mintBase}`,
   },
 };
 

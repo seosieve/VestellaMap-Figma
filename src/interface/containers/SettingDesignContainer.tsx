@@ -1,4 +1,5 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
+import { Colors } from '../../constant/color';
 import { DefaultValue, DesignSettings } from '../../../src/util/services/settingManager';
 import ResetButton from '../components/ResetButton';
 import Button from '../components/Button';
@@ -99,7 +100,7 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#2c2d2f',
+    backgroundColor: Colors.shadow,
     borderRadius: '12px',
     padding: '16px',
     gap: '16px',
@@ -114,7 +115,7 @@ const styles: { [key: string]: CSSProperties } = {
   title: {
     fontSize: '20px',
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: Colors.white,
     margin: '0',
   },
   inputContainer: {

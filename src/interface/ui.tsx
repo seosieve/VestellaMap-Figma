@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import TabBar, { Tab } from './components/TabBar';
 
+import { Colors } from '../constant/color';
 import DesignScreen from './screens/DesignScreen';
 import DevelopmentScreen from './screens/DevelopmentScreen';
 import SettingScreen from './screens/SettingScreen';
@@ -72,7 +73,7 @@ const App: React.FC = () => {
 
 const styles = {
   container: {
-    backgroundColor: '#1B1C1D',
+    backgroundColor: Colors.black,
     display: 'flex',
     height: '100%',
     flexDirection: 'column' as const,
@@ -81,7 +82,7 @@ const styles = {
   header: {
     position: 'sticky' as const,
     top: 0,
-    backgroundColor: '#1B1C1D',
+    backgroundColor: Colors.black,
     paddingTop: '12px',
     paddingLeft: '32px',
     paddingRight: '32px',

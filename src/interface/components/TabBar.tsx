@@ -1,4 +1,5 @@
 import React from 'react';
+import { Colors } from '../../constant/color';
 
 export interface Tab {
   id: string;
@@ -33,7 +34,7 @@ const TabBar: React.FC<TabBarProps> = ({ tabs, activeTab, onTabChange }) => {
         <Icon
           width={tab.position === 'left' ? 16 : 24}
           height={tab.position === 'left' ? 16 : 24}
-          color={isActive ? '#FFFFFF' : '#AFAFAF'}
+          color={isActive ? Colors.white : Colors.base}
         />
         {tab.label}
       </button>
@@ -53,7 +54,7 @@ const styles = {
     display: 'flex',
     width: '100%',
     justifyContent: 'space-between',
-    backgroundColor: '#1B1C1D',
+    backgroundColor: Colors.black,
   },
   tabGroup: {
     display: 'flex',
@@ -71,14 +72,14 @@ const styles = {
     cursor: 'pointer',
     fontSize: '14px',
     fontWeight: '400',
-    color: '#AFAFAF',
+    color: Colors.base,
     transition: 'all 0.2s ease',
-    borderBottom: '2px solid #1B1C1D',
+    borderBottom: `2px solid ${Colors.black}`,
   },
   activeTab: {
     opacity: 1,
-    color: '#FFFFFF',
-    borderBottom: '2px solid #31DD9E',
+    color: Colors.white,
+    borderBottom: `2px solid ${Colors.mintBase}`,
   },
 };
 

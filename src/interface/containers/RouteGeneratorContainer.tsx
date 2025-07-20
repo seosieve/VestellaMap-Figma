@@ -1,12 +1,12 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
+import { Colors } from '../../constant/color';
 import CircleButton from '../components/CircleButton';
 import { GenerateSpot } from '../../../src/util/services/routeGenerator';
 
 const RouteGeneratorContainer: React.FC = () => {
   const [buttonStates, setButtonStates] = useState({ start: false, intersect: false, end: false });
-  const [horizontalLineColor, setHorizontalLineColor] = useState<string>('#404041');
+  const [horizontalLineColor, setHorizontalLineColor] = useState<string>(Colors.dark);
   const [verticalLineOpacity, setVerticalLineOpacity] = useState<string>('33%');
-  const [hoveredButton, setHoveredButton] = useState<{ type: GenerateSpot; isHovered: boolean } | null>(null);
 
   const handleGenerateClick = (spot: GenerateSpot) => {
     parent.postMessage({ pluginMessage: { type: 'generate-routes', spot: spot } }, '*');
@@ -14,10 +14,8 @@ const RouteGeneratorContainer: React.FC = () => {
 
   const handleHoverChange = (isHovered: boolean, type: GenerateSpot) => {
     if (isHovered) {
-      setHoveredButton({ type, isHovered });
       parent.postMessage({ pluginMessage: { type: 'show-preview-ellipse', buttonType: type } }, '*');
     } else {
-      setHoveredButton(null);
       parent.postMessage({ pluginMessage: { type: 'hide-preview-ellipse' } }, '*');
     }
   };
@@ -29,7 +27,7 @@ const RouteGeneratorContainer: React.FC = () => {
       if (msg.type === 'detection-lines') {
         const count = msg.count;
         // Line Color 설정
-        setHorizontalLineColor(count > 0 ? '#FFFFFF' : '#404041');
+        setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);
         setVerticalLineOpacity(count === 2 ? '100%' : '33%');
         // Button State 설정
         setButtonStates({ start: count === 1, intersect: count === 2, end: count === 1 });
@@ -75,7 +73,7 @@ const styles: { [key: string]: CSSProperties } = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '80px',
-    backgroundColor: '#2c2d2f',
+    backgroundColor: Colors.shadow,
     borderRadius: '12px',
     padding: '16px',
     marginTop: '24px',
@@ -98,7 +96,7 @@ const styles: { [key: string]: CSSProperties } = {
     position: 'absolute',
     width: '1px',
     height: 'calc(100% - 32px)',
-    background: 'linear-gradient(180deg, #FFFFFF33, #FFFFFF, #FFFFFF33)',
+    background: Colors.whiteGradient,
     transition: 'all 0.3s ease',
   },
   buttonContainer: {

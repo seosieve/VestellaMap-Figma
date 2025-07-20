@@ -1,4 +1,5 @@
 import React from 'react';
+import { Colors } from '../../constant/color';
 import SettingDesignContainer from '../containers/SettingDesignContainer';
 
 interface SettingScreenProps {
@@ -19,14 +20,14 @@ const styles = {
     paddingTop: '36px',
   },
   title: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '24px',
     fontWeight: '700',
     margin: '0',
     marginBottom: '24px',
   },
   subtitle: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '16px',
     fontWeight: '700',
     marginTop: '24px',

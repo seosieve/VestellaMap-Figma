@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Colors } from '../../constant/color';
 import Reset from '../atoms/Reset';
 
 interface ResetButtonProps {
@@ -23,7 +24,7 @@ const ResetButton: React.FC<ResetButtonProps> = ({ onClick }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div style={{ ...styles.iconWrapper, animation: isRotating ? 'rotate 0.3s ease' : 'none' }}>
-        <Reset width={12} height={12} color="#AFAFAF" />
+        <Reset width={12} height={12} color={Colors.base} />
       </div>
       <style>
         {`
@@ -41,7 +42,7 @@ const styles = {
   default: {
     width: '24px',
     height: '24px',
-    backgroundColor: '#404041',
+    backgroundColor: Colors.dark,
     border: 'none',
     borderRadius: '50%',
     fontSize: '14px',
@@ -55,7 +56,7 @@ const styles = {
   hover: {
     width: '24px',
     height: '24px',
-    backgroundColor: '#464646',
+    backgroundColor: Colors.medium,
     border: 'none',
     borderRadius: '50%',
     fontSize: '14px',

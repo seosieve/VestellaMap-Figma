@@ -1,4 +1,5 @@
 import React, { CSSProperties, useState } from 'react';
+import { Colors } from '../../constant/color';
 import Check from '../atoms/Check';
 
 interface CheckboxProps {
@@ -20,13 +21,13 @@ const CheckBox: React.FC<CheckboxProps> = ({ checked, onChange }) => {
             ...(checked ? styles.checked : {}),
             ...(isHover && !checked
               ? {
-                  backgroundColor: '#3A3B3D',
-                  border: '2px solid #505152',
+                  backgroundColor: Colors.dark,
+                  border: `2px solid ${Colors.medium}`,
                 }
               : {}),
           }}
         >
-          {checked && <Check width={16} height={16} color="#05130E" />}
+          {checked && <Check width={16} height={16} color={Colors.mintBlack} />}
         </div>
       </label>
     </div>
@@ -49,7 +50,7 @@ const styles: { [key: string]: CSSProperties } = {
     cursor: 'pointer',
   },
   title: {
-    color: '#ffffff',
+    color: Colors.white,
     fontSize: '12px',
     fontWeight: '400',
     margin: '0',
@@ -64,7 +65,7 @@ const styles: { [key: string]: CSSProperties } = {
   checkbox: {
     width: '14px',
     height: '14px',
-    border: '2px solid #505152',
+    border: `2px solid ${Colors.medium}`,
     borderRadius: '4px',
     display: 'flex',
     alignItems: 'center',
@@ -72,8 +73,8 @@ const styles: { [key: string]: CSSProperties } = {
     transition: 'all 0.2s ease',
   },
   checked: {
-    backgroundColor: '#31DD9E',
-    border: '2px solid #31DD9E',
+    backgroundColor: Colors.mintBase,
+    border: `2px solid ${Colors.mintBase}`,
   },
 };
 
