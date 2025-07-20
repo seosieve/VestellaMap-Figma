@@ -1,6 +1,7 @@
 import React from 'react';
 import { Colors } from '../../constant/color';
 import RouteGeneratorContainer from '../containers/RouteGeneratorContainer';
+import BeaconCountContainer from '../containers/BeaconCountContainer';
 
 const DevelopmentScreen: React.FC = () => {
   const handleGenerateClick = () => {
@@ -12,6 +13,8 @@ const DevelopmentScreen: React.FC = () => {
       <p style={styles.title}>Route Spot</p>
       <p style={styles.title}>Generator</p>
       <RouteGeneratorContainer />
+      <p style={styles.subtitle}>Beacon Count by Group</p>
+      <BeaconCountContainer />
     </div>
   );
 };
