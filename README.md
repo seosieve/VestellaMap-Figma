@@ -1,6 +1,12 @@
-# Vestella Map - Figma Plugin
+# Vestella Map – A Figma Plugin for Map Editing <img width="30" height="30" src="https://github.com/user-attachments/assets/266fd179-fd5b-455f-8a9a-702db5d34d1a" />
+> Route Indication, Beacon Management, and Slot Tracking
+<br>
+<br>
 
-Vestella Figma Plugin
+<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
+
+<br>
+<br>
 
 ## 기능
 
