@@ -1,6 +1,6 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
 import { Colors } from '../../constant/color';
-import { DefaultValue, DesignSettings } from '../../../src/util/services/settingManager';
+import { DefaultValue, DesignSettings } from '../../util/services/settingHandler';
 import ResetButton from '../components/ResetButton';
 import Button from '../components/Button';
 import InputBox from '../components/InputBox';

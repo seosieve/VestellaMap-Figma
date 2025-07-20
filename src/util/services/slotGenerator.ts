@@ -2,7 +2,7 @@
 
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
-import { DesignSettings, loadSettings } from './settingManager';
+import { DesignSettings, loadSettings } from './settingHandler';
 import { showNotification } from '../managers/notificationManager';
 
 export async function generateSlots(msg: { type: string; count: number; pillar: number; multiple: boolean }) {
