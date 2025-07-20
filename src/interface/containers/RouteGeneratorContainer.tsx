@@ -8,6 +8,10 @@ const RouteGeneratorContainer: React.FC = () => {
   const [horizontalLineColor, setHorizontalLineColor] = useState<string>(Colors.dark);
   const [verticalLineOpacity, setVerticalLineOpacity] = useState<string>('33%');
 
+  const handleContainerClick = () => {
+    parent.postMessage({ pluginMessage: { type: 'empty-lines' } }, '*');
+  };
+
   const handleGenerateClick = (spot: GenerateSpot) => {
     parent.postMessage({ pluginMessage: { type: 'generate-routes', spot: spot } }, '*');
   };
@@ -36,7 +40,7 @@ const RouteGeneratorContainer: React.FC = () => {
   }, []);
 
   return (
-    <div style={styles.container}>
+    <div style={styles.container} onClick={handleContainerClick}>
       <div style={styles.crossBackground}>
         <div style={{ ...styles.horizontalLine, backgroundColor: horizontalLineColor }} />
         <div style={{ ...styles.verticalLine, opacity: verticalLineOpacity }} />

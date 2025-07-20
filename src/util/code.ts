@@ -17,7 +17,11 @@ figma.on('selectionchange', () => {
 
 // 메시지 수신 처리
 figma.ui.onmessage = async (msg) => {
-  if (msg.type === 'generate-slots') {
+  if (msg.type === 'empty-lines') {
+    if (figma.currentPage.selection.length === 0) {
+      figma.notify('❎ 선분을 선택해주세요');
+    }
+  } else if (msg.type === 'generate-slots') {
     await generateSlots(msg);
   } else if (msg.type === 'show-preview-ellipse') {
     showPreviewEllipse(msg);
