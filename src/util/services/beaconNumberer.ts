@@ -22,8 +22,6 @@ export function numberBeacons() {
   const thousandHundred = Math.floor(clampedX * 99); // 0~99
   const tenOne = Math.floor(clampedY * 99); // 0~99
 
-  // 최종 번호 조합
   const beaconNumber = 10000 + thousandHundred * 100 + tenOne;
-
   showNotification(`비콘 번호: ${beaconNumber}`);
 }
