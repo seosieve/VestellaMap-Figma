@@ -9,7 +9,6 @@ export async function generateSlots(msg: { type: string; count: number; pillar: 
 
   const settings = await loadSettings();
 
-  // 현재 선택된 노드 다시 가져오기
   const currentSelection = figma.currentPage.selection;
 
   if (currentSelection.length === 0) {
@@ -114,15 +113,17 @@ function setFrameAttributes(frame: FrameNode, layoutMode: 'HORIZONTAL' | 'VERTIC
 // Nodes 생성 함수
 function createNodes(count: number, pillar: number, selectedNode: SceneNode, pillarWidth: number): SceneNode[] {
   const nodes: SceneNode[] = [];
-  for (let i = 0; i < count; i++) {
+  for (let i = 0; i <= count; i++) {
     if (pillar > 0 && i % pillar === 0) {
       const pillarRect = createPillar(pillarWidth);
       figma.currentPage.appendChild(pillarRect);
       nodes.push(pillarRect);
     }
-    const copiedNode = selectedNode.clone();
-    figma.currentPage.appendChild(copiedNode);
-    nodes.push(copiedNode);
+    if (i < count) {
+      const copiedNode = selectedNode.clone();
+      figma.currentPage.appendChild(copiedNode);
+      nodes.push(copiedNode);
+    }
   }
   return nodes;
 }
