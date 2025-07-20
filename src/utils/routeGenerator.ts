@@ -17,9 +17,9 @@ export function generateRoutes(msg: { spot: GenerateSpot }) {
       const endPoint = calculateEndPoint(line);
 
       if (msg.spot === 'start') {
-        generateRoute(startPoint);
+        generateEllipse(startPoint);
       } else if (msg.spot === 'end') {
-        generateRoute(endPoint);
+        generateEllipse(endPoint);
       } else if (msg.spot === 'intersect') {
         const line1 = selection[0] as LineNode;
         const line2 = selection[1] as LineNode;
@@ -27,7 +27,7 @@ export function generateRoutes(msg: { spot: GenerateSpot }) {
         if (intersectPoint === null) {
           figma.notify('❎ㅤ평행한 선분입니다');
         } else {
-          generateRoute(intersectPoint);
+          generateEllipse(intersectPoint);
         }
       }
     }
@@ -127,7 +127,7 @@ function calculateLineMetrics(line: LineNode) {
 }
 
 // Route Ellipse 생성
-function generateRoute(point: Point) {
+function generateEllipse(point: Point) {
   const circle = figma.createEllipse();
   const diameter = 200;
   circle.resize(diameter, diameter);
