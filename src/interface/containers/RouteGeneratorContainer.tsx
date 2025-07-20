@@ -14,7 +14,7 @@ const RouteGeneratorContainer: React.FC = () => {
 
   const handleHoverChange = (isHovered: boolean, type: GenerateSpot) => {
     if (isHovered) {
-      parent.postMessage({ pluginMessage: { type: 'show-preview-ellipse', buttonType: type } }, '*');
+      parent.postMessage({ pluginMessage: { type: 'show-preview-ellipse', spot: type } }, '*');
     } else {
       parent.postMessage({ pluginMessage: { type: 'hide-preview-ellipse' } }, '*');
     }

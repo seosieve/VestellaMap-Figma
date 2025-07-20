@@ -9,33 +9,30 @@ export type Point = [x: number, y: number];
 
 export function generateRoutes(msg: { spot: GenerateSpot }) {
   const selection = figma.currentPage.selection;
+  const line = selection[0] as LineNode;
 
-  if (selection.length > 0) {
-    const selectedNode = selection[0];
-
-    if (selectedNode?.type === 'LINE') {
-      const line = selectedNode as LineNode;
-
-      const startPoint = calculateStartPoint(line);
-      const endPoint = calculateEndPoint(line);
-
-      if (msg.spot === 'start') {
-        generateEllipse(startPoint);
-      } else if (msg.spot === 'end') {
-        generateEllipse(endPoint);
-      } else if (msg.spot === 'intersect') {
-        const line1 = selection[0] as LineNode;
-        const line2 = selection[1] as LineNode;
-        const intersectPoint = calculateIntersectPoint(line1, line2);
-        if (intersectPoint === null) {
+  switch (msg.spot) {
+    case 'start':
+      generateEllipse(calculateStartPoint(line));
+      break;
+    case 'end':
+      generateEllipse(calculateEndPoint(line));
+      break;
+    case 'intersect':
+      const intersectLine = selection[1] as LineNode;
+      const intersectPoint = calculateIntersectPoint(line, intersectLine);
+      switch (intersectPoint) {
+        case 'parallel':
           figma.notify('❎ㅤ평행한 선분입니다');
-        } else {
+          break;
+        case 'noIntersect':
+          figma.notify('❎ㅤ교차점이 없는 선분입니다');
+          break;
+        default:
           generateEllipse(intersectPoint);
-        }
+          break;
       }
-    }
-  } else {
-    figma.notify('❎ㅤ선분을 선택해주세요');
+      break;
   }
 }
 
@@ -53,7 +50,7 @@ export function calculateEndPoint(line: LineNode): Point {
 }
 
 // 선분 교차점 계산
-export function calculateIntersectPoint(line1: LineNode, line2: LineNode): Point | null {
+export function calculateIntersectPoint(line1: LineNode, line2: LineNode): Point | 'parallel' | 'noIntersect' {
   // 각 선의 회전각을 라디안으로 변환
   const metrics1 = calculateLineMetrics(line1);
   const metrics2 = calculateLineMetrics(line2);
@@ -68,7 +65,7 @@ export function calculateIntersectPoint(line1: LineNode, line2: LineNode): Point
 
   // 평행한 경우 체크 (내적이 1이거나 -1인 경우)
   if (isParallel(dir1, dir2)) {
-    return null;
+    return 'parallel';
   }
 
   // 교차점 계산을 위한 매개변수 t 구하기
@@ -81,7 +78,11 @@ export function calculateIntersectPoint(line1: LineNode, line2: LineNode): Point
   const isOnLine1 = isPointOnLine(intersection, line1, metrics1);
   const isOnLine2 = isPointOnLine(intersection, line2, metrics2);
 
-  return isOnLine1 && isOnLine2 ? intersection : null;
+  if (!isOnLine1 || !isOnLine2) {
+    return 'noIntersect';
+  }
+
+  return intersection;
 }
 
 function isParallel(dir1: Point, dir2: Point): boolean {

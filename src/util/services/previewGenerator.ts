@@ -4,24 +4,22 @@ import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
 import { Point, GenerateSpot, calculateStartPoint, calculateEndPoint, calculateIntersectPoint } from './routeGenerator';
 
-export function showPreviewEllipse(msg: { buttonType: GenerateSpot }) {
-  const [line1, line2] = figma.currentPage.selection;
+export function showPreviewEllipse(msg: { spot: GenerateSpot }) {
+  const selection = figma.currentPage.selection;
+  const line = selection[0] as LineNode;
 
-  if (!line1 || line1.type !== 'LINE') return;
-
-  switch (msg.buttonType) {
+  switch (msg.spot) {
     case 'start':
-      generatePreviewEllipse(calculateStartPoint(line1));
+      generatePreviewEllipse(calculateStartPoint(line));
       break;
     case 'end':
-      generatePreviewEllipse(calculateEndPoint(line1));
+      generatePreviewEllipse(calculateEndPoint(line));
       break;
     case 'intersect':
-      if (line2?.type === 'LINE') {
-        const intersectPoint = calculateIntersectPoint(line1, line2);
-        if (intersectPoint) {
-          generatePreviewEllipse(intersectPoint);
-        }
+      const intersectLine = selection[1] as LineNode;
+      const intersectPoint = calculateIntersectPoint(line, intersectLine);
+      if (intersectPoint !== 'parallel' && intersectPoint !== 'noIntersect') {
+        generatePreviewEllipse(intersectPoint);
       }
       break;
   }
