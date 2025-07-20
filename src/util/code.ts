@@ -3,7 +3,7 @@
 import { countSlots } from './services/slotCounter';
 import { detectLine } from './services/lineDetector';
 import { generateSlots } from './services/slotGenerator';
-import { generateRoutes } from './services/routeGenerator';
+import { notifyEmpty, generateRoutes } from './services/routeGenerator';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
 import { saveSettings, loadSettings } from './services/settingManager';
 import { showNotification } from './managers/notificationManager';
@@ -19,9 +19,7 @@ figma.on('selectionchange', () => {
 // 메시지 수신 처리
 figma.ui.onmessage = async (msg) => {
   if (msg.type === 'empty-lines') {
-    if (figma.currentPage.selection.length === 0) {
-      showNotification('❎ 선분을 선택해주세요');
-    }
+    notifyEmpty();
   } else if (msg.type === 'generate-slots') {
     await generateSlots(msg);
   } else if (msg.type === 'show-preview-ellipse') {

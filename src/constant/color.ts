@@ -16,6 +16,10 @@ export const Colors = {
   shadow: '#2C2D2F',
   black: '#1B1C1D',
 
+  // Slot
+  pillar: '#CCCCCC',
+  background: '#545454',
+
   // Gradient
   whiteGradient: 'linear-gradient(180deg, #FFFFFF33, #FFFFFF, #FFFFFF33)',
 };

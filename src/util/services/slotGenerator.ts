@@ -1,5 +1,7 @@
 // slotGenerator.ts
 
+import { Colors } from '../../constant/color';
+import { hexToRgb } from '../managers/colorManager';
 import { DesignSettings, loadSettings } from './settingManager';
 import { showNotification } from '../managers/notificationManager';
 
@@ -49,7 +51,7 @@ function generateMultiple(count: number, pillar: number, selectedNode: SceneNode
   setFrameAttributes(frame, 'VERTICAL');
   frame.itemSpacing = settings.rowGap;
   frame.paddingLeft = frame.paddingRight = frame.paddingTop = frame.paddingBottom = settings.backgroundPadding;
-  frame.fills = [{ type: 'SOLID', color: { r: 0.33, g: 0.33, b: 0.33 } }];
+  frame.fills = [{ type: 'SOLID', color: hexToRgb(Colors.background) }];
   frame.cornerRadius = 12;
 
   // 2개의 행 생성
@@ -93,7 +95,7 @@ function generateSingle(count: number, pillar: number, selectedNode: SceneNode, 
   setFrameAttributes(frame, 'HORIZONTAL');
   frame.itemSpacing = settings.slotGap;
   frame.paddingLeft = frame.paddingRight = frame.paddingTop = frame.paddingBottom = 16;
-  frame.fills = [{ type: 'SOLID', color: { r: 0.33, g: 0.33, b: 0.33 } }];
+  frame.fills = [{ type: 'SOLID', color: hexToRgb(Colors.background) }];
   frame.cornerRadius = 12;
 
   centerViewport(frame);
@@ -134,7 +136,7 @@ function createPillar(pillarWidth: number) {
   const pillar = figma.createRectangle();
   pillar.name = 'pillar';
   pillar.resize(pillarWidth, 128);
-  pillar.fills = [{ type: 'SOLID', color: { r: 0.8, g: 0.8, b: 0.8 } }];
+  pillar.fills = [{ type: 'SOLID', color: hexToRgb(Colors.pillar) }];
   return pillar;
 }
 

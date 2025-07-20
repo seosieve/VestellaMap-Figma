@@ -145,3 +145,10 @@ function generateEllipse(point: Point) {
 
   figma.currentPage.appendChild(circle);
 }
+
+// Select No Line 알림
+export function notifyEmpty() {
+  if (figma.currentPage.selection.length === 0) {
+    showNotification('❎ㅤ선분을 선택해주세요');
+  }
+}
