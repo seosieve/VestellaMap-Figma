@@ -1,6 +1,6 @@
 import React, { CSSProperties, useEffect, useState } from 'react';
 import CircleButton from '../components/CircleButton';
-import { GenerateSpot } from '../utils/routeGenerator';
+import { GenerateSpot } from '../../../src/util/services/routeGenerator';
 
 const RouteGeneratorContainer: React.FC = () => {
   const [buttonStates, setButtonStates] = useState({ start: false, intersect: false, end: false });

@@ -1,11 +1,11 @@
 /// <reference types="@figma/plugin-typings" />
 
-import { countSlots } from './utils/slotCounter';
-import { detectLine } from './utils/lineDetector';
-import { generateSlots } from './utils/slotGenerator';
-import { generateRoutes } from './utils/routeGenerator';
-import { showPreviewEllipse, hidePreviewEllipse } from './utils/previewGenerator';
-import { saveSettings, loadSettings } from './utils/settingManager';
+import { countSlots } from './services/slotCounter';
+import { detectLine } from './services/lineDetector';
+import { generateSlots } from './services/slotGenerator';
+import { generateRoutes } from './services/routeGenerator';
+import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
+import { saveSettings, loadSettings } from './services/settingManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
 

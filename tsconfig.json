@@ -19,13 +19,13 @@
     "exactOptionalPropertyTypes": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/interface/*"]
     },
     "outDir": ".",
     "declaration": false,
     "sourceMap": false,
     "typeRoots": ["./node_modules/@figma", "./node_modules/@types"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/interface/**/*", "src/util/services", "src/util/code.ts"],
   "exclude": ["node_modules", "dist"]
 }

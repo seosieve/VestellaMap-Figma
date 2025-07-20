@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GenerateSpot } from '../utils/routeGenerator';
+import { GenerateSpot } from '../../../src/util/services/routeGenerator';
 
 interface CircleButtonProps {
   disabled: boolean;

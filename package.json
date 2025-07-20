@@ -8,7 +8,7 @@
     "dev": "webpack --mode=development --watch",
     "lint": "eslint --ext .ts,.tsx --ignore-pattern node_modules .",
     "lint:fix": "eslint --ext .ts,.tsx --ignore-pattern node_modules --fix .",
-    "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
+    "format": "prettier --write \"src/interface/**/*.{js,jsx,ts,tsx}\""
   },
   "author": "",
   "license": "",
