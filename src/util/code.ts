@@ -1,9 +1,9 @@
 /// <reference types="@figma/plugin-typings" />
 
-import { countSlots } from './services/slotCounter';
+import { selectSlots } from './services/selector/slotSelector';
 import { numberBeacons } from './services/beaconNumberer';
-import { countBeacons } from './services/beaconCounter';
-import { detectLine } from './services/lineDetector';
+import { selectBeacons } from './services/selector/beaconSelector';
+import { selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
 import { notifyEmpty, generateRoutes } from './services/routeGenerator';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
@@ -14,9 +14,9 @@ figma.showUI(__html__, { width: 344, height: 612 });
 
 // 노드 선택 시
 figma.on('selectionchange', () => {
-  countSlots();
-  countBeacons();
-  detectLine();
+  selectSlots();
+  selectBeacons();
+  selectLine();
 });
 
 // 메시지 수신 처리

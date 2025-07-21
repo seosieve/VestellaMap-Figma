@@ -9,7 +9,7 @@ const BeaconGeneratorContainer: React.FC = () => {
 
   return (
     <div style={styles.container}>
-      <Button title="Show Beacon Number" onClick={handleNumberingClick} />
+      <Button title="Set Beacon Number" onClick={handleNumberingClick} />
     </div>
   );
 };

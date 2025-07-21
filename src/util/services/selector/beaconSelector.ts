@@ -1,13 +1,12 @@
-// beaconCounter.ts
+// beaconSelector.ts
 
-export function countBeacons() {
+export function selectBeacons() {
   const selection = figma.currentPage.selection;
-
-  // 재귀적으로 lot 개수를 세는 함수
-  function countLotsRecursively(node: SceneNode): number {
+  // 재귀적으로 beacon 개수를 세는 함수
+  function countBeaconsRecursively(node: SceneNode): number {
     let count = 0;
 
-    // 현재 노드가 lot을 포함하는지 확인
+    // 현재 노드가 beacon을 포함하는지 확인
     if (node.name.includes('beacon')) {
       count++;
     }
@@ -15,7 +14,7 @@ export function countBeacons() {
     // 자식 노드들이 있으면 재귀적으로 탐색
     if ('children' in node) {
       for (const child of node.children) {
-        count += countLotsRecursively(child);
+        count += countBeaconsRecursively(child);
       }
     }
 
@@ -25,18 +24,18 @@ export function countBeacons() {
   // 각 선택된 노드의 정보를 배열로 수집
   const nodeInfo = selection.map((node) => ({
     name: node.name,
-    lotCount: countLotsRecursively(node),
+    beaconCount: countBeaconsRecursively(node),
   }));
 
-  let totalLots = 0;
+  let totalBeacons = 0;
   nodeInfo.forEach((info) => {
-    totalLots += info.lotCount;
+    totalBeacons += info.beaconCount;
   });
 
   figma.ui.postMessage({
     type: 'selection-beacons',
     selectionCount: selection.length,
-    lotCount: totalLots,
+    beaconCount: totalBeacons,
     nodeInfo: nodeInfo,
   });
 }

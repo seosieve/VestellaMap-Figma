@@ -3,12 +3,12 @@ import { Colors } from '../../constant/color';
 
 interface NodeInfo {
   name: string;
-  lotCount: number;
+  beaconCount: number;
 }
 
 const BeaconCountContainer: React.FC = () => {
   const [selectionCount, setSelectionCount] = useState<number>(0);
-  const [totalLotCount, setTotalLotCount] = useState<number>(0);
+  const [totalBeaconCount, setTotalBeaconCount] = useState<number>(0);
   const [nodeInfo, setNodeInfo] = useState<NodeInfo[]>([]);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const BeaconCountContainer: React.FC = () => {
 
       if (msg.type === 'selection-beacons') {
         setSelectionCount(msg.selectionCount);
-        setTotalLotCount(msg.lotCount);
+        setTotalBeaconCount(msg.beaconCount);
         if (msg.nodeInfo) {
           setNodeInfo(msg.nodeInfo);
         }
@@ -42,12 +42,12 @@ const BeaconCountContainer: React.FC = () => {
           {nodeInfo.map((info, index) => (
             <div key={index} style={styles.contentContainer}>
               <p style={styles.content}>{info.name}</p>
-              <p style={styles.content}>{info.lotCount}</p>
+              <p style={styles.content}>{info.beaconCount}</p>
             </div>
           ))}
           <div style={styles.totalContainer}>
             <p style={styles.content}>Total</p>
-            <p style={styles.total}>{totalLotCount}</p>
+            <p style={styles.total}>{totalBeaconCount}</p>
           </div>
         </>
       )}
