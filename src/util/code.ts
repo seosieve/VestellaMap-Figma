@@ -2,6 +2,7 @@
 
 import { selectSlots } from './services/selector/slotSelector';
 import { numberBeacons } from './services/beaconNumberer';
+import { exportCSV } from './services/excelExporter';
 import { selectBeacons } from './services/selector/beaconSelector';
 import { selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
@@ -32,7 +33,9 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'generate-routes') {
     generateRoutes(msg);
   } else if (msg.type === 'numbering-beacons') {
-    numberBeacons();
+    await numberBeacons();
+  } else if (msg.type === 'export-csv') {
+    await exportCSV();
   } else if (msg.type === 'reset-settings') {
     await saveSettings(msg);
     showNotification('🌿 설정이 초기화되었습니다.');

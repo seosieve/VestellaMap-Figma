@@ -1,8 +1,9 @@
 // beaconNumberer.ts
 
-import { showNotification } from '../managers/notificationManager';
+import { hexToRgb } from '../managers/colorManager';
+import { Colors } from '../../constant/color';
 
-export function numberBeacons() {
+export async function numberBeacons() {
   const selection = figma.currentPage.selection;
   const beacon = selection[0] as GroupNode;
   const beaconCenter = {
@@ -23,5 +24,18 @@ export function numberBeacons() {
   const tenOne = Math.floor(clampedY * 99); // 0~99
 
   const beaconNumber = 10000 + thousandHundred * 100 + tenOne;
-  showNotification(`비콘 번호: ${beaconNumber}`);
+
+  await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
+
+  //Text Node 생성
+  const textNode = figma.createText();
+  textNode.characters = beaconNumber.toString();
+  textNode.fontSize = 16;
+  textNode.fills = [{ type: 'SOLID', color: hexToRgb(Colors.mintBlack) }];
+
+  textNode.x = beacon.x + (beacon.width - textNode.width) / 2;
+  textNode.y = beacon.y + (beacon.height - textNode.height) / 2;
+
+  // 텍스트를 비콘 그룹에 추가
+  beacon.appendChild(textNode);
 }
