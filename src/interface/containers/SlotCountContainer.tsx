@@ -1,4 +1,5 @@
-import React, { useEffect, useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties } from 'react';
+import { useMessageListener } from '../../util/managers/messaageManager';
 import { Colors } from '../../constant/color';
 
 interface NodeInfo {
@@ -11,20 +12,13 @@ const SlotCountContainer: React.FC = () => {
   const [totalLotCount, setTotalLotCount] = useState<number>(0);
   const [nodeInfo, setNodeInfo] = useState<NodeInfo[]>([]);
 
-  useEffect(() => {
-    // 메시지 리스너 설정
-    window.onmessage = (event) => {
-      const msg = event.data.pluginMessage;
-
-      if (msg.type === 'selection-slots') {
-        setSelectionCount(msg.selectionCount);
-        setTotalLotCount(msg.lotCount);
-        if (msg.nodeInfo) {
-          setNodeInfo(msg.nodeInfo);
-        }
-      }
-    };
-  }, []);
+  useMessageListener('selection-slots', (msg) => {
+    setSelectionCount(msg.selectionCount);
+    setTotalLotCount(msg.lotCount);
+    if (msg.nodeInfo) {
+      setNodeInfo(msg.nodeInfo);
+    }
+  });
 
   return (
     <div style={styles.container}>

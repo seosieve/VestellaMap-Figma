@@ -1,5 +1,6 @@
 import React, { CSSProperties, useEffect } from 'react';
 import { Colors } from '../../constant/color';
+import { useMessageListener } from '../../util/managers/messaageManager';
 import Button from '../components/Button';
 
 const BeaconGeneratorContainer: React.FC = () => {
@@ -11,15 +12,9 @@ const BeaconGeneratorContainer: React.FC = () => {
     parent.postMessage({ pluginMessage: { type: 'export-csv' } }, '*');
   };
 
-  // useEffect(() => {
-  //   window.onmessage = (event) => {
-  //     const msg = event.data.pluginMessage;
-
-  //     if (msg.type === 'test') {
-  //       console.log('export csv');
-  //     }
-  //   };
-  // }, []);
+  useMessageListener('test', (msg) => {
+    console.log('export csv');
+  });
 
   const handleExport = () => {
     // CSV 데이터 생성

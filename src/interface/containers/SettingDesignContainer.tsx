@@ -1,6 +1,7 @@
 import React, { useEffect, useState, CSSProperties } from 'react';
 import { Colors } from '../../constant/color';
 import { DefaultValue, DesignSettings } from '../../util/services/settingHandler';
+import { useMessageListener } from '../../util/managers/messaageManager';
 import ResetButton from '../components/ResetButton';
 import Button from '../components/Button';
 import InputBox from '../components/InputBox';
@@ -19,18 +20,15 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
 
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: 'load-settings' } }, '*');
-
-    window.onmessage = (event) => {
-      const msg = event.data.pluginMessage;
-      if (msg.type === 'settings-loaded') {
-        setSlotGap(msg.slotGap);
-        setRowGap(msg.rowGap);
-        setBackgroundPadding(msg.backgroundPadding);
-        setPillarWidth(msg.pillarWidth);
-        setInitialValues(msg);
-      }
-    };
   }, []);
+
+  useMessageListener('settings-loaded', (msg) => {
+    setSlotGap(msg.slotGap);
+    setRowGap(msg.rowGap);
+    setBackgroundPadding(msg.backgroundPadding);
+    setPillarWidth(msg.pillarWidth);
+    setInitialValues(msg);
+  });
 
   // 파라미터 비교 함수
   const checkValues = (operator: '===' | '!==') => [

@@ -1,7 +1,8 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
-import CircleButton from '../components/CircleButton';
+import { useMessageListener } from '../../util/managers/messaageManager';
 import { GenerateSpot } from '../../../src/util/services/routeGenerator';
+import CircleButton from '../components/CircleButton';
 
 const RouteGeneratorContainer: React.FC = () => {
   const [buttonStates, setButtonStates] = useState({ start: false, intersect: false, end: false });
@@ -24,20 +25,12 @@ const RouteGeneratorContainer: React.FC = () => {
     }
   };
 
-  useEffect(() => {
-    window.onmessage = (event) => {
-      const msg = event.data.pluginMessage;
-
-      if (msg.type === 'selection-lines') {
-        const count = msg.count;
-        // Line Color 설정
-        setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);
-        setVerticalLineOpacity(count === 2 ? '100%' : '33%');
-        // Button State 설정
-        setButtonStates({ start: count === 1, intersect: count === 2, end: count === 1 });
-      }
-    };
-  }, []);
+  useMessageListener('selection-lines', (msg) => {
+    const count = msg.count;
+    setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);
+    setVerticalLineOpacity(count === 2 ? '100%' : '33%');
+    setButtonStates({ start: count === 1, intersect: count === 2, end: count === 1 });
+  });
 
   return (
     <div style={styles.container} onClick={handleContainerClick}>

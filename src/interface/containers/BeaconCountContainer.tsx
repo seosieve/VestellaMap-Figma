@@ -1,5 +1,6 @@
-import React, { useEffect, useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties } from 'react';
 import { Colors } from '../../constant/color';
+import { useMessageListener } from '../../util/managers/messaageManager';
 
 interface NodeInfo {
   name: string;
@@ -11,20 +12,13 @@ const BeaconCountContainer: React.FC = () => {
   const [totalBeaconCount, setTotalBeaconCount] = useState<number>(0);
   const [nodeInfo, setNodeInfo] = useState<NodeInfo[]>([]);
 
-  useEffect(() => {
-    // 메시지 리스너 설정
-    window.onmessage = (event) => {
-      const msg = event.data.pluginMessage;
-
-      if (msg.type === 'selection-beacons') {
-        setSelectionCount(msg.selectionCount);
-        setTotalBeaconCount(msg.beaconCount);
-        if (msg.nodeInfo) {
-          setNodeInfo(msg.nodeInfo);
-        }
-      }
-    };
-  }, []);
+  useMessageListener('selection-beacons', (msg) => {
+    setSelectionCount(msg.selectionCount);
+    setTotalBeaconCount(msg.beaconCount);
+    if (msg.nodeInfo) {
+      setNodeInfo(msg.nodeInfo);
+    }
+  });
 
   return (
     <div style={styles.container}>
