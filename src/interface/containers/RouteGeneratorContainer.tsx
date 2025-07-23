@@ -28,7 +28,7 @@ const RouteGeneratorContainer: React.FC = () => {
     window.onmessage = (event) => {
       const msg = event.data.pluginMessage;
 
-      if (msg.type === 'detection-lines') {
+      if (msg.type === 'selection-lines') {
         const count = msg.count;
         // Line Color 설정
         setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);

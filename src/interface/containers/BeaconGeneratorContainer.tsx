@@ -11,6 +11,16 @@ const BeaconGeneratorContainer: React.FC = () => {
     parent.postMessage({ pluginMessage: { type: 'export-csv' } }, '*');
   };
 
+  // useEffect(() => {
+  //   window.onmessage = (event) => {
+  //     const msg = event.data.pluginMessage;
+
+  //     if (msg.type === 'test') {
+  //       console.log('export csv');
+  //     }
+  //   };
+  // }, []);
+
   const handleExport = () => {
     // CSV 데이터 생성
     const csvContent = 'Beacon Number,X,Y\n'; // CSV 헤더
@@ -29,7 +39,7 @@ const BeaconGeneratorContainer: React.FC = () => {
   return (
     <div style={styles.container}>
       <Button title="Set Beacon Number" onClick={handleNumberingClick} />
-      <Button title="Export CSV" onClick={handleExport} />
+      <Button title="Export CSV" onClick={handleExportClick} />
     </div>
   );
 };

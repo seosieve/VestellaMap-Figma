@@ -1,17 +1,14 @@
 // excelExporter.ts
 import { showNotification } from '../managers/notificationManager';
 
-export async function exportCSV() {
-  showNotification('Exporting CSV...');
+export function exportCSV() {
   const csvContent = 'Beacon Number,X,Y\n'; // CSV 헤더
 
-  // Uint8Array로 변환
-  const bytes = new TextEncoder().encode(csvContent);
-
-  // 파일 다운로드
+  // UI 쪽으로 CSV 데이터 전송
   figma.ui.postMessage({
-    type: 'DOWNLOAD_CSV',
-    file: Array.from(bytes),
-    fileName: 'beacon_locations.csv',
+    type: 'test',
+    csvContent: csvContent,
   });
+
+  // showNotification('CSV 파일 다운로드가 시작되었습니다.');
 }

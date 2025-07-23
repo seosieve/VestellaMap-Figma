@@ -35,7 +35,7 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'numbering-beacons') {
     await numberBeacons();
   } else if (msg.type === 'export-csv') {
-    await exportCSV();
+    exportCSV();
   } else if (msg.type === 'reset-settings') {
     await saveSettings(msg);
     showNotification('🌿 설정이 초기화되었습니다.');
