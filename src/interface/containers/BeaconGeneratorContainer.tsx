@@ -12,13 +12,18 @@ const BeaconGeneratorContainer: React.FC = () => {
     parent.postMessage({ pluginMessage: { type: 'export-csv' } }, '*');
   };
 
-  useMessageListener('test', (msg) => {
-    console.log('export csv');
+  useMessageListener('export-csv', (msg) => {
+    console.log(msg);
+    handleExport(msg.csvContent);
   });
 
-  const handleExport = () => {
+  const handleExport = (data: string[]) => {
     // CSV 데이터 생성
-    const csvContent = 'Beacon Number,X,Y\n'; // CSV 헤더
+    const csvData = [['Index', 'Number']];
+    data.forEach((item, index) => {
+      csvData.push([index.toString(), item]);
+    });
+    const csvContent = csvData.map((row) => row.join(',')).join('\n');
     const blob = new Blob([csvContent], { type: 'text/csv' });
 
     // 다운로드 링크 생성 및 클릭

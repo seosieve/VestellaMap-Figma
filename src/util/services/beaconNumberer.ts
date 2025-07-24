@@ -29,7 +29,9 @@ export async function numberBeacons() {
 
   //Text Node 생성
   const textNode = figma.createText();
-  textNode.characters = beaconNumber.toString();
+  textNode.textAlignHorizontal = 'CENTER';
+  textNode.textAlignVertical = 'CENTER';
+  textNode.characters = '100' + '\n' + beaconNumber.toString();
   textNode.fontSize = 16;
   textNode.fills = [{ type: 'SOLID', color: hexToRgb(Colors.mintBlack) }];
 
