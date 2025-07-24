@@ -23,14 +23,21 @@ export function exportCSV() {
 }
 
 function makeCSVContent(beacons: SceneNode[]): string[] {
-  var csvContent: string[] = [];
+  var csvContent: string[][] = [[]];
 
   beacons.forEach((beacon) => {
     const beaconGroup = beacon as GroupNode;
     const text = beaconGroup.children[1] as TextNode;
     const beaconNumber = text.characters.replace(/\n/g, ' ');
-    csvContent.push(beaconNumber);
+    csvContent.push([beaconNumber]);
   });
 
-  return csvContent;
+  // 정렬 추가
+  csvContent.sort((a, b) => {
+    const numA = parseInt(a[0]?.split(' ')?.[1] || '0');
+    const numB = parseInt(b[0]?.split(' ')?.[1] || '0');
+    return numA - numB;
+  });
+
+  return [csvContent.map((row) => row.join(',')).join('\n')];
 }
