@@ -38,6 +38,5 @@ export async function numberBeacons() {
   textNode.x = beacon.x + (beacon.width - textNode.width) / 2;
   textNode.y = beacon.y + (beacon.height - textNode.height) / 2;
 
-  // 텍스트를 비콘 그룹에 추가
   beacon.appendChild(textNode);
 }
