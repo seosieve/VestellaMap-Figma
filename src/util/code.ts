@@ -8,7 +8,12 @@ import { selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
 import { notifyEmpty, generateRoutes } from './services/routeGenerator';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
-import { saveSettings, loadSettings } from './services/settingHandler';
+import {
+  saveDesignSettings,
+  loadDesignSettings,
+  saveDevelopmentSettings,
+  loadDevelopmentSettings,
+} from './services/settingHandler';
 import { showNotification } from './managers/notificationManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
@@ -36,15 +41,18 @@ figma.ui.onmessage = async (msg) => {
     await numberBeacons();
   } else if (msg.type === 'export-csv') {
     exportCSV();
-  } else if (msg.type === 'reset-settings') {
-    await saveSettings(msg);
+  } else if (msg.type === 'reset-design-settings') {
+    await saveDesignSettings(msg);
     showNotification('🌿 설정이 초기화되었습니다.');
-  } else if (msg.type === 'save-settings') {
-    await saveSettings(msg);
+  } else if (msg.type === 'load-design-settings') {
+    await loadDesignSettings();
+  } else if (msg.type === 'save-design-settings') {
+    await saveDesignSettings(msg);
     showNotification('🌿 설정이 저장되었습니다.');
-  } else if (msg.type === 'load-settings') {
-    const settings = await loadSettings();
-    figma.ui.postMessage({ type: 'settings-loaded', ...settings });
+  } else if (msg.type === 'load-development-settings') {
+    await loadDevelopmentSettings();
+  } else if (msg.type === 'save-development-settings') {
+    await saveDevelopmentSettings(msg);
   }
 };
 

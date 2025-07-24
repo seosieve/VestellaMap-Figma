@@ -1,28 +1,35 @@
-import React, { useEffect, useState, CSSProperties } from 'react';
+import React, { useEffect, useState, CSSProperties, forwardRef, useImperativeHandle } from 'react';
 import { Colors } from '../../constant/color';
-import { DefaultValue, DesignSettings } from '../../util/services/settingHandler';
+import { DesignDefault, DesignSettings } from '../../util/services/settingHandler';
 import { useMessageListener } from '../../util/managers/messaageManager';
 import ResetButton from '../components/ResetButton';
-import Button from '../components/Button';
 import InputBox from '../components/InputBox';
 
-interface SettingDesignContainerProps {
-  onSettingChange: (hasChanges: boolean) => void;
+export interface SettingDesignHandle {
+  handleSave: () => void;
 }
 
-const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSettingChange }) => {
+interface SettingDesignProps {
+  onSettingChange: (hasChanges: boolean) => void;
+  setSaveDisabled: (disabled: boolean) => void;
+}
+
+const SettingDesignContainer = forwardRef<SettingDesignHandle, SettingDesignProps>((props, ref) => {
   const [slotGap, setSlotGap] = useState<number>(0);
   const [rowGap, setRowGap] = useState<number>(0);
   const [backgroundPadding, setBackgroundPadding] = useState<number>(0);
   const [pillarWidth, setPillarWidth] = useState<number>(0);
-  const [isSaveDisabled, setIsSaveDisabled] = useState<boolean>(false);
-  const [initialValues, setInitialValues] = useState<DesignSettings>(DefaultValue);
+  const [initialValues, setInitialValues] = useState<DesignSettings>(DesignDefault);
 
   useEffect(() => {
-    parent.postMessage({ pluginMessage: { type: 'load-settings' } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'load-design-settings' } }, '*');
   }, []);
 
-  useMessageListener('settings-loaded', (msg) => {
+  useImperativeHandle(ref, () => ({
+    handleSave,
+  }));
+
+  useMessageListener('design-settings-loaded', (msg) => {
     setSlotGap(msg.slotGap);
     setRowGap(msg.rowGap);
     setBackgroundPadding(msg.backgroundPadding);
@@ -43,14 +50,14 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
     const hasChanges = checkValues('!==').some(Boolean);
     const isAllSame = checkValues('===').every(Boolean);
 
-    onSettingChange(hasChanges);
-    setIsSaveDisabled(isAllSame);
+    props.onSettingChange(hasChanges);
+    props.setSaveDisabled(isAllSame);
   }, [slotGap, rowGap, backgroundPadding, pillarWidth, initialValues]);
 
   const handleReset = () => {
-    updateAllValues(DefaultValue);
-    onSettingChange(false);
-    parent.postMessage({ pluginMessage: { type: 'reset-settings', ...DefaultValue } }, '*');
+    updateAllValues(DesignDefault);
+    props.onSettingChange(false);
+    parent.postMessage({ pluginMessage: { type: 'reset-design-settings', ...DesignDefault } }, '*');
   };
 
   const handleSave = async () => {
@@ -63,8 +70,8 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
     };
 
     updateAllValues(checkedValues);
-    onSettingChange(false);
-    parent.postMessage({ pluginMessage: { type: 'save-settings', ...checkedValues } }, '*');
+    props.onSettingChange(false);
+    parent.postMessage({ pluginMessage: { type: 'save-design-settings', ...checkedValues } }, '*');
   };
 
   const updateAllValues = (values: DesignSettings) => {
@@ -87,10 +94,9 @@ const SettingDesignContainer: React.FC<SettingDesignContainerProps> = ({ onSetti
         <InputBox title="Background Padding" value={backgroundPadding} onChange={setBackgroundPadding} />
         <InputBox title="Pillar Width" value={pillarWidth} onChange={setPillarWidth} />
       </div>
-      <Button title="Save" disabled={isSaveDisabled} onClick={handleSave} />
     </div>
   );
-};
+});
 
 const styles: { [key: string]: CSSProperties } = {
   container: {

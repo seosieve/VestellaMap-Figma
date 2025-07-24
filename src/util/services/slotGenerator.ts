@@ -2,7 +2,7 @@
 
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
-import { DesignSettings, loadSettings } from './settingHandler';
+import { DesignSettings, loadDesignSettings } from './settingHandler';
 import { showNotification } from '../managers/notificationManager';
 
 export async function generateSlots(msg: { type: string; count: number; pillar: number; multiple: boolean }) {
@@ -10,7 +10,7 @@ export async function generateSlots(msg: { type: string; count: number; pillar: 
   const pillar = msg.pillar;
   const multiple = msg.multiple;
 
-  const settings = await loadSettings();
+  const settings = await loadDesignSettings();
 
   const currentSelection = figma.currentPage.selection;
 
