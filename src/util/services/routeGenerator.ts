@@ -143,7 +143,10 @@ function generateEllipse(point: Point) {
   circle.x = circleCenter[0] - diameter / 2;
   circle.y = circleCenter[1] - diameter / 2;
 
-  figma.currentPage.appendChild(circle);
+  // 부모 노드 유무 판별
+  const parentNode = figma.currentPage.selection[0]?.parent;
+  const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
+  targetParent.appendChild(circle);
 }
 
 // Select No Line 알림
