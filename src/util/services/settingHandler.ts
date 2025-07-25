@@ -22,6 +22,7 @@ export async function loadDesignSettings(): Promise<DesignSettings> {
   const rowGap = await get('rowGap', DesignDefault.rowGap);
   const backgroundPadding = await get('backgroundPadding', DesignDefault.backgroundPadding);
   const pillarWidth = await get('pillarWidth', DesignDefault.pillarWidth);
+
   figma.ui.postMessage({ type: 'design-settings-loaded', ...{ slotGap, rowGap, backgroundPadding, pillarWidth } });
 
   return { slotGap, rowGap, backgroundPadding, pillarWidth };
@@ -45,6 +46,7 @@ export const DevelopDefault: DevelopSettings = {
 
 export async function loadDevelopSettings(): Promise<DevelopSettings> {
   const major = await get('major', DevelopDefault.major);
+
   figma.ui.postMessage({ type: 'develop-settings-loaded', ...{ major } });
 
   return { major };

@@ -76,9 +76,6 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.shadow,
-    borderRadius: '12px',
-    padding: '16px',
     gap: '16px',
   },
   headerContainer: {

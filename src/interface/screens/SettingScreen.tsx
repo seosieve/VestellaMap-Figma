@@ -2,6 +2,7 @@ import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Colors } from '../../constant/color';
 import SettingDesignContainer, { SettingDesignHandle } from '../containers/SettingDesignContainer';
 import SettingDevelopContainer, { SettingDevelopHandle } from '../containers/SettingDevelopContainer';
+import DashedLine from '../components/DashedLine';
 import Button from '../components/Button';
 
 interface SettingScreenProps {
@@ -29,10 +30,9 @@ const SettingScreen: React.FC<SettingScreenProps> = ({ onSettingChange }) => {
       <p style={styles.title}>Settings</p>
       <div style={styles.contentContainer}>
         <SettingDesignContainer ref={designRef} onSettingChange={onSettingChange} setDesignSave={setDesignSave} />
+        <DashedLine />
         <SettingDevelopContainer ref={developRef} onSettingChange={onSettingChange} setDevelopSave={setDevelopSave} />
-        <div style={styles.buttonContainer}>
-          <Button title="Save" disabled={saveDisabled} onClick={handleSave} />
-        </div>
+        <Button title="Save" disabled={saveDisabled} onClick={handleSave} />
       </div>
     </div>
   );
@@ -54,15 +54,10 @@ const styles: { [key: string]: CSSProperties } = {
   contentContainer: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
-  },
-  buttonContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: Colors.shadow,
     borderRadius: '12px',
     padding: '16px',
+    gap: '24px',
   },
 };
 
