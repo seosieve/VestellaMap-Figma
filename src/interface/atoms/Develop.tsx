@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface DevelopmentProps {
+interface DevelopProps {
   width: number;
   height: number;
   color: string;
 }
 
-const Development: React.FC<DevelopmentProps> = ({ width, height, color }) => {
+const Develop: React.FC<DevelopProps> = ({ width, height, color }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
       <path
@@ -17,4 +17,4 @@ const Development: React.FC<DevelopmentProps> = ({ width, height, color }) => {
   );
 };
 
-export default Development;
+export default Develop;

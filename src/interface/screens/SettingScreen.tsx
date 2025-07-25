@@ -1,7 +1,7 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Colors } from '../../constant/color';
 import SettingDesignContainer, { SettingDesignHandle } from '../containers/SettingDesignContainer';
-import SettingDevelopContainer, { SettingDevelopHandle } from '../containers/SettingDevelopmentContainer';
+import SettingDevelopContainer, { SettingDevelopHandle } from '../containers/SettingDevelopContainer';
 import Button from '../components/Button';
 
 interface SettingScreenProps {

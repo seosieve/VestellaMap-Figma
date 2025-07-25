@@ -45,9 +45,9 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'save-design-settings') {
     await saveDesignSettings(msg);
     showNotification('🌿 설정이 저장되었습니다.');
-  } else if (msg.type === 'load-development-settings') {
+  } else if (msg.type === 'load-develop-settings') {
     await loadDevelopSettings();
-  } else if (msg.type === 'save-development-settings') {
+  } else if (msg.type === 'save-develop-settings') {
     await saveDevelopSettings(msg);
   }
 };

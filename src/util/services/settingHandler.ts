@@ -45,7 +45,7 @@ export const DevelopDefault: DevelopSettings = {
 
 export async function loadDevelopSettings(): Promise<DevelopSettings> {
   const major = await get('major', DevelopDefault.major);
-  figma.ui.postMessage({ type: 'development-settings-loaded', ...{ major } });
+  figma.ui.postMessage({ type: 'develop-settings-loaded', ...{ major } });
 
   return { major };
 }

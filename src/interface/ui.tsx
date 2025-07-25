@@ -4,11 +4,11 @@ import TabBar, { Tab } from './components/TabBar';
 
 import { Colors } from '../constant/color';
 import DesignScreen from './screens/DesignScreen';
-import DevelopmentScreen from './screens/DevelopmentScreen';
+import DevelopScreen from './screens/DevelopScreen';
 import SettingScreen from './screens/SettingScreen';
 import WarningModal from './screens/WarningModal';
 import Design from './atoms/Design';
-import Development from './atoms/Development';
+import Develop from './atoms/Develop';
 import Setting from './atoms/Setting';
 
 const App: React.FC = () => {
@@ -25,9 +25,9 @@ const App: React.FC = () => {
       position: 'left',
     },
     {
-      id: 'Development',
-      label: 'Development',
-      icon: Development,
+      id: 'Develop',
+      label: 'Develop',
+      icon: Develop,
       position: 'left',
     },
     {
@@ -63,7 +63,7 @@ const App: React.FC = () => {
       </div>
       <div style={styles.content}>
         {activeTab === 'Design' && <DesignScreen />}
-        {activeTab === 'Development' && <DevelopmentScreen />}
+        {activeTab === 'Develop' && <DevelopScreen />}
         {activeTab === 'Setting' && <SettingScreen onSettingChange={setHasUnsavedChanges} />}
       </div>
       <WarningModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} onConfirm={handleConfirm} />

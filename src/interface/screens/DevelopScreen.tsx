@@ -4,7 +4,7 @@ import RouteGeneratorContainer from '../containers/RouteGeneratorContainer';
 import BeaconGeneratorContainer from '../containers/BeaconGeneratorContainer';
 import BeaconCountContainer from '../containers/BeaconCountContainer';
 
-const DevelopmentScreen: React.FC = () => {
+const DevelopScreen: React.FC = () => {
   const handleGenerateClick = () => {
     parent.postMessage({ pluginMessage: { type: 'generate-routes' } }, '*');
   };
@@ -40,4 +40,4 @@ const styles = {
   },
 };
 
-export default DevelopmentScreen;
+export default DevelopScreen;

@@ -18,14 +18,14 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
   const [initialValues, setInitialValues] = useState<DevelopSettings>(DevelopDefault);
 
   useEffect(() => {
-    parent.postMessage({ pluginMessage: { type: 'load-development-settings' } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'load-develop-settings' } }, '*');
   }, []);
 
   useImperativeHandle(ref, () => ({
     handleSave,
   }));
 
-  useMessageListener('development-settings-loaded', (msg) => {
+  useMessageListener('develop-settings-loaded', (msg) => {
     setMajor(msg.major);
     setInitialValues(msg);
   });
@@ -50,7 +50,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
 
     updateAllValues(checkedValues);
     props.onSettingChange(false);
-    parent.postMessage({ pluginMessage: { type: 'save-settings', ...checkedValues } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'save-develop-settings', ...checkedValues } }, '*');
   };
 
   const updateAllValues = (values: DevelopSettings) => {
@@ -61,7 +61,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
   return (
     <div style={styles.container}>
       <div style={styles.headerContainer}>
-        <p style={styles.title}>Development</p>
+        <p style={styles.title}>Develop</p>
       </div>
       <div style={styles.inputContainer}>
         <InputBox title="Major" value={major} onChange={setMajor} />
