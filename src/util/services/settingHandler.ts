@@ -34,22 +34,22 @@ export async function saveDesignSettings(msg: DesignSettings) {
   await set('pillarWidth', msg.pillarWidth);
 }
 
-// Development Settings
-export interface DevelopmentSettings {
+// Develop Settings
+export interface DevelopSettings {
   major: number;
 }
 
-export const DevelopmentDefault: DevelopmentSettings = {
+export const DevelopDefault: DevelopSettings = {
   major: 100,
 };
 
-export async function loadDevelopmentSettings(): Promise<DevelopmentSettings> {
-  const major = await get('major', DevelopmentDefault.major);
+export async function loadDevelopSettings(): Promise<DevelopSettings> {
+  const major = await get('major', DevelopDefault.major);
   figma.ui.postMessage({ type: 'development-settings-loaded', ...{ major } });
 
   return { major };
 }
 
-export async function saveDevelopmentSettings(msg: DevelopmentSettings) {
+export async function saveDevelopSettings(msg: DevelopSettings) {
   await set('major', msg.major);
 }

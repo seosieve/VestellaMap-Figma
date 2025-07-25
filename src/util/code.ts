@@ -8,12 +8,8 @@ import { selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
 import { notifyEmpty, generateRoutes } from './services/routeGenerator';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
-import {
-  saveDesignSettings,
-  loadDesignSettings,
-  saveDevelopmentSettings,
-  loadDevelopmentSettings,
-} from './services/settingHandler';
+import { saveDesignSettings, loadDesignSettings } from './services/settingHandler';
+import { saveDevelopSettings, loadDevelopSettings } from './services/settingHandler';
 import { showNotification } from './managers/notificationManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
@@ -50,9 +46,9 @@ figma.ui.onmessage = async (msg) => {
     await saveDesignSettings(msg);
     showNotification('🌿 설정이 저장되었습니다.');
   } else if (msg.type === 'load-development-settings') {
-    await loadDevelopmentSettings();
+    await loadDevelopSettings();
   } else if (msg.type === 'save-development-settings') {
-    await saveDevelopmentSettings(msg);
+    await saveDevelopSettings(msg);
   }
 };
 

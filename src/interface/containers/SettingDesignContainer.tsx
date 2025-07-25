@@ -11,7 +11,7 @@ export interface SettingDesignHandle {
 
 interface SettingDesignProps {
   onSettingChange: (hasChanges: boolean) => void;
-  setSaveDisabled: (disabled: boolean) => void;
+  setDesignSave: (disabled: boolean) => void;
 }
 
 const SettingDesignContainer = forwardRef<SettingDesignHandle, SettingDesignProps>((props, ref) => {
@@ -51,7 +51,7 @@ const SettingDesignContainer = forwardRef<SettingDesignHandle, SettingDesignProp
     const isAllSame = checkValues('===').every(Boolean);
 
     props.onSettingChange(hasChanges);
-    props.setSaveDisabled(isAllSame);
+    props.setDesignSave(isAllSame);
   }, [slotGap, rowGap, backgroundPadding, pillarWidth, initialValues]);
 
   const handleReset = () => {

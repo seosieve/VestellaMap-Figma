@@ -1,7 +1,7 @@
-import React, { CSSProperties, useRef, useState } from 'react';
+import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import { Colors } from '../../constant/color';
 import SettingDesignContainer, { SettingDesignHandle } from '../containers/SettingDesignContainer';
-import SettingDevelopmentContainer, { SettingDevelopmentHandle } from '../containers/SettingDevelopmentContainer';
+import SettingDevelopContainer, { SettingDevelopHandle } from '../containers/SettingDevelopmentContainer';
 import Button from '../components/Button';
 
 interface SettingScreenProps {
@@ -10,24 +10,26 @@ interface SettingScreenProps {
 
 const SettingScreen: React.FC<SettingScreenProps> = ({ onSettingChange }) => {
   const designRef = useRef<SettingDesignHandle>(null);
-  const developmentRef = useRef<SettingDevelopmentHandle>(null);
+  const developRef = useRef<SettingDevelopHandle>(null);
+  const [designSave, setDesignSave] = useState<boolean>(false);
+  const [developSave, setDevelopSave] = useState<boolean>(false);
   const [saveDisabled, setSaveDisabled] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSaveDisabled(designSave && developSave);
+  }, [designSave, developSave]);
 
   const handleSave = () => {
     designRef.current?.handleSave();
-    developmentRef.current?.handleSave();
+    developRef.current?.handleSave();
   };
 
   return (
     <div style={styles.container}>
       <p style={styles.title}>Settings</p>
       <div style={styles.contentContainer}>
-        <SettingDesignContainer ref={designRef} onSettingChange={onSettingChange} setSaveDisabled={setSaveDisabled} />
-        <SettingDevelopmentContainer
-          ref={developmentRef}
-          onSettingChange={onSettingChange}
-          setSaveDisabled={setSaveDisabled}
-        />
+        <SettingDesignContainer ref={designRef} onSettingChange={onSettingChange} setDesignSave={setDesignSave} />
+        <SettingDevelopContainer ref={developRef} onSettingChange={onSettingChange} setDevelopSave={setDevelopSave} />
         <div style={styles.buttonContainer}>
           <Button title="Save" disabled={saveDisabled} onClick={handleSave} />
         </div>

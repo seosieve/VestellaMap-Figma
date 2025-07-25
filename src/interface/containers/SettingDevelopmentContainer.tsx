@@ -1,21 +1,21 @@
 import React, { useEffect, useState, CSSProperties, forwardRef, useImperativeHandle } from 'react';
 import { Colors } from '../../constant/color';
-import { DevelopmentDefault, DevelopmentSettings } from '../../util/services/settingHandler';
+import { DevelopDefault, DevelopSettings } from '../../util/services/settingHandler';
 import { useMessageListener } from '../../util/managers/messaageManager';
 import InputBox from '../components/InputBox';
 
-export interface SettingDevelopmentHandle {
+export interface SettingDevelopHandle {
   handleSave: () => void;
 }
 
-interface SettingDevelopmentProps {
+interface SettingDevelopProps {
   onSettingChange: (hasChanges: boolean) => void;
-  setSaveDisabled: (disabled: boolean) => void;
+  setDevelopSave: (disabled: boolean) => void;
 }
 
-const SettingDevelopmentContainer = forwardRef<SettingDevelopmentHandle, SettingDevelopmentProps>((props, ref) => {
+const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopProps>((props, ref) => {
   const [major, setMajor] = useState<number>(0);
-  const [initialValues, setInitialValues] = useState<DevelopmentSettings>(DevelopmentDefault);
+  const [initialValues, setInitialValues] = useState<DevelopSettings>(DevelopDefault);
 
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: 'load-development-settings' } }, '*');
@@ -39,12 +39,12 @@ const SettingDevelopmentContainer = forwardRef<SettingDevelopmentHandle, Setting
     const isAllSame = checkValues('===').every(Boolean);
 
     props.onSettingChange(hasChanges);
-    props.setSaveDisabled(isAllSame);
+    props.setDevelopSave(isAllSame);
   }, [major, initialValues]);
 
   const handleSave = async () => {
     // 최대값 체크
-    const checkedValues: DevelopmentSettings = {
+    const checkedValues: DevelopSettings = {
       major: Math.min(major, 999),
     };
 
@@ -53,7 +53,7 @@ const SettingDevelopmentContainer = forwardRef<SettingDevelopmentHandle, Setting
     parent.postMessage({ pluginMessage: { type: 'save-settings', ...checkedValues } }, '*');
   };
 
-  const updateAllValues = (values: DevelopmentSettings) => {
+  const updateAllValues = (values: DevelopSettings) => {
     setMajor(values.major);
     setInitialValues(values);
   };
@@ -103,4 +103,4 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
-export default SettingDevelopmentContainer;
+export default SettingDevelopContainer;
