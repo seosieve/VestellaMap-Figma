@@ -18,7 +18,7 @@ export function exportCSV() {
       csvContent: csvContent,
     });
   } else {
-    showNotification('❎ㅤ프레임을 선택해주세요');
+    showNotification('❎ㅤ비콘 프레임을 선택해주세요');
   }
 }
 
