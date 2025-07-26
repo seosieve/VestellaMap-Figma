@@ -1,14 +1,6 @@
 import React, { useState } from 'react';
 
-interface DraggableLineProps {
-  width?: number;
-  height?: number;
-}
-
-const DEFAULT_WIDTH = 300;
-const DEFAULT_HEIGHT = 200;
-
-const DraggableLine: React.FC<DraggableLineProps> = ({ width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT }) => {
+const DraggableLine: React.FC = () => {
   // 원의 위치를 0~1 비율로 관리 (0 = 선의 시작점, 1 = 선의 끝점)
   const [circlePosition, setCirclePosition] = useState(0.5); // 50% 위치에서 시작
   const [dragging, setDragging] = useState(false);
@@ -42,7 +34,7 @@ const DraggableLine: React.FC<DraggableLineProps> = ({ width = DEFAULT_WIDTH, he
   };
 
   // 실제 픽셀 좌표로 변환 (부모 컨테이너의 실제 크기 기준)
-  const px = (ratio: number, axis: 'x' | 'y') => (axis === 'x' ? ratio * width : ratio * height);
+  const px = (ratio: number, axis: 'x' | 'y') => (axis === 'x' ? ratio * 300 : ratio * 100);
 
   // 원의 현재 위치 계산
   const circleX = lineStart.x + (lineEnd.x - lineStart.x) * circlePosition;
@@ -52,7 +44,7 @@ const DraggableLine: React.FC<DraggableLineProps> = ({ width = DEFAULT_WIDTH, he
     <svg
       width="100%"
       height="100%"
-      viewBox={`0 0 ${width} ${height}`}
+      viewBox={`0 0 300 100`}
       style={{ border: '1px solid #ccc', background: '#222', display: 'block' }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}

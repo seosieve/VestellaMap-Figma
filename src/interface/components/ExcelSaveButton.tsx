@@ -2,24 +2,17 @@ import React, { useState } from 'react';
 import { Colors } from '../../constant/color';
 import Excel from '../atoms/Excel';
 
-interface SaveButtonProps {
+interface ExcelSaveButtonProps {
   onClick: () => void;
 }
 
-const SaveButton: React.FC<SaveButtonProps> = ({ onClick }) => {
+const ExcelSaveButton: React.FC<ExcelSaveButtonProps> = ({ onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isRotating, setIsRotating] = useState(false);
-
-  const handleClick = () => {
-    setIsRotating(true);
-    onClick();
-    setTimeout(() => setIsRotating(false), 300);
-  };
 
   return (
     <button
       style={isHovered ? styles.hover : styles.default}
-      onClick={handleClick}
+      onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -65,4 +58,4 @@ const styles = {
   },
 };
 
-export default SaveButton;
+export default ExcelSaveButton;

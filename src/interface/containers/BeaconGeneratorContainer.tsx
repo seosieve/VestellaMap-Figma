@@ -1,8 +1,9 @@
 import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
-import SaveButton from '../components/SaveButton';
+import ExcelSaveButton from '../components/ExcelSaveButton';
 import DraggableLine from '../components/DraggableLine';
+import BeaconInfoBox from '../components/BeaconInfoBox';
 
 const BeaconGeneratorContainer: React.FC = () => {
   const [horizontalLineColor, setHorizontalLineColor] = useState<string>(Colors.dark);
@@ -42,24 +43,14 @@ const BeaconGeneratorContainer: React.FC = () => {
     <>
       <div style={styles.titleContainer}>
         <p style={styles.title}>Beacon Generator</p>
-        <SaveButton onClick={handleExportClick} />
+        <ExcelSaveButton onClick={handleExportClick} />
       </div>
       <div style={styles.container}>
         <div style={{ ...styles.horizontalLine, backgroundColor: horizontalLineColor }} />
         <div style={{ width: '100%', height: 120 }}>
-          <DraggableLine width={200} height={100} />
+          <DraggableLine />
         </div>
-        <div style={styles.numberContainer}>
-          <div style={styles.numberItem}>
-            <p style={styles.category}>Major</p>
-            <p style={styles.number}>100</p>
-          </div>
-          <div style={styles.divider} />
-          <div style={styles.numberItem}>
-            <p style={styles.category}>Minor</p>
-            <p style={styles.number}>13204</p>
-          </div>
-        </div>
+        <BeaconInfoBox major={100} minor={13204} />
       </div>
     </>
   );
@@ -94,33 +85,6 @@ const styles: { [key: string]: CSSProperties } = {
     width: '100%',
     height: '1px',
     transition: 'all 0.3s ease',
-  },
-  numberContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    width: '100%',
-    gap: '8px',
-  },
-  numberItem: {
-    display: 'flex',
-    gap: '4px',
-  },
-  category: {
-    color: Colors.base,
-    fontSize: '12px',
-    fontWeight: '400',
-  },
-  number: {
-    color: Colors.white,
-    fontSize: '12px',
-    fontWeight: '700',
-  },
-  divider: {
-    width: '1px',
-    height: '10px',
-    backgroundColor: Colors.dark,
   },
 };
 

@@ -5,21 +5,29 @@ export function exportCSV() {
   var csvContent: string[] = [];
 
   const selection = figma.currentPage.selection;
-  const frame = selection[0] as FrameNode;
 
-  if (frame.type === 'FRAME') {
-    const children = frame.children;
-    const beacons = children.filter((child) => child.name.includes('beacon'));
-    csvContent = makeCSVContent(beacons);
-
-    // UI 쪽으로 CSV 데이터 전송
-    figma.ui.postMessage({
-      type: 'export-csv',
-      csvContent: csvContent,
-    });
-  } else {
-    showNotification('❎ㅤ비콘 프레임을 선택해주세요');
+  // 선택된 노드가 없을 때 처리
+  if (selection.length === 0) {
+    showNotification('❎ㅤ선택된 프레임이 없어요');
+    return;
   }
+
+  // 선택된 노드가 프레임이 아닐 때 처리
+  if (selection[0]?.type !== 'FRAME') {
+    showNotification('❎ㅤ비콘이 포함된 프레임을 선택해주세요');
+    return;
+  }
+
+  const frame = selection[0] as FrameNode;
+  const children = frame.children;
+  const beacons = children.filter((child) => child.name.includes('beacon'));
+  csvContent = makeCSVContent(beacons);
+
+  // UI 쪽으로 CSV 데이터 전송
+  figma.ui.postMessage({
+    type: 'export-csv',
+    csvContent: csvContent,
+  });
 }
 
 function makeCSVContent(beacons: SceneNode[]): string[] {
