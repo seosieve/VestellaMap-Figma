@@ -2,16 +2,27 @@
 
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
-import { Point, GenerateSpot, calculateStartPoint, calculateEndPoint, calculateIntersectPoint } from './routeGenerator';
-import { showNotification } from '../managers/notificationManager';
+import {
+  Point,
+  GenerateSpot,
+  calculateStartPoint,
+  calculateRatioPoint,
+  calculateEndPoint,
+  calculateIntersectPoint,
+} from './routeGenerator';
 
-export function showPreviewEllipse(msg: { spot: GenerateSpot }) {
+let currentPreviewCircle: EllipseNode | null = null;
+
+export function showPreviewEllipse(msg: { spot: GenerateSpot; ratio?: number }) {
   const selection = figma.currentPage.selection;
   const line = selection[0] as LineNode;
 
   switch (msg.spot) {
     case 'start':
       generatePreviewEllipse(calculateStartPoint(line));
+      break;
+    case 'ratio':
+      generatePreviewEllipse(calculateRatioPoint(line, msg.ratio));
       break;
     case 'end':
       generatePreviewEllipse(calculateEndPoint(line));
@@ -26,10 +37,12 @@ export function showPreviewEllipse(msg: { spot: GenerateSpot }) {
   }
 }
 
-export function generatePreviewEllipse(point: Point) {
+export function generatePreviewEllipse(point: Point): EllipseNode {
   // 기존 프리뷰 원 제거
-  const existingPreviews = figma.currentPage.findAll((node) => node.name === 'preview-circle');
-  existingPreviews.forEach((node) => node.remove());
+  if (currentPreviewCircle) {
+    currentPreviewCircle.remove();
+    currentPreviewCircle = null;
+  }
 
   const circle = figma.createEllipse();
   const diameter = 200;
@@ -46,9 +59,16 @@ export function generatePreviewEllipse(point: Point) {
   const parentNode = figma.currentPage.selection[0]?.parent;
   const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
   targetParent.appendChild(circle);
+
+  // 전역 변수에 저장
+  currentPreviewCircle = circle;
+
+  return circle;
 }
 
 export function hidePreviewEllipse() {
-  const previews = figma.currentPage.findAll((node) => node.name === 'preview-circle');
-  previews.forEach((node) => node.remove());
+  if (currentPreviewCircle) {
+    currentPreviewCircle.remove();
+    currentPreviewCircle = null;
+  }
 }

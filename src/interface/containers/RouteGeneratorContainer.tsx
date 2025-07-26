@@ -14,7 +14,7 @@ const RouteGeneratorContainer: React.FC = () => {
   };
 
   const handleGenerateClick = (spot: GenerateSpot) => {
-    parent.postMessage({ pluginMessage: { type: 'generate-routes', spot: spot } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'generate-route', spot: spot } }, '*');
   };
 
   const handleHoverChange = (isHovered: boolean, type: GenerateSpot) => {

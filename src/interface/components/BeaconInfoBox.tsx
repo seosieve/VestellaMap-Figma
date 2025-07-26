@@ -1,12 +1,22 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import { Colors } from '../../constant/color';
+import { useMessageListener } from '../../util/managers/messaageManager';
 
 interface BeaconInfoBoxProps {
-  major: number;
   minor: number;
 }
 
-const BeaconInfoBox: React.FC<BeaconInfoBoxProps> = ({ major, minor }) => {
+const BeaconInfoBox: React.FC<BeaconInfoBoxProps> = ({ minor }) => {
+  const [major, setMajor] = useState<number>(0);
+
+  useEffect(() => {
+    parent.postMessage({ pluginMessage: { type: 'load-develop-settings' } }, '*');
+  }, []);
+
+  useMessageListener('develop-settings-loaded', (msg) => {
+    setMajor(msg.major);
+  });
+
   return (
     <div style={styles.container}>
       <div style={styles.item}>

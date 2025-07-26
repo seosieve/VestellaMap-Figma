@@ -1,17 +1,14 @@
 import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
+import { GenerateSpot } from '../../util/services/routeGenerator';
 import ExcelSaveButton from '../components/ExcelSaveButton';
 import DraggableLine from '../components/DraggableLine';
+import RatioBox from '../components/RatioBox';
 import BeaconInfoBox from '../components/BeaconInfoBox';
 
 const BeaconGeneratorContainer: React.FC = () => {
-  const [horizontalLineColor, setHorizontalLineColor] = useState<string>(Colors.dark);
-
-  useMessageListener('selection-lines', (msg) => {
-    const count = msg.count;
-    setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);
-  });
+  const [ratio, setRatio] = useState<number>(0);
 
   const handleNumberingClick = () => {
     parent.postMessage({ pluginMessage: { type: 'numbering-beacons' } }, '*');
@@ -39,6 +36,18 @@ const BeaconGeneratorContainer: React.FC = () => {
     URL.revokeObjectURL(link.href);
   };
 
+  const handleGenerateClick = () => {
+    parent.postMessage({ pluginMessage: { type: 'generate-route', spot: 'ratio', ratio: ratio } }, '*');
+  };
+
+  const handleHoverChange = (isHovered: boolean, type: GenerateSpot, ratio: number) => {
+    if (isHovered) {
+      parent.postMessage({ pluginMessage: { type: 'show-preview-ellipse', spot: type, ratio: ratio } }, '*');
+    } else {
+      parent.postMessage({ pluginMessage: { type: 'hide-preview-ellipse' } }, '*');
+    }
+  };
+
   return (
     <>
       <div style={styles.titleContainer}>
@@ -47,10 +56,11 @@ const BeaconGeneratorContainer: React.FC = () => {
       </div>
       <div style={styles.contentContainer}>
         <div style={styles.dragLineContainer}>
-          <DraggableLine />
+          <DraggableLine onClick={handleGenerateClick} onRatioChange={setRatio} onHoverChange={handleHoverChange} />
         </div>
         <div style={styles.infoContainer}>
-          <BeaconInfoBox major={100} minor={13204} />
+          <RatioBox ratio={ratio} />
+          <BeaconInfoBox minor={13204} />
         </div>
       </div>
     </>
@@ -77,7 +87,7 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'center',
     backgroundColor: Colors.shadow,
     borderRadius: '12px',
-    paddingTop: '16px',
+    paddingTop: '12px',
     paddingBottom: '16px',
   },
   dragLineContainer: {
@@ -85,6 +95,10 @@ const styles: { [key: string]: CSSProperties } = {
     width: '90%',
   },
   infoContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     width: '100%',
   },
 };

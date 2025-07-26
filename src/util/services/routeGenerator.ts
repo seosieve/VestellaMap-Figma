@@ -4,17 +4,20 @@ import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
 import { showNotification } from '../managers/notificationManager';
 
-export type GenerateSpot = 'start' | 'intersect' | 'end';
+export type GenerateSpot = 'start' | 'ratio' | 'end' | 'intersect';
 
 export type Point = [x: number, y: number];
 
-export function generateRoutes(msg: { spot: GenerateSpot }) {
+export function generateRoute(msg: { spot: GenerateSpot; ratio?: number }) {
   const selection = figma.currentPage.selection;
   const line = selection[0] as LineNode;
 
   switch (msg.spot) {
     case 'start':
       generateEllipse(calculateStartPoint(line));
+      break;
+    case 'ratio':
+      generateEllipse(calculateRatioPoint(line, msg.ratio));
       break;
     case 'end':
       generateEllipse(calculateEndPoint(line));
@@ -47,6 +50,16 @@ export function calculateStartPoint(line: LineNode): Point {
 export function calculateEndPoint(line: LineNode): Point {
   const { radian, offsetX, offsetY } = calculateLineMetrics(line);
   const endPoint = { x: line.x + line.width * Math.cos(radian), y: line.y + line.width * Math.sin(radian) };
+  return [endPoint.x + offsetX, endPoint.y + offsetY];
+}
+
+// 선분 비율 계산
+export function calculateRatioPoint(line: LineNode, ratio: number = 0.5): Point {
+  const { radian, offsetX, offsetY } = calculateLineMetrics(line);
+  const endPoint = {
+    x: line.x + line.width * Math.cos(radian) * ratio,
+    y: line.y + line.width * Math.sin(radian) * ratio,
+  };
   return [endPoint.x + offsetX, endPoint.y + offsetY];
 }
 
@@ -137,7 +150,7 @@ function generateEllipse(point: Point) {
   const diameter = 200;
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
-  circle.name = 'Route';
+  circle.name = 'route';
 
   const circleCenter: Point = [point[0], point[1]];
   circle.x = circleCenter[0] - diameter / 2;

@@ -1,13 +1,23 @@
-import React, { CSSProperties, useState } from 'react';
+import React, { CSSProperties, useState, useRef } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
+import { GenerateSpot } from 'src/util/services/routeGenerator';
 
-const DraggableLine: React.FC = () => {
+interface DraggableLineProps {
+  onClick: () => void;
+  onRatioChange: (ratio: number) => void;
+  onHoverChange: (isHovered: boolean, type: GenerateSpot, ratio: number) => void;
+}
+
+const DraggableLine: React.FC<DraggableLineProps> = ({ onClick, onRatioChange, onHoverChange }) => {
   const [horizontalLineColor, setHorizontalLineColor] = useState<string>(Colors.dark);
   const [circlePosition, setCirclePosition] = useState(0);
   const [dragging, setDragging] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
+
+  // 드래그 시작 위치 저장
+  const dragStartPosition = useRef<{ x: number; y: number } | null>(null);
 
   const lineStart = { x: 0.1, y: 0.5 };
   const lineEnd = { x: 0.9, y: 0.5 };
@@ -20,27 +30,49 @@ const DraggableLine: React.FC = () => {
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     setDragging(true);
-    console.log('mouse down');
+    dragStartPosition.current = { x: e.clientX, y: e.clientY };
+    onHoverChange(false, 'ratio', circlePosition);
+    window.addEventListener('mouseup', handleWindowMouseUp);
+  };
+
+  const handleWindowMouseUp = (e: MouseEvent) => {
+    setDragging(false);
+
+    if (dragStartPosition.current) {
+      const deltaX = Math.abs(e.clientX - dragStartPosition.current.x);
+      const deltaY = Math.abs(e.clientY - dragStartPosition.current.y);
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      if (distance < 1) {
+        onClick();
+      }
+    }
+
+    dragStartPosition.current = null;
+    window.removeEventListener('mouseup', handleWindowMouseUp);
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!dragging) return;
+
     const div = e.currentTarget;
     const rect = div.getBoundingClientRect();
     const mouseX = (e.clientX - rect.left) / rect.width;
-
-    // 선의 시작점과 끝점 사이에서만 움직이도록 제한
     const clampedX = Math.max(lineStart.x, Math.min(lineEnd.x, mouseX));
-
-    // 0~1 비율로 변환 (선의 시작점 = 0, 끝점 = 1)
     const ratio = (clampedX - lineStart.x) / (lineEnd.x - lineStart.x);
+
     setCirclePosition(ratio);
-    console.log(ratio);
+    onRatioChange(ratio);
   };
 
   const handleMouseUp = () => {
     setDragging(false);
-    console.log('mouse up');
+    onHoverChange(true, 'ratio', circlePosition);
+  };
+
+  const handleHover = (hovered: boolean) => {
+    setIsHovered(hovered);
+    onHoverChange(hovered, 'ratio', circlePosition);
   };
 
   return (
@@ -55,8 +87,8 @@ const DraggableLine: React.FC = () => {
         }}
         disabled={isDisabled}
         onMouseDown={handleMouseDown}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => handleHover(true)}
+        onMouseLeave={() => handleHover(false)}
       />
     </div>
   );
@@ -67,7 +99,7 @@ const styles: { [key: string]: CSSProperties } = {
     position: 'relative',
     display: 'flex',
     width: '100%',
-    height: '100px',
+    height: '80px',
     cursor: 'pointer',
   },
   horizontalLine: {
