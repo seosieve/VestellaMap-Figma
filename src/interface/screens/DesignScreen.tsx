@@ -9,7 +9,6 @@ const DesignScreen: React.FC = () => {
       <p style={styles.title}>Parking Layout</p>
       <p style={styles.title}>Generator</p>
       <SlotGeneratorContainer />
-      <p style={styles.subtitle}>Slot Count by Group</p>
       <SlotCountContainer />
     </div>
   );

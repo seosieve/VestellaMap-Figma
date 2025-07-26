@@ -1,24 +1,32 @@
-import React, { useState } from 'react';
+import React, { CSSProperties, useState } from 'react';
+import { Colors } from '../../constant/color';
+import { useMessageListener } from '../../util/managers/messaageManager';
 
 const DraggableLine: React.FC = () => {
-  // 원의 위치를 0~1 비율로 관리 (0 = 선의 시작점, 1 = 선의 끝점)
-  const [circlePosition, setCirclePosition] = useState(0.5); // 50% 위치에서 시작
+  const [horizontalLineColor, setHorizontalLineColor] = useState<string>(Colors.dark);
+  const [circlePosition, setCirclePosition] = useState(0);
   const [dragging, setDragging] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  // 고정된 선의 시작점과 끝점 (비율)
-  const lineStart = { x: 0.1, y: 0.5 }; // 선의 시작점 (10%, 50%)
-  const lineEnd = { x: 0.9, y: 0.5 }; // 선의 끝점 (90%, 50%)
+  const lineStart = { x: 0.1, y: 0.5 };
+  const lineEnd = { x: 0.9, y: 0.5 };
 
-  // 마우스 다운 시
-  const handleMouseDown = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+  useMessageListener('selection-lines', (msg) => {
+    const count = msg.count;
+    setHorizontalLineColor(count === 1 ? Colors.white : Colors.dark);
+    setIsDisabled(count === 1 ? false : true);
+  });
+
+  const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     setDragging(true);
+    console.log('mouse down');
   };
 
-  // 마우스 이동 시
-  const handleMouseMove = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!dragging) return;
-    const svg = e.currentTarget;
-    const rect = svg.getBoundingClientRect();
+    const div = e.currentTarget;
+    const rect = div.getBoundingClientRect();
     const mouseX = (e.clientX - rect.left) / rect.width;
 
     // 선의 시작점과 끝점 사이에서만 움직이도록 제한
@@ -27,50 +35,77 @@ const DraggableLine: React.FC = () => {
     // 0~1 비율로 변환 (선의 시작점 = 0, 끝점 = 1)
     const ratio = (clampedX - lineStart.x) / (lineEnd.x - lineStart.x);
     setCirclePosition(ratio);
+    console.log(ratio);
   };
 
   const handleMouseUp = () => {
     setDragging(false);
+    console.log('mouse up');
   };
 
-  // 실제 픽셀 좌표로 변환 (부모 컨테이너의 실제 크기 기준)
-  const px = (ratio: number, axis: 'x' | 'y') => (axis === 'x' ? ratio * 300 : ratio * 100);
-
-  // 원의 현재 위치 계산
-  const circleX = lineStart.x + (lineEnd.x - lineStart.x) * circlePosition;
-  const circleY = lineStart.y;
-
   return (
-    <svg
-      width="100%"
-      height="100%"
-      viewBox={`0 0 300 100`}
-      style={{ border: '1px solid #ccc', background: '#222', display: 'block' }}
-      onMouseMove={handleMouseMove}
-      onMouseUp={handleMouseUp}
-    >
-      {/* 고정된 선 */}
-      <line
-        x1={px(lineStart.x, 'x')}
-        y1={px(lineStart.y, 'y')}
-        x2={px(lineEnd.x, 'x')}
-        y2={px(lineEnd.y, 'y')}
-        stroke="#31DD9E"
-        strokeWidth={3}
-      />
-      {/* 움직이는 원 */}
-      <circle
-        cx={px(circleX, 'x')}
-        cy={px(circleY, 'y')}
-        r={10}
-        fill="#fff"
-        stroke="#31DD9E"
-        strokeWidth={2}
-        style={{ cursor: 'pointer' }}
+    <div style={styles.container} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+      <div style={{ ...styles.horizontalLine, backgroundColor: horizontalLineColor }} />
+      <button
+        style={{
+          ...styles.default,
+          ...(isHovered ? styles.hover : {}),
+          ...(isDisabled ? styles.disabled : {}),
+          left: `${10 + 80 * circlePosition}%`,
+        }}
+        disabled={isDisabled}
         onMouseDown={handleMouseDown}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
       />
-    </svg>
+    </div>
   );
+};
+
+const styles: { [key: string]: CSSProperties } = {
+  container: {
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+    height: '100px',
+    cursor: 'pointer',
+  },
+  horizontalLine: {
+    position: 'absolute',
+    top: '50%',
+    left: '8px',
+    right: '8px',
+    height: '1px',
+    transform: 'translateY(-50%)',
+    transition: 'all 0.3s ease',
+  },
+  default: {
+    position: 'absolute',
+    top: '50%',
+    width: '36px',
+    height: '36px',
+    backgroundColor: Colors.mintBase,
+    border: `4px solid ${Colors.mintBase}`,
+    borderRadius: '50%',
+    cursor: 'pointer',
+    transform: 'translate(-50%, -50%)',
+  },
+  disabled: {
+    width: '36px',
+    height: '36px',
+    backgroundColor: Colors.dark,
+    border: `4px solid ${Colors.medium}`,
+    borderRadius: '50%',
+    cursor: 'default',
+  },
+  hover: {
+    width: '36px',
+    height: '36px',
+    backgroundColor: Colors.mintBase,
+    border: `6px solid ${Colors.mintBright}`,
+    borderRadius: '50%',
+    cursor: 'pointer',
+  },
 };
 
 export default DraggableLine;

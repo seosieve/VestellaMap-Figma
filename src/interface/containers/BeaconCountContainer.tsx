@@ -22,7 +22,9 @@ const BeaconCountContainer: React.FC = () => {
 
   return (
     <>
-      <p style={styles.title}>Beacon Count by Group</p>
+      <div style={styles.titleContainer}>
+        <p style={styles.title}>Beacon Count by Group</p>
+      </div>
       <div style={styles.container}>
         <div style={styles.categoryContainer}>
           <p style={styles.category}>Group Name</p>
@@ -53,11 +55,17 @@ const BeaconCountContainer: React.FC = () => {
 };
 
 const styles: { [key: string]: CSSProperties } = {
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '28px',
+  },
   title: {
     color: Colors.white,
     fontSize: '16px',
     fontWeight: '700',
-    marginTop: '36px',
   },
   container: {
     display: 'flex',

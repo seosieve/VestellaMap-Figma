@@ -28,8 +28,9 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    width: '100%',
     gap: '8px',
+    paddingLeft: '16px',
+    paddingRight: '16px',
   },
   item: {
     display: 'flex',
@@ -39,11 +40,15 @@ const styles: { [key: string]: CSSProperties } = {
     color: Colors.base,
     fontSize: '12px',
     fontWeight: '400',
+    lineHeight: '1',
+    margin: '0',
   },
   number: {
     color: Colors.white,
     fontSize: '12px',
     fontWeight: '700',
+    lineHeight: '1',
+    margin: '0',
   },
   divider: {
     width: '1px',

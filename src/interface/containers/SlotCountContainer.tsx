@@ -21,35 +21,52 @@ const SlotCountContainer: React.FC = () => {
   });
 
   return (
-    <div style={styles.container}>
+    <>
       <div style={styles.titleContainer}>
-        <p style={styles.title}>Group Name</p>
-        <p style={styles.title}>Slot Count</p>
+        <p style={styles.title}>Slot Count by Group</p>
       </div>
-      {selectionCount === 0 ? (
-        <div style={styles.emptyContainer}>
-          <p style={styles.empty}>No groups selected.</p>
-          <p style={styles.empty}>Select a group to view slot count.</p>
+      <div style={styles.container}>
+        <div style={styles.categoryContainer}>
+          <p style={styles.category}>Group Name</p>
+          <p style={styles.category}>Slot Count</p>
         </div>
-      ) : (
-        <>
-          {nodeInfo.map((info, index) => (
-            <div key={index} style={styles.contentContainer}>
-              <p style={styles.content}>{info.name}</p>
-              <p style={styles.content}>{info.lotCount}</p>
-            </div>
-          ))}
-          <div style={styles.totalContainer}>
-            <p style={styles.content}>Total</p>
-            <p style={styles.total}>{totalLotCount}</p>
+        {selectionCount === 0 ? (
+          <div style={styles.emptyContainer}>
+            <p style={styles.empty}>No groups selected.</p>
+            <p style={styles.empty}>Select a group to view slot count.</p>
           </div>
-        </>
-      )}
-    </div>
+        ) : (
+          <>
+            {nodeInfo.map((info, index) => (
+              <div key={index} style={styles.contentContainer}>
+                <p style={styles.content}>{info.name}</p>
+                <p style={styles.content}>{info.lotCount}</p>
+              </div>
+            ))}
+            <div style={styles.totalContainer}>
+              <p style={styles.content}>Total</p>
+              <p style={styles.total}>{totalLotCount}</p>
+            </div>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
 const styles: { [key: string]: CSSProperties } = {
+  titleContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: '28px',
+  },
+  title: {
+    color: Colors.white,
+    fontSize: '16px',
+    fontWeight: '700',
+  },
   container: {
     display: 'flex',
     flexDirection: 'column',
@@ -59,7 +76,7 @@ const styles: { [key: string]: CSSProperties } = {
     border: `1px solid ${Colors.medium}`,
     overflow: 'hidden',
   },
-  titleContainer: {
+  categoryContainer: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
@@ -68,7 +85,7 @@ const styles: { [key: string]: CSSProperties } = {
     height: '38px',
     borderBottom: `1px solid ${Colors.shadow}`,
   },
-  title: {
+  category: {
     color: Colors.base,
     fontSize: '13px',
     fontWeight: '300',

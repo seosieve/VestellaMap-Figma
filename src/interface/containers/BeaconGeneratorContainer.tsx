@@ -45,12 +45,13 @@ const BeaconGeneratorContainer: React.FC = () => {
         <p style={styles.title}>Beacon Generator</p>
         <ExcelSaveButton onClick={handleExportClick} />
       </div>
-      <div style={styles.container}>
-        <div style={{ ...styles.horizontalLine, backgroundColor: horizontalLineColor }} />
-        <div style={{ width: '100%', height: 120 }}>
+      <div style={styles.contentContainer}>
+        <div style={styles.dragLineContainer}>
           <DraggableLine />
         </div>
-        <BeaconInfoBox major={100} minor={13204} />
+        <div style={styles.infoContainer}>
+          <BeaconInfoBox major={100} minor={13204} />
+        </div>
       </div>
     </>
   );
@@ -62,29 +63,29 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    margin: '0',
-    marginTop: '36px',
+    marginTop: '28px',
   },
   title: {
     color: Colors.white,
     fontSize: '16px',
     fontWeight: '700',
   },
-  container: {
+  contentContainer: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    height: '80px',
     backgroundColor: Colors.shadow,
     borderRadius: '12px',
-    padding: '16px',
-    gap: '8px',
+    paddingTop: '16px',
+    paddingBottom: '16px',
   },
-  horizontalLine: {
+  dragLineContainer: {
+    flex: 1,
+    width: '90%',
+  },
+  infoContainer: {
     width: '100%',
-    height: '1px',
-    transition: 'all 0.3s ease',
   },
 };
 
