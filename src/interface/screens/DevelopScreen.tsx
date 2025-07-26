@@ -5,10 +5,6 @@ import BeaconGeneratorContainer from '../containers/BeaconGeneratorContainer';
 import BeaconCountContainer from '../containers/BeaconCountContainer';
 
 const DevelopScreen: React.FC = () => {
-  const handleGenerateClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'generate-routes' } }, '*');
-  };
-
   return (
     <div style={styles.container}>
       <p style={styles.title}>Route Spot</p>

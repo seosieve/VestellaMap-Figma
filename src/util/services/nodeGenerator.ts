@@ -1,26 +1,27 @@
-// routeGenerator.ts
+// nodeGenerator.ts
 
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
 import { showNotification } from '../managers/notificationManager';
+import { numberBeacons } from './beaconNumberer';
 
 export type GenerateSpot = 'start' | 'ratio' | 'end' | 'intersect';
 
 export type Point = [x: number, y: number];
 
-export function generateRoute(msg: { spot: GenerateSpot; ratio?: number }) {
+export async function generateNode(msg: { spot: GenerateSpot; ratio?: number }) {
   const selection = figma.currentPage.selection;
   const line = selection[0] as LineNode;
 
   switch (msg.spot) {
     case 'start':
-      generateEllipse(calculateStartPoint(line));
+      generateRouteEllipse(calculateStartPoint(line));
       break;
     case 'ratio':
-      generateEllipse(calculateRatioPoint(line, msg.ratio));
+      await generateBeaconEllipse(calculateRatioPoint(line, msg.ratio));
       break;
     case 'end':
-      generateEllipse(calculateEndPoint(line));
+      generateRouteEllipse(calculateEndPoint(line));
       break;
     case 'intersect':
       const intersectLine = selection[1] as LineNode;
@@ -33,7 +34,7 @@ export function generateRoute(msg: { spot: GenerateSpot; ratio?: number }) {
           showNotification('❎ㅤ교차점이 없는 선분입니다');
           break;
         default:
-          generateEllipse(intersectPoint);
+          generateRouteEllipse(intersectPoint);
           break;
       }
       break;
@@ -145,7 +146,7 @@ function calculateLineMetrics(line: LineNode) {
 }
 
 // Route Ellipse 생성
-function generateEllipse(point: Point) {
+function generateRouteEllipse(point: Point) {
   const circle = figma.createEllipse();
   const diameter = 200;
   circle.resize(diameter, diameter);
@@ -160,6 +161,44 @@ function generateEllipse(point: Point) {
   const parentNode = figma.currentPage.selection[0]?.parent;
   const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
   targetParent.appendChild(circle);
+}
+
+// Beacon Ellipse 생성
+async function generateBeaconEllipse(point: Point) {
+  // 부모 노드 유무 판별
+  const parentNode = figma.currentPage.selection[0]?.parent;
+  const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
+
+  // Ellipse 생성
+  const circle = figma.createEllipse();
+  const diameter = 200;
+  circle.resize(diameter, diameter);
+  circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
+  const beaconNumber = numberBeacons(parentNode as FrameNode, point);
+  circle.name = beaconNumber.toString();
+
+  const circleCenter: Point = [point[0], point[1]];
+  circle.x = circleCenter[0] - diameter / 2;
+  circle.y = circleCenter[1] - diameter / 2;
+
+  // Beacon Number Text 생성
+  await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
+  const text = figma.createText();
+  text.textAlignHorizontal = 'CENTER';
+  text.textAlignVertical = 'CENTER';
+  text.characters = '100' + '\n' + beaconNumber.toString();
+  text.fontSize = 16;
+  text.fills = [{ type: 'SOLID', color: hexToRgb(Colors.mintBlack) }];
+  text.x = circleCenter[0];
+  text.y = circleCenter[1];
+
+  targetParent.appendChild(circle);
+  targetParent.appendChild(text);
+
+  // 그룹으로 추가
+  const group = figma.group([circle, text], targetParent);
+  group.name = 'beacon';
+  targetParent.appendChild(group);
 }
 
 // Select No Line 알림

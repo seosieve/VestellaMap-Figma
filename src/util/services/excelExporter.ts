@@ -35,6 +35,14 @@ function makeCSVContent(beacons: SceneNode[]): string[] {
 
   beacons.forEach((beacon) => {
     const beaconGroup = beacon as GroupNode;
+    if (beaconGroup.children.length !== 2) {
+      showNotification('❎ㅤ파일 생성중 오류가 발생했어요');
+      return;
+    }
+  });
+
+  beacons.forEach((beacon) => {
+    const beaconGroup = beacon as GroupNode;
     const text = beaconGroup.children[1] as TextNode;
     const beaconNumber = text.characters.replace(/\n/g, ' ');
     csvContent.push([beaconNumber]);

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Colors } from '../../constant/color';
-import { GenerateSpot } from '../../../src/util/services/routeGenerator';
+import { GenerateSpot } from '../../util/services/nodeGenerator';
 
 interface CircleButtonProps {
   disabled: boolean;

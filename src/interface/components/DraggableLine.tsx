@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState, useRef } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
-import { GenerateSpot } from 'src/util/services/routeGenerator';
+import { GenerateSpot } from 'src/util/services/nodeGenerator';
 
 interface DraggableLineProps {
   onClick: () => void;
@@ -22,10 +22,10 @@ const DraggableLine: React.FC<DraggableLineProps> = ({ onClick, onRatioChange, o
   const lineStart = { x: 0.1, y: 0.5 };
   const lineEnd = { x: 0.9, y: 0.5 };
 
-  useMessageListener('selection-lines', (msg) => {
-    const count = msg.count;
-    setHorizontalLineColor(count === 1 ? Colors.white : Colors.dark);
-    setIsDisabled(count === 1 ? false : true);
+  useMessageListener('selection-beacon-line', (msg) => {
+    const active = msg.active;
+    setHorizontalLineColor(active ? Colors.white : Colors.dark);
+    setIsDisabled(active ? false : true);
   });
 
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {

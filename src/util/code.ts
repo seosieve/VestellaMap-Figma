@@ -6,7 +6,7 @@ import { exportCSV } from './services/excelExporter';
 import { selectBeacons } from './services/selector/beaconSelector';
 import { selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
-import { notifyEmpty, generateRoute } from './services/routeGenerator';
+import { notifyEmpty, generateNode } from './services/nodeGenerator';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
 import { saveDesignSettings, loadDesignSettings } from './services/settingHandler';
 import { saveDevelopSettings, loadDevelopSettings } from './services/settingHandler';
@@ -31,10 +31,10 @@ figma.ui.onmessage = async (msg) => {
     showPreviewEllipse(msg);
   } else if (msg.type === 'hide-preview-ellipse') {
     hidePreviewEllipse();
-  } else if (msg.type === 'generate-route') {
-    generateRoute(msg);
+  } else if (msg.type === 'generate-node') {
+    await generateNode(msg);
   } else if (msg.type === 'numbering-beacons') {
-    await numberBeacons();
+    // await numberBeacons();
   } else if (msg.type === 'export-csv') {
     exportCSV();
   } else if (msg.type === 'reset-design-settings') {

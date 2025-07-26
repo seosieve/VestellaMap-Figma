@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
-import { GenerateSpot } from '../../util/services/routeGenerator';
+import { GenerateSpot } from '../../util/services/nodeGenerator';
 import ExcelSaveButton from '../components/ExcelSaveButton';
 import DraggableLine from '../components/DraggableLine';
 import RatioBox from '../components/RatioBox';
@@ -37,7 +37,7 @@ const BeaconGeneratorContainer: React.FC = () => {
   };
 
   const handleGenerateClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'generate-route', spot: 'ratio', ratio: ratio } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'generate-node', spot: 'ratio', ratio: ratio } }, '*');
   };
 
   const handleHoverChange = (isHovered: boolean, type: GenerateSpot, ratio: number) => {

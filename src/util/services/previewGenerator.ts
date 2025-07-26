@@ -9,7 +9,7 @@ import {
   calculateRatioPoint,
   calculateEndPoint,
   calculateIntersectPoint,
-} from './routeGenerator';
+} from './nodeGenerator';
 
 let currentPreviewCircle: EllipseNode | null = null;
 

@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
-import { GenerateSpot } from '../../../src/util/services/routeGenerator';
+import { GenerateSpot } from '../../util/services/nodeGenerator';
 import CircleButton from '../components/CircleButton';
 
 const RouteGeneratorContainer: React.FC = () => {
@@ -14,7 +14,7 @@ const RouteGeneratorContainer: React.FC = () => {
   };
 
   const handleGenerateClick = (spot: GenerateSpot) => {
-    parent.postMessage({ pluginMessage: { type: 'generate-route', spot: spot } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'generate-node', spot: spot } }, '*');
   };
 
   const handleHoverChange = (isHovered: boolean, type: GenerateSpot) => {
@@ -25,7 +25,7 @@ const RouteGeneratorContainer: React.FC = () => {
     }
   };
 
-  useMessageListener('selection-lines', (msg) => {
+  useMessageListener('selection-route-lines', (msg) => {
     const count = msg.count;
     setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);
     setVerticalLineOpacity(count === 2 ? '100%' : '33%');
