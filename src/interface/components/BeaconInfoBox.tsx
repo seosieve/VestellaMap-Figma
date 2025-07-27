@@ -50,7 +50,7 @@ const BeaconInfoBox: React.FC<BeaconInfoBoxProps> = ({ ratio }) => {
       <div style={styles.divider} />
       <div style={styles.item}>
         <p style={styles.category}>Minor</p>
-        <p style={styles.number}>{minor}</p>
+        <p style={{ ...styles.number, ...(minor.toString().length === 5 && styles.fixedNumber) }}>{minor}</p>
       </div>
     </div>
   );
@@ -83,6 +83,9 @@ const styles: { [key: string]: CSSProperties } = {
     fontWeight: '700',
     lineHeight: '1',
     margin: '0',
+  },
+  fixedNumber: {
+    width: '35px',
   },
   divider: {
     width: '1px',
