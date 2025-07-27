@@ -9,11 +9,6 @@ import BeaconInfoBox from '../components/BeaconInfoBox';
 
 const BeaconGeneratorContainer: React.FC = () => {
   const [ratio, setRatio] = useState<number>(0);
-  const [minor, setMinor] = useState<number>(0);
-
-  const handleNumberingClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'numbering-beacons' } }, '*');
-  };
 
   const handleExportClick = () => {
     parent.postMessage({ pluginMessage: { type: 'export-csv' } }, '*');
