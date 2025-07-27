@@ -59,11 +59,11 @@ export function calculateEndPoint(line: LineNode): Point {
 // 선분 비율 계산
 export function calculateRatioPoint(line: LineNode, ratio: number = 0.5): Point {
   const { radian, offsetX, offsetY } = calculateLineMetrics(line);
-  const endPoint = {
+  const ratioPoint = {
     x: line.x + line.width * Math.cos(radian) * ratio,
     y: line.y + line.width * Math.sin(radian) * ratio,
   };
-  return [endPoint.x + offsetX, endPoint.y + offsetY];
+  return [ratioPoint.x + offsetX, ratioPoint.y + offsetY];
 }
 
 // 선분 교차점 계산
