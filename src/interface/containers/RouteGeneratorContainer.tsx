@@ -10,7 +10,7 @@ const RouteGeneratorContainer: React.FC = () => {
   const [verticalLineOpacity, setVerticalLineOpacity] = useState<string>('33%');
 
   const handleContainerClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'empty-lines' } }, '*');
+    parent.postMessage({ pluginMessage: { type: 'empty-route-line' } }, '*');
   };
 
   const handleGenerateClick = (spot: GenerateSpot) => {
@@ -25,7 +25,7 @@ const RouteGeneratorContainer: React.FC = () => {
     }
   };
 
-  useMessageListener('selection-route-lines', (msg) => {
+  useMessageListener('selection-route-line', (msg) => {
     const count = msg.count;
     setHorizontalLineColor(count > 0 ? Colors.white : Colors.dark);
     setVerticalLineOpacity(count === 2 ? '100%' : '33%');

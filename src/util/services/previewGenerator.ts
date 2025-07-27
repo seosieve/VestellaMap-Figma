@@ -45,7 +45,7 @@ export function generatePreviewEllipse(point: Point): EllipseNode {
   }
 
   const circle = figma.createEllipse();
-  const diameter = 200;
+  const diameter = 160;
 
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];

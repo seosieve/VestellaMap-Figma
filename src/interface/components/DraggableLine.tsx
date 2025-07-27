@@ -28,6 +28,10 @@ const DraggableLine: React.FC<DraggableLineProps> = ({ onClick, onRatioChange, o
     setIsDisabled(active ? false : true);
   });
 
+  const handleContainerClick = () => {
+    parent.postMessage({ pluginMessage: { type: 'empty-beacon-line' } }, '*');
+  };
+
   const handleMouseDown = (e: React.MouseEvent<HTMLButtonElement>) => {
     setDragging(true);
     dragStartPosition.current = { x: e.clientX, y: e.clientY };
@@ -76,7 +80,7 @@ const DraggableLine: React.FC<DraggableLineProps> = ({ onClick, onRatioChange, o
   };
 
   return (
-    <div style={styles.container} onMouseMove={handleMouseMove} onMouseUp={handleMouseUp}>
+    <div style={styles.container} onClick={handleContainerClick} onMouseMove={handleMouseMove}>
       <div style={{ ...styles.horizontalLine, backgroundColor: horizontalLineColor }} />
       <button
         style={{
@@ -86,6 +90,7 @@ const DraggableLine: React.FC<DraggableLineProps> = ({ onClick, onRatioChange, o
           left: `${10 + 80 * circlePosition}%`,
         }}
         disabled={isDisabled}
+        onMouseUp={handleMouseUp}
         onMouseDown={handleMouseDown}
         onMouseEnter={() => handleHover(true)}
         onMouseLeave={() => handleHover(false)}

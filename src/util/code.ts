@@ -1,18 +1,23 @@
 /// <reference types="@figma/plugin-typings" />
 
 import { selectSlots } from './services/selector/slotSelector';
-import { numberBeacons } from './services/beaconNumberer';
 import { exportCSV } from './services/excelExporter';
 import { selectBeacons } from './services/selector/beaconSelector';
-import { selectLine } from './services/selector/lineSelector';
+import { notifyBeaconLineEmpty, notifyRouteLineEmpty, selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
-import { notifyEmpty, generateNode } from './services/nodeGenerator';
+import { generateNode } from './services/nodeGenerator';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
 import { saveDesignSettings, loadDesignSettings } from './services/settingHandler';
 import { saveDevelopSettings, loadDevelopSettings } from './services/settingHandler';
 import { showNotification } from './managers/notificationManager';
 
 figma.showUI(__html__, { width: 344, height: 612 });
+
+figma.on('run', async () => {
+  await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
+  await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
+  console.log('run');
+});
 
 // 노드 선택 시
 figma.on('selectionchange', () => {
@@ -23,8 +28,10 @@ figma.on('selectionchange', () => {
 
 // 메시지 수신 처리
 figma.ui.onmessage = async (msg) => {
-  if (msg.type === 'empty-lines') {
-    notifyEmpty();
+  if (msg.type === 'empty-route-line') {
+    notifyRouteLineEmpty();
+  } else if (msg.type === 'empty-beacon-line') {
+    notifyBeaconLineEmpty();
   } else if (msg.type === 'generate-slots') {
     await generateSlots(msg);
   } else if (msg.type === 'show-preview-ellipse') {

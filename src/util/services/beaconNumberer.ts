@@ -2,7 +2,7 @@
 
 import { Point } from './nodeGenerator';
 
-export function numberBeacons(parent: FrameNode, point: Point): number {
+export function numberBeaconMinor(parent: FrameNode, point: Point): number {
   // 비콘의 상대적 위치 계산 (0~1 사이의 값)
   const relativeX = point[0] / parent.width;
   const relativeY = point[1] / parent.height;

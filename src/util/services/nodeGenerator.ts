@@ -3,7 +3,9 @@
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
 import { showNotification } from '../managers/notificationManager';
-import { numberBeacons } from './beaconNumberer';
+import { numberBeaconMinor } from './beaconNumberer';
+import { get } from '../managers/storageManager';
+import { DevelopDefault } from './settingHandler';
 
 export type GenerateSpot = 'start' | 'ratio' | 'end' | 'intersect';
 
@@ -148,7 +150,7 @@ function calculateLineMetrics(line: LineNode) {
 // Route Ellipse 생성
 function generateRouteEllipse(point: Point) {
   const circle = figma.createEllipse();
-  const diameter = 200;
+  const diameter = 160;
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
   circle.name = 'route';
@@ -169,41 +171,35 @@ async function generateBeaconEllipse(point: Point) {
   const parentNode = figma.currentPage.selection[0]?.parent;
   const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
 
-  // Ellipse 생성
+  // Beacon Major, Minor 값 가져오기
+  const major = await get('major', DevelopDefault.major);
+  const minor = numberBeaconMinor(parentNode as FrameNode, point);
+
+  // Ellipse Node 생성
   const circle = figma.createEllipse();
-  const diameter = 200;
+  const circleCenter: Point = [point[0], point[1]];
+  const diameter = 160;
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
-  const beaconNumber = numberBeacons(parentNode as FrameNode, point);
-  circle.name = beaconNumber.toString();
-
-  const circleCenter: Point = [point[0], point[1]];
+  circle.name = major + ' ' + minor;
   circle.x = circleCenter[0] - diameter / 2;
   circle.y = circleCenter[1] - diameter / 2;
+  targetParent.appendChild(circle);
 
-  // Beacon Number Text 생성
-  await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
+  // Text Node 생성
   const text = figma.createText();
   text.textAlignHorizontal = 'CENTER';
   text.textAlignVertical = 'CENTER';
-  text.characters = '100' + '\n' + beaconNumber.toString();
-  text.fontSize = 16;
-  text.fills = [{ type: 'SOLID', color: hexToRgb(Colors.mintBlack) }];
-  text.x = circleCenter[0];
-  text.y = circleCenter[1];
-
-  targetParent.appendChild(circle);
+  text.characters = major + '\n' + minor;
+  text.fontSize = 32;
+  text.fontName = { family: 'Inter', style: 'Bold' };
+  text.fills = [{ type: 'SOLID', color: hexToRgb(Colors.white) }];
+  text.x = circleCenter[0] - text.width / 2;
+  text.y = circleCenter[1] - text.height / 2;
   targetParent.appendChild(text);
 
-  // 그룹으로 추가
+  // Group Node 안에 추가
   const group = figma.group([circle, text], targetParent);
   group.name = 'beacon';
   targetParent.appendChild(group);
-}
-
-// Select No Line 알림
-export function notifyEmpty() {
-  if (figma.currentPage.selection.length === 0) {
-    showNotification('❎ㅤ선분을 선택해주세요');
-  }
 }
