@@ -38,20 +38,24 @@ export async function saveDesignSettings(msg: DesignSettings) {
 // Develop Settings
 export interface DevelopSettings {
   major: number;
+  diameter: number;
 }
 
 export const DevelopDefault: DevelopSettings = {
   major: 100,
+  diameter: 160,
 };
 
 export async function loadDevelopSettings(): Promise<DevelopSettings> {
   const major = await get('major', DevelopDefault.major);
+  const diameter = await get('diameter', DevelopDefault.diameter);
 
-  figma.ui.postMessage({ type: 'develop-settings-loaded', ...{ major } });
+  figma.ui.postMessage({ type: 'develop-settings-loaded', ...{ major, diameter } });
 
-  return { major };
+  return { major, diameter };
 }
 
 export async function saveDevelopSettings(msg: DevelopSettings) {
   await set('major', msg.major);
+  await set('diameter', msg.diameter);
 }

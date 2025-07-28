@@ -2,42 +2,38 @@
 
 import { Colors } from '../../constant/color';
 import { hexToRgb } from '../managers/colorManager';
-import {
-  Point,
-  GenerateSpot,
-  calculateStartPoint,
-  calculateRatioPoint,
-  calculateEndPoint,
-  calculateIntersectPoint,
-} from './nodeGenerator';
+import { get } from '../managers/storageManager';
+import { DevelopDefault } from './settingHandler';
+import { calculateStartPoint, calculateRatioPoint, calculateEndPoint, calculateIntersectPoint } from './nodeGenerator';
+import { Point, GenerateSpot } from './nodeGenerator';
 
 let currentPreviewCircle: EllipseNode | null = null;
 
-export function showPreviewEllipse(msg: { spot: GenerateSpot; ratio?: number }) {
+export async function showPreviewEllipse(msg: { spot: GenerateSpot; ratio?: number }) {
   const selection = figma.currentPage.selection;
   const line = selection[0] as LineNode;
 
   switch (msg.spot) {
     case 'start':
-      generatePreviewEllipse(calculateStartPoint(line));
+      await generatePreviewEllipse(calculateStartPoint(line));
       break;
     case 'ratio':
-      generatePreviewEllipse(calculateRatioPoint(line, msg.ratio));
+      await generatePreviewEllipse(calculateRatioPoint(line, msg.ratio));
       break;
     case 'end':
-      generatePreviewEllipse(calculateEndPoint(line));
+      await generatePreviewEllipse(calculateEndPoint(line));
       break;
     case 'intersect':
       const intersectLine = selection[1] as LineNode;
       const intersectPoint = calculateIntersectPoint(line, intersectLine);
       if (intersectPoint !== 'parallel' && intersectPoint !== 'noIntersect') {
-        generatePreviewEllipse(intersectPoint);
+        await generatePreviewEllipse(intersectPoint);
       }
       break;
   }
 }
 
-export function generatePreviewEllipse(point: Point): EllipseNode {
+export async function generatePreviewEllipse(point: Point): Promise<EllipseNode> {
   // 기존 프리뷰 원 제거
   if (currentPreviewCircle) {
     currentPreviewCircle.remove();
@@ -45,7 +41,7 @@ export function generatePreviewEllipse(point: Point): EllipseNode {
   }
 
   const circle = figma.createEllipse();
-  const diameter = 160;
+  const diameter = await get('diameter', DevelopDefault.diameter);
 
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];

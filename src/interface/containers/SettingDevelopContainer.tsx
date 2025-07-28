@@ -15,6 +15,7 @@ interface SettingDevelopProps {
 
 const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopProps>((props, ref) => {
   const [major, setMajor] = useState<number>(0);
+  const [diameter, setDiameter] = useState<number>(0);
   const [initialValues, setInitialValues] = useState<DevelopSettings>(DevelopDefault);
 
   useEffect(() => {
@@ -27,11 +28,15 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
 
   useMessageListener('develop-settings-loaded', (msg) => {
     setMajor(msg.major);
+    setDiameter(msg.diameter);
     setInitialValues(msg);
   });
 
   // 파라미터 비교 함수
-  const checkValues = (operator: '===' | '!==') => [eval(`major ${operator} initialValues.major`)];
+  const checkValues = (operator: '===' | '!==') => [
+    eval(`major ${operator} initialValues.major`),
+    eval(`diameter ${operator} initialValues.diameter`),
+  ];
 
   useEffect(() => {
     // 설정 변경 여부 확인
@@ -40,12 +45,13 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
 
     props.onSettingChange(hasChanges);
     props.setDevelopSave(isAllSame);
-  }, [major, initialValues]);
+  }, [major, diameter, initialValues]);
 
   const handleSave = async () => {
     // 최대값 체크
     const checkedValues: DevelopSettings = {
       major: Math.min(major, 999),
+      diameter: Math.min(diameter, 999),
     };
 
     updateAllValues(checkedValues);
@@ -55,6 +61,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
 
   const updateAllValues = (values: DevelopSettings) => {
     setMajor(values.major);
+    setDiameter(values.diameter);
     setInitialValues(values);
   };
 
@@ -65,6 +72,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
       </div>
       <div style={styles.inputContainer}>
         <InputBox title="Major" value={major} onChange={setMajor} />
+        <InputBox title="Diameter" value={diameter} onChange={setDiameter} />
       </div>
     </div>
   );

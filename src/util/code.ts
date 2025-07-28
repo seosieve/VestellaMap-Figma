@@ -35,7 +35,7 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'generate-slots') {
     await generateSlots(msg);
   } else if (msg.type === 'show-preview-ellipse') {
-    showPreviewEllipse(msg);
+    await showPreviewEllipse(msg);
   } else if (msg.type === 'hide-preview-ellipse') {
     hidePreviewEllipse();
   } else if (msg.type === 'generate-node') {

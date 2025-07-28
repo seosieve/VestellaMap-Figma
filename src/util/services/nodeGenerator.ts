@@ -17,13 +17,13 @@ export async function generateNode(msg: { spot: GenerateSpot; ratio?: number }) 
 
   switch (msg.spot) {
     case 'start':
-      generateRouteEllipse(calculateStartPoint(line));
+      await generateRouteEllipse(calculateStartPoint(line));
       break;
     case 'ratio':
       await generateBeaconEllipse(calculateRatioPoint(line, msg.ratio));
       break;
     case 'end':
-      generateRouteEllipse(calculateEndPoint(line));
+      await generateRouteEllipse(calculateEndPoint(line));
       break;
     case 'intersect':
       const intersectLine = selection[1] as LineNode;
@@ -36,7 +36,7 @@ export async function generateNode(msg: { spot: GenerateSpot; ratio?: number }) 
           showNotification('❎ㅤ교차점이 없는 선분입니다');
           break;
         default:
-          generateRouteEllipse(intersectPoint);
+          await generateRouteEllipse(intersectPoint);
           break;
       }
       break;
@@ -148,9 +148,9 @@ function calculateLineMetrics(line: LineNode) {
 }
 
 // Route Ellipse 생성
-function generateRouteEllipse(point: Point) {
+async function generateRouteEllipse(point: Point) {
   const circle = figma.createEllipse();
-  const diameter = 160;
+  const diameter = await get('diameter', DevelopDefault.diameter);
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
   circle.name = 'route';
@@ -178,7 +178,7 @@ async function generateBeaconEllipse(point: Point) {
   // Ellipse Node 생성
   const circle = figma.createEllipse();
   const circleCenter: Point = [point[0], point[1]];
-  const diameter = 160;
+  const diameter = await get('diameter', DevelopDefault.diameter);
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
   circle.name = major + ' ' + minor;
@@ -191,7 +191,7 @@ async function generateBeaconEllipse(point: Point) {
   text.textAlignHorizontal = 'CENTER';
   text.textAlignVertical = 'CENTER';
   text.characters = major + '\n' + minor;
-  text.fontSize = 32;
+  text.fontSize = Math.round(diameter * 0.2);
   text.fontName = { family: 'Inter', style: 'Bold' };
   text.fills = [{ type: 'SOLID', color: hexToRgb(Colors.white) }];
   text.x = circleCenter[0] - text.width / 2;
