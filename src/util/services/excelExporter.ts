@@ -23,7 +23,6 @@ export function exportCSV() {
   const beacons = children.filter((child) => child.name.includes('beacon'));
   csvContent = makeCSVContent(beacons);
 
-  // UI 쪽으로 CSV 데이터 전송
   figma.ui.postMessage({
     type: 'export-csv',
     csvContent: csvContent,
