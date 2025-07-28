@@ -3,7 +3,14 @@
 <br>
 <br>
 
-<img width="1920" height="1080" alt="Image" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
+## Design Feature
+<img width="1920" height="1080" alt="Design" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
+
+## Development Feature
+<img width="1920" height="1080" alt="Development" src="https://github.com/user-attachments/assets/a85cccee-d8a9-4546-bd2c-e52a31cc0507" />
+
+## Setting Feature
+<img width="1920" height="1080" alt="Setting" src="https://github.com/user-attachments/assets/972c4ba8-8a86-4e33-aa42-5a8edbfa8e55" />
 
 <br>
 <br>
