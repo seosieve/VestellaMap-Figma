@@ -39,23 +39,27 @@ export async function saveDesignSettings(msg: DesignSettings) {
 export interface DevelopSettings {
   major: number;
   diameter: number;
+  withNumbering: boolean;
 }
 
 export const DevelopDefault: DevelopSettings = {
   major: 100,
   diameter: 160,
+  withNumbering: false,
 };
 
 export async function loadDevelopSettings(): Promise<DevelopSettings> {
   const major = await get('major', DevelopDefault.major);
   const diameter = await get('diameter', DevelopDefault.diameter);
+  const withNumbering = await get('withNumbering', DevelopDefault.withNumbering);
 
-  figma.ui.postMessage({ type: 'develop-settings-loaded', ...{ major, diameter } });
+  figma.ui.postMessage({ type: 'develop-settings-loaded', ...{ major, diameter, withNumbering } });
 
-  return { major, diameter };
+  return { major, diameter, withNumbering };
 }
 
 export async function saveDevelopSettings(msg: DevelopSettings) {
   await set('major', msg.major);
   await set('diameter', msg.diameter);
+  await set('withNumbering', msg.withNumbering);
 }

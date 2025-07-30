@@ -17,7 +17,7 @@ const ExcelSaveButton: React.FC<ExcelSaveButtonProps> = ({ onClick }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <Excel width={16} height={16} color={Colors.mintBase} />
-      <p style={styles.text}>Excel Save</p>
+      <p style={styles.text}>Export</p>
     </button>
   );
 };
@@ -28,7 +28,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '4px',
-    height: '30px',
+    height: '28px',
     backgroundColor: 'transparent',
     border: `1px solid ${Colors.shadow}`,
     borderRadius: '4px',
@@ -42,7 +42,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '4px',
-    height: '30px',
+    height: '28px',
     backgroundColor: 'transparent',
     border: `1px solid ${Colors.dark}`,
     borderRadius: '4px',
@@ -54,7 +54,7 @@ const styles = {
   text: {
     color: Colors.white,
     fontSize: '12px',
-    fontWeight: '600',
+    fontWeight: '500',
   },
 };
 

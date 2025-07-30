@@ -3,6 +3,7 @@ import { Colors } from '../../constant/color';
 import { DevelopDefault, DevelopSettings } from '../../util/services/settingHandler';
 import { useMessageListener } from '../../util/managers/messaageManager';
 import InputBox from '../components/InputBox';
+import ToggleBox from '../components/ToggleBox';
 
 export interface SettingDevelopHandle {
   handleSave: () => void;
@@ -16,6 +17,7 @@ interface SettingDevelopProps {
 const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopProps>((props, ref) => {
   const [major, setMajor] = useState<number>(0);
   const [diameter, setDiameter] = useState<number>(0);
+  const [withNumbering, setWithNumbering] = useState<boolean>(false);
   const [initialValues, setInitialValues] = useState<DevelopSettings>(DevelopDefault);
 
   useEffect(() => {
@@ -73,6 +75,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
       <div style={styles.inputContainer}>
         <InputBox title="Major" value={major} onChange={setMajor} />
         <InputBox title="Diameter" value={diameter} onChange={setDiameter} />
+        <ToggleBox title="With Numbering" value={withNumbering} onChange={setWithNumbering} />
       </div>
     </div>
   );

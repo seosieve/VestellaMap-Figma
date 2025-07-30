@@ -44,7 +44,8 @@ const styles: { [key: string]: CSSProperties } = {
     margin: '0',
   },
   input: {
-    width: '72px',
+    width: '60px',
+    height: '32px',
     padding: '6px',
     border: `1px solid ${Colors.dark}`,
     borderRadius: '4px',
