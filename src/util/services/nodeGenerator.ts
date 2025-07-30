@@ -200,6 +200,6 @@ async function generateBeaconEllipse(point: Point) {
 
   // Group Node 안에 추가
   const group = figma.group([circle, text], targetParent);
-  group.name = 'beacon';
+  group.name = 'beacon' + ' ' + major + ' ' + minor;
   targetParent.appendChild(group);
 }
