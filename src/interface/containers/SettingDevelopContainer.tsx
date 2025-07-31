@@ -31,6 +31,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
   useMessageListener('develop-settings-loaded', (msg) => {
     setMajor(msg.major);
     setDiameter(msg.diameter);
+    setWithNumbering(msg.withNumbering);
     setInitialValues(msg);
   });
 
@@ -38,6 +39,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
   const checkValues = (operator: '===' | '!==') => [
     eval(`major ${operator} initialValues.major`),
     eval(`diameter ${operator} initialValues.diameter`),
+    eval(`withNumbering ${operator} initialValues.withNumbering`),
   ];
 
   useEffect(() => {
@@ -47,13 +49,14 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
 
     props.onSettingChange(hasChanges);
     props.setDevelopSave(isAllSame);
-  }, [major, diameter, initialValues]);
+  }, [major, diameter, withNumbering, initialValues]);
 
   const handleSave = async () => {
     // 최대값 체크
     const checkedValues: DevelopSettings = {
       major: Math.min(major, 999),
       diameter: Math.min(diameter, 999),
+      withNumbering: withNumbering,
     };
 
     updateAllValues(checkedValues);
@@ -64,6 +67,7 @@ const SettingDevelopContainer = forwardRef<SettingDevelopHandle, SettingDevelopP
   const updateAllValues = (values: DevelopSettings) => {
     setMajor(values.major);
     setDiameter(values.diameter);
+    setWithNumbering(values.withNumbering);
     setInitialValues(values);
   };
 

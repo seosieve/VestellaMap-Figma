@@ -1,18 +1,15 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { Colors } from '../../constant/color';
 
 interface ToggleBoxProps {
   title: string;
-  value?: boolean;
+  value: boolean;
   onChange: (value: boolean) => void;
 }
 
 const ToggleBox: React.FC<ToggleBoxProps> = ({ title, value, onChange }) => {
-  const [isOn, setIsOn] = useState(value ?? false);
-
   const handleToggle = () => {
-    setIsOn(!isOn);
-    onChange(!isOn);
+    onChange(!value);
   };
 
   return (
@@ -22,8 +19,8 @@ const ToggleBox: React.FC<ToggleBoxProps> = ({ title, value, onChange }) => {
         <div
           style={{
             ...styles.toggleButton,
-            transform: isOn ? 'translateX(28px)' : 'translateX(0)',
-            backgroundColor: isOn ? Colors.white : Colors.medium,
+            transform: value ? 'translateX(28px)' : 'translateX(0)',
+            backgroundColor: value ? Colors.white : Colors.medium,
           }}
         ></div>
       </div>

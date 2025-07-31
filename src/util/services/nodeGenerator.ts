@@ -175,31 +175,40 @@ async function generateBeaconEllipse(point: Point) {
   const major = await get('major', DevelopDefault.major);
   const minor = numberBeaconMinor(parentNode as FrameNode, point);
 
+  // 번호 표시 여부 판별
+  const withNumbering = await get('withNumbering', DevelopDefault.withNumbering);
+
   // Ellipse Node 생성
   const circle = figma.createEllipse();
   const circleCenter: Point = [point[0], point[1]];
   const diameter = await get('diameter', DevelopDefault.diameter);
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
-  circle.name = major + ' ' + minor;
+  circle.name = 'ellipse';
   circle.x = circleCenter[0] - diameter / 2;
   circle.y = circleCenter[1] - diameter / 2;
   targetParent.appendChild(circle);
 
-  // Text Node 생성
-  const text = figma.createText();
-  text.textAlignHorizontal = 'CENTER';
-  text.textAlignVertical = 'CENTER';
-  text.characters = major + '\n' + minor;
-  text.fontSize = Math.round(diameter * 0.2);
-  text.fontName = { family: 'Inter', style: 'Bold' };
-  text.fills = [{ type: 'SOLID', color: hexToRgb(Colors.white) }];
-  text.x = circleCenter[0] - text.width / 2;
-  text.y = circleCenter[1] - text.height / 2;
-  targetParent.appendChild(text);
+  const nodesToGroup: SceneNode[] = [circle];
 
-  // Group Node 안에 추가
-  const group = figma.group([circle, text], targetParent);
-  group.name = 'beacon' + ' ' + major + ' ' + minor;
+  if (withNumbering) {
+    // Text Node 생성
+    const text = figma.createText();
+    text.textAlignHorizontal = 'CENTER';
+    text.textAlignVertical = 'CENTER';
+    text.characters = major + '\n' + minor;
+    text.fontSize = Math.round(diameter * 0.2);
+    text.fontName = { family: 'Inter', style: 'Bold' };
+    text.fills = [{ type: 'SOLID', color: hexToRgb(Colors.white) }];
+    text.x = circleCenter[0] - text.width / 2;
+    text.y = circleCenter[1] - text.height / 2;
+    targetParent.appendChild(text);
+
+    nodesToGroup.push(text);
+  }
+
+  // Group Node 생성 및 추가
+  const group = figma.group(nodesToGroup, targetParent);
+  group.name = withNumbering ? `beacon ${major} ${minor}` : 'beacon';
   targetParent.appendChild(group);
 }
