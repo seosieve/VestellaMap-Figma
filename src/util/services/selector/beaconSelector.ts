@@ -41,8 +41,11 @@ function countBeaconsRecursively(node: SceneNode): number {
   return count;
 }
 
-function countSingleBeacon(node: SceneNode) {
+export function selectBeaconEllipse() {
+  // 구현해야함
+  const selection = figma.currentPage.selection;
+
   figma.ui.postMessage({
-    type: 'selection-single-beacon',
+    type: 'selection-beacon-ellipse',
   });
 }

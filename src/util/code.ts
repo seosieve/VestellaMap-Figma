@@ -2,7 +2,7 @@
 
 import { selectSlots } from './services/selector/slotSelector';
 import { exportCSV } from './services/excelExporter';
-import { selectBeacons } from './services/selector/beaconSelector';
+import { selectBeacons, selectBeaconEllipse } from './services/selector/beaconSelector';
 import { notifyBeaconLineEmpty, notifyRouteLineEmpty, selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
 import { generateNode } from './services/nodeGenerator';
@@ -23,6 +23,7 @@ figma.on('run', async () => {
 figma.on('selectionchange', () => {
   selectSlots();
   selectBeacons();
+  selectBeaconEllipse();
   selectLine();
 });
 
