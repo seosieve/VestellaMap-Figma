@@ -42,10 +42,14 @@ function countBeaconsRecursively(node: SceneNode): number {
 }
 
 export function selectBeaconEllipse() {
-  // 구현해야함
-  const selection = figma.currentPage.selection;
+  const { selection } = figma.currentPage;
+  const firstNode = selection[0];
 
-  figma.ui.postMessage({
-    type: 'selection-beacon-ellipse',
-  });
+  const isGroup = firstNode?.type === 'GROUP';
+  const isBeacon = firstNode?.name.includes('beacon');
+  const hasEllipse = isGroup && (firstNode as GroupNode)?.children?.some((child) => child.type === 'ELLIPSE');
+
+  const isActive = isGroup && isBeacon && hasEllipse;
+
+  figma.ui.postMessage({ type: 'selection-beacon-ellipse', active: isActive });
 }

@@ -2,6 +2,7 @@ import React, { CSSProperties, useEffect, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
 import { LineInfo } from '../../util/services/selector/lineSelector';
+import BeaconSetButton from './BeaconSetButton';
 
 interface BeaconInfoBoxProps {
   ratio: number;
@@ -12,6 +13,7 @@ const BeaconInfoBox: React.FC<BeaconInfoBoxProps> = ({ ratio }) => {
   const [minor, setMinor] = useState<number>(0);
   const [lineInfo, setLineInfo] = useState<LineInfo | null>(null);
   const [parentInfo, setParentInfo] = useState<{ width: number; height: number } | null>(null);
+  const [isBeaconSelected, setIsBeaconSelected] = useState<boolean>(false);
 
   useEffect(() => {
     parent.postMessage({ pluginMessage: { type: 'load-develop-settings' } }, '*');
@@ -24,6 +26,11 @@ const BeaconInfoBox: React.FC<BeaconInfoBoxProps> = ({ ratio }) => {
   useMessageListener('beacon-line-info', (msg) => {
     setLineInfo(msg.lineInfo);
     setParentInfo({ width: msg.parentWidth, height: msg.parentHeight });
+  });
+
+  useMessageListener('selection-beacon-ellipse', (msg) => {
+    const active = msg.active;
+    setIsBeaconSelected(active);
   });
 
   useEffect(() => {
@@ -52,6 +59,14 @@ const BeaconInfoBox: React.FC<BeaconInfoBoxProps> = ({ ratio }) => {
         <p style={styles.category}>Minor</p>
         <p style={{ ...styles.number, ...(minor.toString().length === 5 && styles.fixedNumber) }}>{minor}</p>
       </div>
+      {isBeaconSelected && (
+        <>
+          <div style={styles.divider} />
+          <div style={styles.item}>
+            <BeaconSetButton onClick={() => {}} />
+          </div>
+        </>
+      )}
     </div>
   );
 };
@@ -62,6 +77,7 @@ const styles: { [key: string]: CSSProperties } = {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    height: '12px',
     gap: '8px',
     paddingLeft: '16px',
     paddingRight: '16px',

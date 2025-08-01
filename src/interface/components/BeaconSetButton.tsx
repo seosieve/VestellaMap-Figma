@@ -15,7 +15,7 @@ const BeaconSetButton: React.FC<BeaconSetButtonProps> = ({ onClick }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <p style={isHovered ? styles.hover : styles.text}>Set Number</p>
+      <p style={isHovered ? styles.hover : styles.text}>Set</p>
     </button>
   );
 };
@@ -25,24 +25,24 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '4px',
-    height: '28px',
+    height: '12px',
     backgroundColor: 'transparent',
     border: 'none',
-    paddingLeft: '16px',
-    paddingRight: '16px',
     cursor: 'pointer',
+    padding: '0',
   },
   text: {
     color: Colors.base,
     fontSize: '12px',
     fontWeight: '400',
+    margin: '0',
     transition: 'all 0.3s ease',
   },
   hover: {
     color: Colors.white,
     fontSize: '12px',
     fontWeight: '400',
+    margin: '0',
     transition: 'all 0.3s ease',
   },
 };

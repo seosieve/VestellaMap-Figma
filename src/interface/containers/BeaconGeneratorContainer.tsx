@@ -6,7 +6,6 @@ import ExcelSaveButton from '../components/ExcelSaveButton';
 import DraggableLine from '../components/DraggableLine';
 import RatioBox from '../components/RatioBox';
 import BeaconInfoBox from '../components/BeaconInfoBox';
-import BeaconSetButton from '../components/BeaconSetButton';
 
 const BeaconGeneratorContainer: React.FC = () => {
   const [ratio, setRatio] = useState<number>(0);
@@ -45,10 +44,6 @@ const BeaconGeneratorContainer: React.FC = () => {
     }
   };
 
-  useMessageListener('selection-beacon-ellipse', (msg) => {
-    const active = msg.active;
-  });
-
   return (
     <>
       <div style={styles.titleContainer}>
@@ -61,8 +56,7 @@ const BeaconGeneratorContainer: React.FC = () => {
         </div>
         <div style={styles.infoContainer}>
           <RatioBox ratio={ratio} />
-          {/* <BeaconInfoBox ratio={ratio} /> */}
-          <BeaconSetButton onClick={() => {}} />
+          <BeaconInfoBox ratio={ratio} />
         </div>
       </div>
     </>
