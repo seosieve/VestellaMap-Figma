@@ -10,13 +10,37 @@ import BeaconInfoBox from '../components/BeaconInfoBox';
 const BeaconGeneratorContainer: React.FC = () => {
   const [ratio, setRatio] = useState<number>(0);
 
-  const handleExportClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'export-csv' } }, '*');
+  const handleExportCSVClick = () => {
+    parent.postMessage({ pluginMessage: { type: 'export-CSV' } }, '*');
   };
 
-  useMessageListener('export-csv', (msg) => {
+  const handleExportQRClick = () => {
+    parent.postMessage({ pluginMessage: { type: 'export-QR' } }, '*');
+  };
+
+  useMessageListener('export-CSV', (msg) => {
     console.log(msg);
     handleExport(msg.csvContent);
+  });
+
+  useMessageListener('download-QR', (msg) => {
+    // 받은 비콘 데이터로 QR 코드 생성
+    const qrData = JSON.stringify(msg.beaconData);
+    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=256x256&format=png`;
+
+    // QR 이미지 다운로드
+    fetch(qrUrl)
+      .then((response) => response.blob())
+      .then((blob) => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'beacon_qr.png';
+        link.click();
+        URL.revokeObjectURL(link.href);
+      })
+      .catch((error) => {
+        console.error('QR 다운로드 실패:', error);
+      });
   });
 
   const handleExport = (csvContent: string) => {
@@ -49,8 +73,8 @@ const BeaconGeneratorContainer: React.FC = () => {
       <div style={styles.titleContainer}>
         <p style={styles.title}>Beacon Generator</p>
         <div style={styles.buttonContainer}>
-          <ExportButton type="excel" onClick={handleExportClick} />
-          <ExportButton type="qrcode" onClick={handleExportClick} />
+          <ExportButton type="CSV" onClick={handleExportCSVClick} />
+          <ExportButton type="QR" onClick={handleExportQRClick} />
         </div>
       </div>
       <div style={styles.contentContainer}>

@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface ExcelProps {
+interface CSVProps {
   width: number;
   height: number;
   color: string;
 }
 
-const Excel: React.FC<ExcelProps> = ({ width, height, color }) => {
+const CSV: React.FC<CSVProps> = ({ width, height, color }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
       <path
@@ -25,4 +25,4 @@ const Excel: React.FC<ExcelProps> = ({ width, height, color }) => {
   );
 };
 
-export default Excel;
+export default CSV;

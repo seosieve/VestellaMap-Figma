@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Colors } from '../../constant/color';
-import Excel from '../atoms/Excel';
-import QRCode from '../atoms/QRCode';
+import CSV from '../atoms/CSV';
+import QR from '../atoms/QR';
 
 interface ExportButtonProps {
-  type: 'excel' | 'qrcode';
+  type: 'CSV' | 'QR';
   onClick: () => void;
 }
 
@@ -12,10 +12,10 @@ const ExportButton: React.FC<ExportButtonProps> = ({ type, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const getIcon = () => {
-    if (type === 'excel') {
-      return <Excel width={24} height={24} color={Colors.mintBase} />;
+    if (type === 'CSV') {
+      return <CSV width={24} height={24} color={Colors.mintBase} />;
     } else {
-      return <QRCode width={24} height={24} color={Colors.mintBase} />;
+      return <QR width={24} height={24} color={Colors.mintBase} />;
     }
   };
 

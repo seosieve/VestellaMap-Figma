@@ -1,12 +1,12 @@
 import React from 'react';
 
-interface QRCodeProps {
+interface QRProps {
   width: number;
   height: number;
   color: string;
 }
 
-const QRCode: React.FC<QRCodeProps> = ({ width, height, color }) => {
+const QR: React.FC<QRProps> = ({ width, height, color }) => {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} viewBox="0 0 24 24" fill="none">
       <path
@@ -17,4 +17,4 @@ const QRCode: React.FC<QRCodeProps> = ({ width, height, color }) => {
   );
 };
 
-export default QRCode;
+export default QR;

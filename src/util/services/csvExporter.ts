@@ -1,4 +1,5 @@
-// excelExporter.ts
+// csvExporter.ts
+
 import { showNotification } from '../managers/notificationManager';
 
 export function exportCSV() {
@@ -24,7 +25,7 @@ export function exportCSV() {
   csvContent = makeCSVContent(beacons);
 
   figma.ui.postMessage({
-    type: 'export-csv',
+    type: 'export-CSV',
     csvContent: csvContent,
   });
 }

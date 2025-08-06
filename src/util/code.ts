@@ -1,7 +1,8 @@
 /// <reference types="@figma/plugin-typings" />
 
 import { selectSlots } from './services/selector/slotSelector';
-import { exportCSV } from './services/excelExporter';
+import { exportCSV } from './services/csvExporter';
+import { exportQR } from './services/qrExporter';
 import { selectBeacons, selectBeaconEllipse } from './services/selector/beaconSelector';
 import { notifyBeaconLineEmpty, notifyRouteLineEmpty, selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
@@ -43,8 +44,10 @@ figma.ui.onmessage = async (msg) => {
     await generateNode(msg);
   } else if (msg.type === 'numbering-beacons') {
     // await numberBeacons();
-  } else if (msg.type === 'export-csv') {
+  } else if (msg.type === 'export-CSV') {
     exportCSV();
+  } else if (msg.type === 'export-QR') {
+    await exportQR();
   } else if (msg.type === 'reset-design-settings') {
     await saveDesignSettings(msg);
     showNotification('🌿 설정이 초기화되었습니다.');
