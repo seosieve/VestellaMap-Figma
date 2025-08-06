@@ -2,7 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
 import { GenerateSpot } from '../../util/services/nodeGenerator';
-import ExcelSaveButton from '../components/ExcelSaveButton';
+import ExportButton from '../components/ExportButton';
 import DraggableLine from '../components/DraggableLine';
 import RatioBox from '../components/RatioBox';
 import BeaconInfoBox from '../components/BeaconInfoBox';
@@ -48,7 +48,10 @@ const BeaconGeneratorContainer: React.FC = () => {
     <>
       <div style={styles.titleContainer}>
         <p style={styles.title}>Beacon Generator</p>
-        <ExcelSaveButton onClick={handleExportClick} />
+        <div style={styles.buttonContainer}>
+          <ExportButton type="excel" onClick={handleExportClick} />
+          <ExportButton type="qrcode" onClick={handleExportClick} />
+        </div>
       </div>
       <div style={styles.contentContainer}>
         <div style={styles.dragLineContainer}>
@@ -75,6 +78,12 @@ const styles: { [key: string]: CSSProperties } = {
     color: Colors.white,
     fontSize: '16px',
     fontWeight: '700',
+  },
+  buttonContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: '8px',
   },
   contentContainer: {
     display: 'flex',

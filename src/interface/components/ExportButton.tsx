@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import { Colors } from '../../constant/color';
 import Excel from '../atoms/Excel';
+import QRCode from '../atoms/QRCode';
 
-interface ExcelSaveButtonProps {
+interface ExportButtonProps {
+  type: 'excel' | 'qrcode';
   onClick: () => void;
 }
 
-const ExcelSaveButton: React.FC<ExcelSaveButtonProps> = ({ onClick }) => {
+const ExportButton: React.FC<ExportButtonProps> = ({ type, onClick }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const getIcon = () => {
+    if (type === 'excel') {
+      return <Excel width={24} height={24} color={Colors.mintBase} />;
+    } else {
+      return <QRCode width={24} height={24} color={Colors.mintBase} />;
+    }
+  };
 
   return (
     <button
@@ -16,8 +26,7 @@ const ExcelSaveButton: React.FC<ExcelSaveButtonProps> = ({ onClick }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <Excel width={16} height={16} color={Colors.mintBase} />
-      <p style={styles.text}>Export</p>
+      {getIcon()}
     </button>
   );
 };
@@ -27,13 +36,11 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '4px',
+    width: '28px',
     height: '28px',
     backgroundColor: 'transparent',
     border: `1px solid ${Colors.shadow}`,
     borderRadius: '4px',
-    paddingLeft: '8px',
-    paddingRight: '8px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
@@ -41,21 +48,14 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: '4px',
+    width: '28px',
     height: '28px',
     backgroundColor: 'transparent',
     border: `1px solid ${Colors.dark}`,
     borderRadius: '4px',
-    paddingLeft: '8px',
-    paddingRight: '8px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
-  text: {
-    color: Colors.white,
-    fontSize: '12px',
-    fontWeight: '500',
-  },
 };
 
-export default ExcelSaveButton;
+export default ExportButton;
