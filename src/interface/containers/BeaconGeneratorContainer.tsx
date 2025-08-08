@@ -26,7 +26,8 @@ const BeaconGeneratorContainer: React.FC = () => {
   useMessageListener('download-QR', (msg) => {
     // 받은 비콘 데이터로 QR 코드 생성
     const qrData = JSON.stringify(msg.beaconData);
-    const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=256x256&format=png`;
+    const endPoint = 'https://api.qrserver.com/v1/create-qr-code/';
+    const qrUrl = `${endPoint}?data=${encodeURIComponent(qrData)}&size=512x512&format=png&margin=20`;
 
     // QR 이미지 다운로드
     fetch(qrUrl)

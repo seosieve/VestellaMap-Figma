@@ -17,7 +17,6 @@ figma.showUI(__html__, { width: 344, height: 612 });
 figma.on('run', async () => {
   await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
   await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-  console.log('run');
 });
 
 // 노드 선택 시
