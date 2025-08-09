@@ -48,6 +48,9 @@ function makeCSVContent(beacons: SceneNode[]): string[] {
     csvContent.push([beaconNumber]);
   });
 
+  // 중복 제거
+  csvContent = csvContent.filter((row, index, self) => self.findIndex((t) => t[0] === row[0]) === index);
+
   // 정렬 추가
   csvContent.sort((a, b) => {
     const numA = parseInt(a[0]?.split(' ')?.[1] || '0');

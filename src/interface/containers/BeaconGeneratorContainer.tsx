@@ -2,6 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
 import { GenerateSpot } from '../../util/services/nodeGenerator';
+import ExportCSVButton from '../components/ExportCSVButton';
 import ExportButton from '../components/ExportButton';
 import DraggableLine from '../components/DraggableLine';
 import RatioBox from '../components/RatioBox';
@@ -10,18 +11,9 @@ import BeaconInfoBox from '../components/BeaconInfoBox';
 const BeaconGeneratorContainer: React.FC = () => {
   const [ratio, setRatio] = useState<number>(0);
 
-  const handleExportCSVClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'export-CSV' } }, '*');
-  };
-
   const handleExportQRClick = () => {
     parent.postMessage({ pluginMessage: { type: 'export-QR' } }, '*');
   };
-
-  useMessageListener('export-CSV', (msg) => {
-    console.log(msg);
-    handleExport(msg.csvContent);
-  });
 
   useMessageListener('download-QR', (msg) => {
     // 받은 비콘 데이터로 QR 코드 생성
@@ -44,19 +36,6 @@ const BeaconGeneratorContainer: React.FC = () => {
       });
   });
 
-  const handleExport = (csvContent: string) => {
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-
-    // 다운로드 링크 생성 및 클릭
-    const link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'beacon_locations.csv';
-    link.click();
-
-    // 메모리 정리
-    URL.revokeObjectURL(link.href);
-  };
-
   const handleGenerateClick = () => {
     parent.postMessage({ pluginMessage: { type: 'generate-node', spot: 'ratio', ratio: ratio } }, '*');
   };
@@ -74,7 +53,7 @@ const BeaconGeneratorContainer: React.FC = () => {
       <div style={styles.titleContainer}>
         <p style={styles.title}>Beacon Generator</p>
         <div style={styles.buttonContainer}>
-          <ExportButton type="CSV" onClick={handleExportCSVClick} />
+          <ExportCSVButton />
           <ExportButton type="QR" onClick={handleExportQRClick} />
         </div>
       </div>

@@ -106,6 +106,7 @@ const styles: { [key: string]: CSSProperties } = {
     width: '100%',
     height: '80px',
     cursor: 'pointer',
+    backgroundColor: 'red',
   },
   horizontalLine: {
     position: 'absolute',
