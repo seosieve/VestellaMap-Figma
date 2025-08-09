@@ -3,7 +3,7 @@
 import { selectSlots } from './services/selector/slotSelector';
 import { exportCSV } from './services/csvExporter';
 import { exportQR } from './services/qrExporter';
-import { selectBeacons, selectBeaconEllipse } from './services/selector/beaconSelector';
+import { selectBeacons, selectBeaconEllipse, notifyBeaconEllipseEmpty } from './services/selector/beaconSelector';
 import { notifyBeaconLineEmpty, notifyRouteLineEmpty, selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
 import { generateNode } from './services/nodeGenerator';
@@ -33,6 +33,8 @@ figma.ui.onmessage = async (msg) => {
     notifyRouteLineEmpty();
   } else if (msg.type === 'empty-beacon-line') {
     notifyBeaconLineEmpty();
+  } else if (msg.type === 'empty-beacon-ellipse') {
+    notifyBeaconEllipseEmpty();
   } else if (msg.type === 'generate-slots') {
     await generateSlots(msg);
   } else if (msg.type === 'show-preview-ellipse') {

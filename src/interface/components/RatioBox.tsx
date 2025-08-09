@@ -1,14 +1,22 @@
-import React, { CSSProperties, useEffect, useState } from 'react';
+import React, { CSSProperties } from 'react';
 import { Colors } from '../../constant/color';
 
 interface RatioBoxProps {
+  selection: string;
   ratio: number;
 }
 
-const RatioBox: React.FC<RatioBoxProps> = ({ ratio }) => {
+const RatioBox: React.FC<RatioBoxProps> = ({ ratio, selection }) => {
   return (
     <div style={styles.container}>
-      <p style={styles.ratio}>{Math.round(ratio * 100)}%</p>
+      <p
+        style={{
+          ...styles.ratio,
+          opacity: selection === 'line' ? 1 : 0,
+        }}
+      >
+        {Math.round(ratio * 100)}%
+      </p>
     </div>
   );
 };
@@ -29,6 +37,7 @@ const styles: { [key: string]: CSSProperties } = {
     fontWeight: '700',
     lineHeight: '1',
     margin: '0',
+    transition: 'opacity 0.3s ease, transform 0.3s ease',
   },
 };
 

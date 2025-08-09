@@ -74,6 +74,7 @@ const styles: { [key: string]: CSSProperties } = {
     borderRadius: '12px',
     padding: '16px',
     marginTop: '24px',
+    cursor: 'pointer',
   },
   crossBackground: {
     position: 'absolute',

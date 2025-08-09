@@ -1,5 +1,7 @@
 // beaconSelector.ts
 
+import { showNotification } from '../../managers/notificationManager';
+
 export function selectBeacons() {
   const selection = figma.currentPage.selection;
 
@@ -45,11 +47,45 @@ export function selectBeaconEllipse() {
   const { selection } = figma.currentPage;
   const firstNode = selection[0];
 
+  const singleSelection = selection.length === 1;
   const isGroup = firstNode?.type === 'GROUP';
   const isBeacon = firstNode?.name.includes('beacon');
   const hasEllipse = isGroup && (firstNode as GroupNode)?.children?.some((child) => child.type === 'ELLIPSE');
+  const hasFrameParent = firstNode?.parent?.type === 'FRAME';
 
-  const isActive = isGroup && isBeacon && hasEllipse;
+  const isActive = singleSelection && isGroup && isBeacon && hasEllipse && hasFrameParent;
 
   figma.ui.postMessage({ type: 'selection-beacon-ellipse', active: isActive });
+}
+
+// Beacon Ellipse Empty 알림
+export function notifyBeaconEllipseEmpty() {
+  const { selection } = figma.currentPage;
+  const firstNode = selection[0];
+  const count = selection.length;
+
+  const isGroup = firstNode?.type === 'GROUP';
+  const isBeacon = firstNode?.name.includes('beacon');
+  const hasEllipse = isGroup && (firstNode as GroupNode)?.children?.some((child) => child.type === 'ELLIPSE');
+  const hasFrameParent = firstNode?.parent?.type === 'FRAME';
+
+  if (count === 0) {
+    showNotification('❎ㅤ선택된 비콘이 없어요');
+    return;
+  }
+
+  if (isGroup && isBeacon && count > 1) {
+    showNotification('❎ㅤ하나의 비콘만 선택해주세요');
+    return;
+  }
+
+  if (!isGroup || !isBeacon) {
+    showNotification('❎ㅤ비콘만 선택 가능해요');
+    return;
+  }
+
+  if (isGroup && isBeacon && hasEllipse && !hasFrameParent) {
+    showNotification('❎ㅤ프레임 안의 비콘을 선택해주세요.');
+    return;
+  }
 }
