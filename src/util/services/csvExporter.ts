@@ -5,7 +5,7 @@ import { showNotification } from '../managers/notificationManager';
 export function exportCSV() {
   var csvContent: string[] = [];
 
-  const selection = figma.currentPage.selection;
+  const { selection } = figma.currentPage;
 
   // 선택된 노드가 없을 때 처리
   if (selection.length === 0) {

@@ -1,40 +1,14 @@
 import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
-import { useMessageListener } from '../../util/managers/messaageManager';
 import { GenerateSpot } from '../../util/services/nodeGenerator';
 import ExportCSVButton from '../components/ExportCSVButton';
-import ExportButton from '../components/ExportButton';
+import ExportQRButton from '../components/ExportQRButton';
 import DraggableLine from '../components/DraggableLine';
 import RatioBox from '../components/RatioBox';
 import BeaconInfoBox from '../components/BeaconInfoBox';
 
 const BeaconGeneratorContainer: React.FC = () => {
   const [ratio, setRatio] = useState<number>(0);
-
-  const handleExportQRClick = () => {
-    parent.postMessage({ pluginMessage: { type: 'export-QR' } }, '*');
-  };
-
-  useMessageListener('download-QR', (msg) => {
-    // 받은 비콘 데이터로 QR 코드 생성
-    const qrData = JSON.stringify(msg.beaconData);
-    const endPoint = 'https://api.qrserver.com/v1/create-qr-code/';
-    const qrUrl = `${endPoint}?data=${encodeURIComponent(qrData)}&size=512x512&format=png&margin=20`;
-
-    // QR 이미지 다운로드
-    fetch(qrUrl)
-      .then((response) => response.blob())
-      .then((blob) => {
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'beacon_qr.png';
-        link.click();
-        URL.revokeObjectURL(link.href);
-      })
-      .catch((error) => {
-        console.error('QR 다운로드 실패:', error);
-      });
-  });
 
   const handleGenerateClick = () => {
     parent.postMessage({ pluginMessage: { type: 'generate-node', spot: 'ratio', ratio: ratio } }, '*');
@@ -54,7 +28,7 @@ const BeaconGeneratorContainer: React.FC = () => {
         <p style={styles.title}>Beacon Generator</p>
         <div style={styles.buttonContainer}>
           <ExportCSVButton />
-          <ExportButton type="QR" onClick={handleExportQRClick} />
+          <ExportQRButton />
         </div>
       </div>
       <div style={styles.contentContainer}>
