@@ -59,6 +59,12 @@ figma.ui.onmessage = async (msg) => {
     await loadDevelopSettings();
   } else if (msg.type === 'save-develop-settings') {
     await saveDevelopSettings(msg);
+  } else if (msg.type === 'check-current-selection') {
+    // 현재 selection 상태를 강제로 다시 체크
+    selectSlots();
+    selectBeacons();
+    selectBeaconEllipse();
+    selectLine();
   }
 };
 

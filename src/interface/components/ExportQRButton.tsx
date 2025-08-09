@@ -5,6 +5,8 @@ import QR from '../atoms/QR';
 
 const ExportQRButton = () => {
   const endPoint = 'https://api.qrserver.com/v1/create-qr-code/';
+  const size = '512x512';
+  const margin = 20;
   const [isHovered, setIsHovered] = useState(false);
 
   const handleClick = () => {
@@ -14,7 +16,7 @@ const ExportQRButton = () => {
   useMessageListener('export-QR', (msg) => {
     // 받은 비콘 데이터로 QR 코드 생성
     const qrData = JSON.stringify(msg.qrContent);
-    const qrUrl = `${endPoint}?data=${encodeURIComponent(qrData)}&size=512x512&format=png&margin=20`;
+    const qrUrl = `${endPoint}?data=${encodeURIComponent(qrData)}&size=${size}&format=png&margin=${margin}`;
 
     fetch(qrUrl)
       .then((response) => response.blob())
@@ -39,7 +41,7 @@ const ExportQRButton = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <QR width={24} height={24} color={Colors.mintBase} />
+      <QR width={24} height={24} color={isHovered ? Colors.mintBright : Colors.mintBase} />
     </button>
   );
 };

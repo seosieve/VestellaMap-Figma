@@ -39,12 +39,18 @@ const App: React.FC = () => {
   ];
 
   const handleTabChange = (tabId: string) => {
+    checkCurrentSelection();
+
     if (hasUnsavedChanges && tabId !== 'Setting') {
       setIsModalOpen(true);
       setPendingTabId(tabId);
       return;
     }
     setActiveTab(tabId);
+  };
+
+  const checkCurrentSelection = () => {
+    parent.postMessage({ pluginMessage: { type: 'check-current-selection' } }, '*');
   };
 
   const handleConfirm = async () => {

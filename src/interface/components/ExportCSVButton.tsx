@@ -30,7 +30,7 @@ const ExportCSVButton = () => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <CSV width={24} height={24} color={Colors.mintBase} />
+      <CSV width={24} height={24} color={isHovered ? Colors.mintBright : Colors.mintBase} />
     </button>
   );
 };
