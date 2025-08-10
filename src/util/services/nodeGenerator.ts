@@ -162,6 +162,21 @@ async function generateRouteEllipse(point: Point) {
   // 부모 노드 유무 판별
   const parentNode = figma.currentPage.selection[0]?.parent;
   const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
+
+  // 같은 위치에 이미 Route가 있는지 체크
+  const existingRoute = targetParent.children.find(
+    (child) =>
+      child.name === 'route' &&
+      child.type === 'ELLIPSE' &&
+      Math.abs(child.x - (point[0] - diameter / 2)) < 1 &&
+      Math.abs(child.y - (point[1] - diameter / 2)) < 1,
+  );
+
+  if (existingRoute) {
+    showNotification('❎ㅤ이미 같은 위치에 Route가 있습니다.');
+    return;
+  }
+
   targetParent.appendChild(circle);
 }
 
@@ -170,6 +185,21 @@ async function generateBeaconEllipse(point: Point) {
   // 부모 노드 유무 판별
   const parentNode = figma.currentPage.selection[0]?.parent;
   const targetParent = parentNode && 'children' in parentNode ? parentNode : figma.currentPage;
+  const diameter = await get('diameter', DevelopDefault.diameter);
+
+  // 같은 위치에 이미 beacon이 있는지 체크
+  const existingBeacon = targetParent.children.find(
+    (child) =>
+      child.name.startsWith('beacon') &&
+      child.type === 'GROUP' &&
+      Math.abs(child.x - (point[0] - diameter / 2)) < 1 &&
+      Math.abs(child.y - (point[1] - diameter / 2)) < 1,
+  );
+
+  if (existingBeacon) {
+    showNotification('❎ㅤ이미 같은 위치에 Beacon이 있습니다.');
+    return;
+  }
 
   // Beacon Major, Minor 값 가져오기
   const major = await get('major', DevelopDefault.major);
@@ -181,7 +211,6 @@ async function generateBeaconEllipse(point: Point) {
   // Ellipse Node 생성
   const circle = figma.createEllipse();
   const circleCenter: Point = [point[0], point[1]];
-  const diameter = await get('diameter', DevelopDefault.diameter);
   circle.resize(diameter, diameter);
   circle.fills = [{ type: 'SOLID', color: hexToRgb(Colors.base) }];
   circle.name = 'ellipse';
