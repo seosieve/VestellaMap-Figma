@@ -173,7 +173,7 @@ async function generateRouteEllipse(point: Point) {
   );
 
   if (existingRoute) {
-    showNotification('❎ㅤ이미 같은 위치에 Route가 있습니다.');
+    showNotification('❎ㅤ이미 같은 위치에 라우트가 있어요');
     return;
   }
 
@@ -197,7 +197,7 @@ async function generateBeaconEllipse(point: Point) {
   );
 
   if (existingBeacon) {
-    showNotification('❎ㅤ이미 같은 위치에 Beacon이 있습니다.');
+    showNotification('❎ㅤ이미 같은 위치에 비콘이 있어요');
     return;
   }
 
