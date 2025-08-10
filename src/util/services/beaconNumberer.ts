@@ -40,6 +40,7 @@ export async function numberBeacon() {
   // 기존 텍스트 제거
   group.children.filter((child) => child.type === 'TEXT').forEach((text) => text.remove());
 
+  // 비콘 넘버링 텍스트 생성
   const text = figma.createText();
   text.textAlignHorizontal = 'CENTER';
   text.textAlignVertical = 'CENTER';
