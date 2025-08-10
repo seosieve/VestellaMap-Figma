@@ -71,7 +71,7 @@ const BeaconGeneratorContainer: React.FC = () => {
               pointerEvents: selection !== 'line' ? 'auto' : 'none',
             }}
           >
-            <NumberableLine onClick={() => {}} />
+            <NumberableLine />
           </div>
         </div>
         <div style={styles.infoContainer}>

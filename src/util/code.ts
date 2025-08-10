@@ -7,6 +7,7 @@ import { selectBeacons, selectBeaconEllipse, notifyBeaconEllipseEmpty } from './
 import { notifyBeaconLineEmpty, notifyRouteLineEmpty, selectLine } from './services/selector/lineSelector';
 import { generateSlots } from './services/slotGenerator';
 import { generateNode } from './services/nodeGenerator';
+import { numberBeacon } from './services/beaconNumberer';
 import { showPreviewEllipse, hidePreviewEllipse } from './services/previewGenerator';
 import { saveDesignSettings, loadDesignSettings } from './services/settingHandler';
 import { saveDevelopSettings, loadDevelopSettings } from './services/settingHandler';
@@ -44,7 +45,7 @@ figma.ui.onmessage = async (msg) => {
   } else if (msg.type === 'generate-node') {
     await generateNode(msg);
   } else if (msg.type === 'numbering-beacons') {
-    // await numberBeacons();
+    numberBeacon();
   } else if (msg.type === 'export-CSV') {
     exportCSV();
   } else if (msg.type === 'export-QR') {

@@ -2,16 +2,18 @@ import React, { CSSProperties, useState } from 'react';
 import { Colors } from '../../constant/color';
 import { useMessageListener } from '../../util/managers/messaageManager';
 
-interface NumberableLineProps {
-  onClick: () => void;
-}
-
-const NumberableLine: React.FC<NumberableLineProps> = ({ onClick }) => {
+const NumberableLine = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleContainerClick = () => {
     parent.postMessage({ pluginMessage: { type: 'empty-beacon-ellipse' } }, '*');
+  };
+
+  const handleClick = () => {
+    if (!isDisabled) {
+      parent.postMessage({ pluginMessage: { type: 'numbering-beacons' } }, '*');
+    }
   };
 
   useMessageListener('selection-beacon-ellipse', (msg) => {
@@ -28,7 +30,7 @@ const NumberableLine: React.FC<NumberableLineProps> = ({ onClick }) => {
           ...(isDisabled ? styles.disabled : {}),
           ...(isHovered ? styles.hover : {}),
         }}
-        onClick={() => {}}
+        onClick={handleClick}
         onMouseEnter={() => !isDisabled && setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

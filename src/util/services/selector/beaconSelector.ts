@@ -46,8 +46,9 @@ function countBeaconsRecursively(node: SceneNode): number {
 export function selectBeaconEllipse() {
   const { selection } = figma.currentPage;
   const firstNode = selection[0];
+  const count = selection.length;
 
-  const singleSelection = selection.length === 1;
+  const singleSelection = count === 1;
   const isGroup = firstNode?.type === 'GROUP';
   const isBeacon = firstNode?.name.includes('beacon');
   const hasEllipse = isGroup && (firstNode as GroupNode)?.children?.some((child) => child.type === 'ELLIPSE');
