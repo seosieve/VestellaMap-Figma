@@ -33,7 +33,7 @@ export async function exportQR() {
 }
 
 function makeQRContent(beacons: SceneNode[]): string[] {
-  var qrContent: string[][] = [[]];
+  var qrContent: string[] = [];
 
   beacons.forEach((beacon) => {
     const beaconGroup = beacon as GroupNode;
@@ -47,18 +47,18 @@ function makeQRContent(beacons: SceneNode[]): string[] {
     const beaconGroup = beacon as GroupNode;
     const text = beaconGroup.children[1] as TextNode;
     const beaconNumber = text.characters.replace(/\n/g, ' ');
-    qrContent.push([beaconNumber]);
+    qrContent.push(beaconNumber);
   });
 
   // 중복 제거
-  qrContent = qrContent.filter((row, index, self) => self.findIndex((t) => t[0] === row[0]) === index);
+  qrContent = qrContent.filter((item, index, self) => self.indexOf(item) === index);
 
   // 정렬 추가
   qrContent.sort((a, b) => {
-    const numA = parseInt(a[0]?.split(' ')?.[1] || '0');
-    const numB = parseInt(b[0]?.split(' ')?.[1] || '0');
+    const numA = parseInt(a.split(' ')?.[1] || '0');
+    const numB = parseInt(b.split(' ')?.[1] || '0');
     return numA - numB;
   });
 
-  return [qrContent.map((row) => row.join(',')).join('\n')];
+  return qrContent;
 }
