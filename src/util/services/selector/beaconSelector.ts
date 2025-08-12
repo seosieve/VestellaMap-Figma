@@ -29,7 +29,7 @@ function countBeaconsRecursively(node: SceneNode): number {
   let count = 0;
 
   // 현재 노드가 beacon을 포함하는지 확인
-  if (node.name.includes('beacon')) {
+  if (node.name.includes('beacon') && node.type !== 'FRAME') {
     count++;
   }
 
