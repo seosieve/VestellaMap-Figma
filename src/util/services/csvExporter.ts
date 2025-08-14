@@ -31,7 +31,7 @@ export function exportCSV() {
 }
 
 function makeCSVContent(beacons: SceneNode[]): string[] {
-  var csvContent: string[][] = [[]];
+  var csvContent: string[][] = [['major minor']];
 
   beacons.forEach((beacon) => {
     const beaconGroup = beacon as GroupNode;
