@@ -31,6 +31,7 @@ export function exportCSV() {
 }
 
 function makeCSVContent(beacons: SceneNode[]): string[] {
+  // CSV 헤더 추가
   var csvContent: string[][] = [['major minor']];
 
   beacons.forEach((beacon) => {
