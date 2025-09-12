@@ -3,6 +3,11 @@
 <br>
 <br>
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/bdad9d29-5bbb-42b1-b663-94655cfce6c2" width="49.5%">
+  <img src="https://github.com/user-attachments/assets/8fb842b1-fd65-419a-a9dc-df45dd499d30" width="49.5%">
+</div>
+
 ## Design Feature
 <img width="1920" height="1080" alt="Design" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
 
