@@ -4,16 +4,23 @@
 <br>
 
 <div align="center">
-  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/7fdf56bd-2acd-4115-a2d0-819c2080478d" style="width: 200px; height: 66px;"></a>
+  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/7fdf56bd-2acd-4115-a2d0-819c2080478d"></a>
+  <br>
+  <br>
+  <img src="https://img.shields.io/badge/version-11.0.0-darkgray.svg">
+  <a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/cocoapods/l/SafeAreaBrush.svg?style=flat"></img></a>
+  <br>
 </div>
+<br>
+<br>
+
+## Design Feature
+<img width="1920" height="1080" alt="Design" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
 
 <div align="center">
   <img src="https://github.com/user-attachments/assets/bdad9d29-5bbb-42b1-b663-94655cfce6c2" width="49.5%">
   <img src="https://github.com/user-attachments/assets/8fb842b1-fd65-419a-a9dc-df45dd499d30" width="49.5%">
 </div>
-
-## Design Feature
-<img width="1920" height="1080" alt="Design" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
 
 ## Development Feature
 <img width="1920" height="1080" alt="Development" src="https://github.com/user-attachments/assets/a85cccee-d8a9-4546-bd2c-e52a31cc0507" />
