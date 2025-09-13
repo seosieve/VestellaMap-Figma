@@ -4,7 +4,7 @@
 <br>
 
 <div align="center">
-  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/7fdf56bd-2acd-4115-a2d0-819c2080478d"></a>
+  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/9c1198e2-bd83-4e85-a704-f19607a49c5b"></a>
   <br>
   <br>
   <img src="https://img.shields.io/badge/version-11.0.0-darkgray.svg">
@@ -17,6 +17,9 @@
 ## About
 `🍀 Don’t take unnecessary repetitive tasks for granted anymore.`
 > A Figma plugin that enhances overall productivity in **creating and utilizing digital maps**.
+- **Project Duration**: 2025.08 - 2025.09 (v11.0.0)
+- **Project Tech Stack**: React 19.1.0 + TypeScript 5.3.2 + Webpack 5.89.0, ESLint + Prettier
+- **API / Networking**: Figma Plugin API, Web APIs (Blob, URL, DOM, Canvas), QR Server API, Google Fonts API
 <br>
 
 ## Design Feature
