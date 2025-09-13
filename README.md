@@ -14,6 +14,11 @@
 <br>
 <br>
 
+## About
+`🍀 Don’t take unnecessary repetitive tasks for granted anymore.`
+> A Figma plugin that enhances overall productivity in **creating and utilizing digital maps**.
+<br>
+
 ## Design Feature
 <img width="1920" height="1080" alt="Design" src="https://github.com/user-attachments/assets/3f8aed88-b5a8-42a6-b474-c2c67324b449" />
 
