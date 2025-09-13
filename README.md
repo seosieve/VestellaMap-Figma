@@ -4,6 +4,10 @@
 <br>
 
 <div align="center">
+  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/7fdf56bd-2acd-4115-a2d0-819c2080478d" style="width: 200px; height: 66px;"></a>
+</div>
+
+<div align="center">
   <img src="https://github.com/user-attachments/assets/bdad9d29-5bbb-42b1-b663-94655cfce6c2" width="49.5%">
   <img src="https://github.com/user-attachments/assets/8fb842b1-fd65-419a-a9dc-df45dd499d30" width="49.5%">
 </div>
