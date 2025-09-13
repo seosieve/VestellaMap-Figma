@@ -7,6 +7,7 @@
   <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/9c1198e2-bd83-4e85-a704-f19607a49c5b"></a>
   <br>
   <br>
+  <img src="https://img.shields.io/badge/Figma-gray?logo=figma&logoColor=white">
   <img src="https://img.shields.io/badge/version-11.0.0-darkgray.svg">
   <a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/cocoapods/l/SafeAreaBrush.svg?style=flat"></img></a>
   <br>
@@ -41,6 +42,9 @@
 - **Existing Problem**: Figma doesn’t auto-count slots, requiring manual counting in communicating the number of slots per floor or area.
 - **Approach**: Count slots via real-time state synchronization based on Figma API - selectionchange events.
 - **Business Impact**: Cut communication time by ~80% ✅
+
+<img width="1920" height="428" alt="Image" src="https://github.com/user-attachments/assets/0eefb5a2-66d2-4d4c-aab9-4b08cd045be6" />
+<br>
 <br>
 
 
