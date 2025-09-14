@@ -9,7 +9,7 @@
   <br>
   <img src="https://img.shields.io/badge/Figma-gray?logo=figma&logoColor=white">
   <img src="https://img.shields.io/badge/version-11.0.0-darkgray.svg">
-  <a href="https://choosealicense.com/licenses/mit/"><img src="https://img.shields.io/cocoapods/l/SafeAreaBrush.svg?style=flat"></img></a>
+  <img src="https://img.shields.io/badge/license-MIT-darkgray?link=https%3A%2F%2Fchoosealicense.com%2Flicenses%2Fmit%2F">
   <br>
 </div>
 <br>
@@ -43,7 +43,7 @@
 - **Approach**: Count slots via real-time state synchronization based on Figma API - selectionchange events.
 - **Business Impact**: Cut communication time by ~80% ✅
 
-<img width="1920" height="428" alt="Image" src="https://github.com/user-attachments/assets/0eefb5a2-66d2-4d4c-aab9-4b08cd045be6" />
+<img width="1920" height="440" alt="Image" src="https://github.com/user-attachments/assets/4af624e7-404a-4b38-b261-e7338d91ffce" />
 <br>
 <br>
 
