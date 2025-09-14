@@ -9,7 +9,7 @@
   <br>
   <img src="https://img.shields.io/badge/Figma-gray?logo=figma&logoColor=white">
   <img src="https://img.shields.io/badge/version-11.0.0-darkgray.svg">
-  <img src="https://img.shields.io/badge/license-MIT-darkgray?link=https%3A%2F%2Fchoosealicense.com%2Flicenses%2Fmit%2F">
+  <img src="https://img.shields.io/badge/license-Apache-darkgray?link=https%3A%2F%2Fchoosealicense.com%2Flicenses%2Fmit%2F">
   <br>
 </div>
 <br>
@@ -50,35 +50,33 @@
 
 ## Development Feature
 ![Development](https://github.com/user-attachments/assets/a85cccee-d8a9-4546-bd2c-e52a31cc0507)
+> Beacon Numberer
+- **Existing Problem**: Manually estimating beacon minor numbers from digital map coordinates was both slow and error-prone.
+- **Approach**: Generate minor numbers using a formula relative to the parent frame size of each placed beacon.
+- **Business Impact**: 2 hours of manual work -> 5 minutes automated *(per floor)* ✅
+
+
+> CSV & QR Exporter
+- **Existing Problem**: Documenting or exporting an average of 100 beacons per floor required manual entry, which often resulted in errors such as incorrect numbers or missing data.
+- **Approach**: Developed a feature to detect “beacon” group node, sort them ascendingly, and export the information via CSV or QR code.
+- **Business Impact**: Error rate reduced from 10% to 0%, processing time reduced from 1 hour to 10 seconds *(per floor)* ✅
+
 <br>
+<br>
+
 
 ## Setting Feature
 ![Setting](https://github.com/user-attachments/assets/972c4ba8-8a86-4e33-aa42-5a8edbfa8e55)
 <br>
 
-## 기능
 
-- 선택된 노드 복사 및 반복 생성
-- pillar 간격으로 자동 Rectangle 배치
-- Auto Layout을 적용한 Frame 생성
-- 실시간 lot 개수 감지 및 표시
+## License
 
-## 사용법
+Apache 2.0 © VestellaLab, Inc. See [LICENSE](./LICENSE) for details.
 
-1. Figma에서 복사할 노드를 선택
-2. 플러그인 실행
-3. 생성할 개수와 pillar 간격 설정
-4. 생성 버튼 클릭
-
-## 개발
-
-```bash
-npm install
-npm run build
-```
-
-## 파일 구조
-
-- `code.ts` - 메인 플러그인 로직
-- `ui.html` - UI 인터페이스
-- `manifest.json` - 플러그인 설정
+<a title="VestellaLab" href="https://vestellalab.com">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://github.com/user-attachments/assets/bb4d39e4-01d1-4073-927b-b55fe28be1dd">
+    <img alt="VestellaLab" src="https://github.com/user-attachments/assets/bb4d39e4-01d1-4073-927b-b55fe28be1dd" width="320">
+  </picture>
+</a>
