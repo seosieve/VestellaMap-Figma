@@ -9,7 +9,7 @@
   <br>
   <img src="https://img.shields.io/badge/Figma-gray?logo=figma&logoColor=white">
   <img src="https://img.shields.io/badge/version-11.0.0-darkgray.svg">
-  <img src="https://img.shields.io/badge/license-Apache-darkgray?link=https%3A%2F%2Fchoosealicense.com%2Flicenses%2Fmit%2F">
+  <a href="https://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank"><img src="https://img.shields.io/badge/license-Apache-darkgray"></a>
   <br>
 </div>
 <br>
@@ -72,7 +72,7 @@
 
 ## License
 
-Apache 2.0 © VestellaLab, Inc. See [LICENSE](./LICENSE) for details.
+Apache 2.0 © VestellaLab, Inc. See [LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt) for details.
 
 <a title="VestellaLab" href="https://vestellalab.com">
   <picture>
