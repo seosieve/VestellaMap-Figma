@@ -55,6 +55,11 @@
 - **Approach**: Generate minor numbers using a formula relative to the parent frame size of each placed beacon.
 - **Business Impact**: 2 hours of manual work -> 5 minutes automated *(per floor)* ✅
 
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/b640509f-c151-45cb-9937-5b14cf24039e" width="49.5%">
+  <img src="https://github.com/user-attachments/assets/1edb428f-1559-416f-a7c7-34f430617338" width="49.5%">
+</div>
+<br>
 
 > CSV & QR Exporter
 - **Existing Problem**: Documenting or exporting an average of 100 beacons per floor required manual entry, which often resulted in errors such as incorrect numbers or missing data.
