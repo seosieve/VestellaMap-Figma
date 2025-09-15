@@ -66,6 +66,7 @@
 - **Approach**: Developed a feature to detect “beacon” group node, sort them ascendingly, and export the information via CSV or QR code.
 - **Business Impact**: Error rate reduced from 10% to 0%, processing time reduced from 1 hour to 10 seconds *(per floor)* ✅
 
+<img width="1920" height="440" alt="Image" src="https://github.com/user-attachments/assets/e2e77f5f-04cd-4965-ba23-3114823a133d" />
 <br>
 <br>
 
