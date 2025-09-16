@@ -73,6 +73,12 @@
 
 ## Setting Feature
 ![Setting](https://github.com/user-attachments/assets/972c4ba8-8a86-4e33-aa42-5a8edbfa8e55)
+> Setting Storage
+- **Existing Problem**: Each task required repeatedly remembering section-specific details such as spacing, size, and beacon configurations.
+- **Approach**: Implemented a storage mechanism using Figma’s clientStorage to save user information.
+- **Business Impact**: Reduced repetitive setup time by ~70%, lowered error rate to near zero. ✅
+
+<br>
 <br>
 
 
