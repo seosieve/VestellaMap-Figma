@@ -4,7 +4,7 @@
 <br>
 
 <div align="center">
-  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/9c1198e2-bd83-4e85-a704-f19607a49c5b"></a>
+  <a href="https://www.figma.com/community/plugin/1523551015671932614"><img src="https://github.com/user-attachments/assets/9f7a3156-4398-481e-b811-589af871a0b4" width="320"></a>
   <br>
   <br>
   <img src="https://img.shields.io/badge/Figma-gray?logo=figma&logoColor=white">
